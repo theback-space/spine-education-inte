@@ -18,32 +18,32 @@ interface VertebraRegion {
 }
 
 const vertebraRegions: VertebraRegion[] = [
-  { id: "C1", cx: 475, cy: 158, rx: 18, ry: 11, label: "C1" },
-  { id: "C2", cx: 475, cy: 182, rx: 18, ry: 11, label: "C2" },
-  { id: "C3", cx: 475, cy: 206, rx: 18, ry: 11, label: "C3" },
-  { id: "C4", cx: 475, cy: 229, rx: 18, ry: 11, label: "C4" },
-  { id: "C5", cx: 475, cy: 252, rx: 18, ry: 11, label: "C5" },
-  { id: "C6", cx: 475, cy: 275, rx: 18, ry: 11, label: "C6" },
-  { id: "C7", cx: 475, cy: 298, rx: 18, ry: 11, label: "C7" },
+  { id: "C1", cx: 475, cy: 158, rx: 28, ry: 18, label: "C1" },
+  { id: "C2", cx: 475, cy: 182, rx: 28, ry: 18, label: "C2" },
+  { id: "C3", cx: 475, cy: 206, rx: 28, ry: 18, label: "C3" },
+  { id: "C4", cx: 475, cy: 229, rx: 28, ry: 18, label: "C4" },
+  { id: "C5", cx: 475, cy: 252, rx: 28, ry: 18, label: "C5" },
+  { id: "C6", cx: 475, cy: 275, rx: 28, ry: 18, label: "C6" },
+  { id: "C7", cx: 475, cy: 298, rx: 28, ry: 18, label: "C7" },
   
-  { id: "T1", cx: 475, cy: 323, rx: 17, ry: 10, label: "T1" },
-  { id: "T2", cx: 475, cy: 345, rx: 17, ry: 10, label: "T2" },
-  { id: "T3", cx: 475, cy: 367, rx: 17, ry: 10, label: "T3" },
-  { id: "T4", cx: 475, cy: 389, rx: 17, ry: 10, label: "T4" },
-  { id: "T5", cx: 475, cy: 411, rx: 17, ry: 10, label: "T5" },
-  { id: "T6", cx: 475, cy: 433, rx: 17, ry: 10, label: "T6" },
-  { id: "T7", cx: 475, cy: 455, rx: 17, ry: 10, label: "T7" },
-  { id: "T8", cx: 475, cy: 477, rx: 17, ry: 10, label: "T8" },
-  { id: "T9", cx: 475, cy: 499, rx: 17, ry: 10, label: "T9" },
-  { id: "T10", cx: 475, cy: 521, rx: 17, ry: 10, label: "T10" },
-  { id: "T11", cx: 475, cy: 543, rx: 17, ry: 10, label: "T11" },
-  { id: "T12", cx: 475, cy: 565, rx: 17, ry: 10, label: "T12" },
+  { id: "T1", cx: 475, cy: 323, rx: 26, ry: 16, label: "T1" },
+  { id: "T2", cx: 475, cy: 345, rx: 26, ry: 16, label: "T2" },
+  { id: "T3", cx: 475, cy: 367, rx: 26, ry: 16, label: "T3" },
+  { id: "T4", cx: 475, cy: 389, rx: 26, ry: 16, label: "T4" },
+  { id: "T5", cx: 475, cy: 411, rx: 26, ry: 16, label: "T5" },
+  { id: "T6", cx: 475, cy: 433, rx: 26, ry: 16, label: "T6" },
+  { id: "T7", cx: 475, cy: 455, rx: 26, ry: 16, label: "T7" },
+  { id: "T8", cx: 475, cy: 477, rx: 26, ry: 16, label: "T8" },
+  { id: "T9", cx: 475, cy: 499, rx: 26, ry: 16, label: "T9" },
+  { id: "T10", cx: 475, cy: 521, rx: 26, ry: 16, label: "T10" },
+  { id: "T11", cx: 475, cy: 543, rx: 26, ry: 16, label: "T11" },
+  { id: "T12", cx: 475, cy: 565, rx: 26, ry: 16, label: "T12" },
   
-  { id: "L1", cx: 475, cy: 590, rx: 20, ry: 12, label: "L1" },
-  { id: "L2", cx: 475, cy: 615, rx: 20, ry: 12, label: "L2" },
-  { id: "L3", cx: 475, cy: 640, rx: 20, ry: 12, label: "L3" },
-  { id: "L4", cx: 475, cy: 665, rx: 20, ry: 12, label: "L4" },
-  { id: "L5", cx: 475, cy: 690, rx: 20, ry: 12, label: "L5" },
+  { id: "L1", cx: 475, cy: 590, rx: 32, ry: 20, label: "L1" },
+  { id: "L2", cx: 475, cy: 615, rx: 32, ry: 20, label: "L2" },
+  { id: "L3", cx: 475, cy: 640, rx: 32, ry: 20, label: "L3" },
+  { id: "L4", cx: 475, cy: 665, rx: 32, ry: 20, label: "L4" },
+  { id: "L5", cx: 475, cy: 690, rx: 32, ry: 20, label: "L5" },
 ]
 
 
@@ -91,25 +91,32 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               
               return (
                 <g key={region.id}>
+                  <defs>
+                    <radialGradient id={`vertebra-gradient-${region.id}`}>
+                      <stop offset="0%" stopColor={isSelected ? "oklch(0.75 0.15 200)" : "oklch(0.88 0.05 280)"} />
+                      <stop offset="50%" stopColor={isSelected ? "oklch(0.68 0.18 195)" : "oklch(0.82 0.07 275)"} />
+                      <stop offset="100%" stopColor={isSelected ? "oklch(0.60 0.20 190)" : "oklch(0.75 0.09 270)"} />
+                    </radialGradient>
+                  </defs>
                   <motion.ellipse
                     cx={region.cx}
                     cy={region.cy}
                     rx={region.rx}
                     ry={region.ry}
-                    className={cn(
-                      "cursor-pointer transition-all duration-200",
-                      isSelected 
-                        ? "fill-accent/70 stroke-accent" 
-                        : "fill-[oklch(0.70_0.10_270)]/40 stroke-[oklch(0.60_0.12_275)] hover:fill-accent/50 hover:stroke-accent/90"
-                    )}
-                    strokeWidth={isSelected ? 2.5 : 1.5}
+                    fill={`url(#vertebra-gradient-${region.id})`}
+                    className="cursor-pointer"
+                    stroke={isSelected ? "oklch(0.65 0.12 200)" : "oklch(0.65 0.08 270)"}
+                    strokeWidth={isSelected ? 3.5 : 2}
                     onClick={() => onVertebraClick(region.id)}
                     onMouseEnter={() => onVertebraHover(region.id)}
                     onMouseLeave={() => onVertebraHover(null)}
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 0.92 }}
+                    whileHover={{ scale: 1.12, strokeWidth: 3 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
                     style={{
-                      filter: isSelected ? "drop-shadow(0 0 10px oklch(0.65 0.12 200 / 0.8))" : "none"
+                      filter: isSelected 
+                        ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.9)) drop-shadow(0 2px 6px oklch(0 0 0 / 0.3))" 
+                        : "drop-shadow(0 1px 3px oklch(0 0 0 / 0.15))"
                     }}
                   />
                   <text
@@ -119,10 +126,13 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                     dominantBaseline="middle"
                     className={cn(
                       "pointer-events-none select-none font-bold",
-                      isSelected ? "fill-[oklch(0.98_0_0)]" : "fill-foreground"
+                      isSelected ? "fill-[oklch(1_0_0)]" : "fill-[oklch(0.15_0.02_270)]"
                     )}
-                    fontSize="9"
+                    fontSize="13"
                     fontFamily="var(--font-heading)"
+                    style={{
+                      filter: isSelected ? "drop-shadow(0 1px 2px oklch(0 0 0 / 0.5))" : "none"
+                    }}
                   >
                     {region.label}
                   </text>
@@ -131,22 +141,29 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
             })}
 
             <g>
+              <defs>
+                <radialGradient id="sacrum-gradient">
+                  <stop offset="0%" stopColor={selectedVertebrae.includes("SACRUM") ? "oklch(0.75 0.15 200)" : "oklch(0.88 0.04 30)"} />
+                  <stop offset="50%" stopColor={selectedVertebrae.includes("SACRUM") ? "oklch(0.68 0.18 195)" : "oklch(0.82 0.06 25)"} />
+                  <stop offset="100%" stopColor={selectedVertebrae.includes("SACRUM") ? "oklch(0.60 0.20 190)" : "oklch(0.75 0.08 20)"} />
+                </radialGradient>
+              </defs>
               <motion.path
                 d="M 475 720 Q 445 745 475 770 Q 505 745 475 720 Z"
-                className={cn(
-                  "cursor-pointer transition-all duration-200",
-                  selectedVertebrae.includes("SACRUM")
-                    ? "fill-accent/70 stroke-accent" 
-                    : "fill-[oklch(0.80_0.05_25)]/60 stroke-[oklch(0.65_0.08_20)] hover:fill-accent/50 hover:stroke-accent/90"
-                )}
-                strokeWidth={selectedVertebrae.includes("SACRUM") ? 2.5 : 1.5}
+                fill="url(#sacrum-gradient)"
+                className="cursor-pointer"
+                stroke={selectedVertebrae.includes("SACRUM") ? "oklch(0.65 0.12 200)" : "oklch(0.68 0.06 25)"}
+                strokeWidth={selectedVertebrae.includes("SACRUM") ? 3.5 : 2}
                 onClick={() => onVertebraClick("SACRUM")}
                 onMouseEnter={() => onVertebraHover("SACRUM")}
                 onMouseLeave={() => onVertebraHover(null)}
-                whileHover={{ scale: 1.08 }}
+                whileHover={{ scale: 1.08, strokeWidth: 3 }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.15 }}
                 style={{
-                  filter: selectedVertebrae.includes("SACRUM") ? "drop-shadow(0 0 10px oklch(0.65 0.12 200 / 0.8))" : "none"
+                  filter: selectedVertebrae.includes("SACRUM") 
+                    ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.9)) drop-shadow(0 2px 6px oklch(0 0 0 / 0.3))" 
+                    : "drop-shadow(0 1px 3px oklch(0 0 0 / 0.15))"
                 }}
               />
               <text
@@ -156,35 +173,45 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 dominantBaseline="middle"
                 className={cn(
                   "pointer-events-none select-none font-bold",
-                  selectedVertebrae.includes("SACRUM") ? "fill-[oklch(0.98_0_0)]" : "fill-foreground"
+                  selectedVertebrae.includes("SACRUM") ? "fill-[oklch(1_0_0)]" : "fill-[oklch(0.15_0.02_25)]"
                 )}
-                fontSize="11"
+                fontSize="13"
                 fontFamily="var(--font-heading)"
+                style={{
+                  filter: selectedVertebrae.includes("SACRUM") ? "drop-shadow(0 1px 2px oklch(0 0 0 / 0.5))" : "none"
+                }}
               >
                 SACRUM
               </text>
             </g>
 
             <g>
+              <defs>
+                <radialGradient id="coccyx-gradient">
+                  <stop offset="0%" stopColor={selectedVertebrae.includes("COCCYX") ? "oklch(0.75 0.15 200)" : "oklch(0.88 0.04 320)"} />
+                  <stop offset="50%" stopColor={selectedVertebrae.includes("COCCYX") ? "oklch(0.68 0.18 195)" : "oklch(0.82 0.06 315)"} />
+                  <stop offset="100%" stopColor={selectedVertebrae.includes("COCCYX") ? "oklch(0.60 0.20 190)" : "oklch(0.75 0.08 310)"} />
+                </radialGradient>
+              </defs>
               <motion.ellipse
                 cx={475}
                 cy={800}
-                rx={18}
-                ry={12}
-                className={cn(
-                  "cursor-pointer transition-all duration-200",
-                  selectedVertebrae.includes("COCCYX")
-                    ? "fill-accent/70 stroke-accent" 
-                    : "fill-[oklch(0.75_0.06_320)]/50 stroke-[oklch(0.60_0.10_325)] hover:fill-accent/50 hover:stroke-accent/90"
-                )}
-                strokeWidth={selectedVertebrae.includes("COCCYX") ? 2.5 : 1.5}
+                rx={26}
+                ry={18}
+                fill="url(#coccyx-gradient)"
+                className="cursor-pointer"
+                stroke={selectedVertebrae.includes("COCCYX") ? "oklch(0.65 0.12 200)" : "oklch(0.68 0.07 320)"}
+                strokeWidth={selectedVertebrae.includes("COCCYX") ? 3.5 : 2}
                 onClick={() => onVertebraClick("COCCYX")}
                 onMouseEnter={() => onVertebraHover("COCCYX")}
                 onMouseLeave={() => onVertebraHover(null)}
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.92 }}
+                whileHover={{ scale: 1.12, strokeWidth: 3 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.15 }}
                 style={{
-                  filter: selectedVertebrae.includes("COCCYX") ? "drop-shadow(0 0 10px oklch(0.65 0.12 200 / 0.8))" : "none"
+                  filter: selectedVertebrae.includes("COCCYX") 
+                    ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.9)) drop-shadow(0 2px 6px oklch(0 0 0 / 0.3))" 
+                    : "drop-shadow(0 1px 3px oklch(0 0 0 / 0.15))"
                 }}
               />
               <text
@@ -194,10 +221,13 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 dominantBaseline="middle"
                 className={cn(
                   "pointer-events-none select-none font-bold",
-                  selectedVertebrae.includes("COCCYX") ? "fill-[oklch(0.98_0_0)]" : "fill-foreground"
+                  selectedVertebrae.includes("COCCYX") ? "fill-[oklch(1_0_0)]" : "fill-[oklch(0.15_0.02_320)]"
                 )}
-                fontSize="8"
+                fontSize="12"
                 fontFamily="var(--font-heading)"
+                style={{
+                  filter: selectedVertebrae.includes("COCCYX") ? "drop-shadow(0 1px 2px oklch(0 0 0 / 0.5))" : "none"
+                }}
               >
                 COCCYX
               </text>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
@@ -15,30 +16,34 @@ interface CarePhase {
   name: string
   frequency: string
   duration: string
-  notes: string
+  description: string
+  expectations: string
 }
 
 const DEFAULT_PHASES: CarePhase[] = [
   {
     id: "phase-1",
-    name: "Phase 1: Relief Care",
+    name: "Phase 1: Palliative Care",
     frequency: "2-3 sessions per week",
     duration: "4-6 weeks",
-    notes: "Focused on reducing pain and inflammation, stabilizing acute symptoms"
+    description: "Focused on symptom reduction and initial stabilization",
+    expectations: "During this phase, you can expect initial relief from acute symptoms. Pain and discomfort will begin to reduce as we work to stabilize your spine and reduce inflammation. Your body is starting its healing journey."
   },
   {
     id: "phase-2",
-    name: "Phase 2: Corrective Care",
+    name: "Phase 2: Supportive Care",
     frequency: "1-2 sessions per week",
     duration: "8-12 weeks",
-    notes: "Strengthening and correcting spinal misalignments, improving function"
+    description: "Supporting the body's natural healing ability as symptoms calm down",
+    expectations: "Symptoms have significantly calmed down and may feel almost 'gone.' We're now focusing on strengthening corrections and supporting your body's natural healing processes. You'll notice improved function and mobility as your spine becomes more stable."
   },
   {
     id: "phase-3",
-    name: "Phase 3: Wellness Care",
+    name: "Phase 3: Preventative Wellness Care",
     frequency: "1 session every 2-4 weeks",
     duration: "Ongoing",
-    notes: "Maintaining spinal health, preventing future problems"
+    description: "Keeping the body moving and operating at its best",
+    expectations: "This maintenance phase helps improve overall health and reduce the risk of injury or disease. Your spine is now stable, and we're working to keep it that way. Regular adjustments help maintain optimal nervous system function and overall wellness."
   }
 ]
 
@@ -63,7 +68,8 @@ export function CareJourney() {
       name: "New Phase",
       frequency: "1 session per week",
       duration: "4 weeks",
-      notes: "Add notes here"
+      description: "Add description here",
+      expectations: "Add what the client can expect during this phase"
     }
     setEditPhases((current) => [...current, newPhase])
   }
@@ -185,11 +191,22 @@ export function CareJourney() {
                         </div>
 
                         <div>
-                          <Label htmlFor={`phase-notes-${phase.id}`}>Notes</Label>
-                          <Input
-                            id={`phase-notes-${phase.id}`}
-                            value={phase.notes}
-                            onChange={(e) => handleUpdatePhase(phase.id, "notes", e.target.value)}
+                          <Label htmlFor={`phase-desc-${phase.id}`}>Description</Label>
+                          <Textarea
+                            id={`phase-desc-${phase.id}`}
+                            value={phase.description}
+                            onChange={(e) => handleUpdatePhase(phase.id, "description", e.target.value)}
+                            rows={2}
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor={`phase-expect-${phase.id}`}>What to Expect</Label>
+                          <Textarea
+                            id={`phase-expect-${phase.id}`}
+                            value={phase.expectations}
+                            onChange={(e) => handleUpdatePhase(phase.id, "expectations", e.target.value)}
+                            rows={3}
                           />
                         </div>
                       </>
@@ -211,9 +228,18 @@ export function CareJourney() {
                           </Badge>
                         </div>
 
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {phase.notes}
+                        <p className="text-sm font-medium text-foreground italic">
+                          {phase.description}
                         </p>
+
+                        <div className="bg-accent/10 rounded-md p-3 border border-accent/20">
+                          <p className="text-sm font-semibold text-accent mb-1">
+                            What to Expect:
+                          </p>
+                          <p className="text-sm text-foreground leading-relaxed">
+                            {phase.expectations}
+                          </p>
+                        </div>
                       </>
                     )}
                   </div>

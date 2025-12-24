@@ -6,7 +6,8 @@ interface CarePhase {
   name: string
   frequency: string
   duration: string
-  notes: string
+  description: string
+  expectations: string
 }
 
 export async function generateSubluxationPDF(vertebraeData: VertebraData[], carePhases?: CarePhase[]): Promise<void> {
@@ -172,12 +173,30 @@ export async function generateSubluxationPDF(vertebraeData: VertebraData[], care
       doc.text("Duration: ", margin + 5, yPos)
       doc.setFont("helvetica", "normal")
       doc.text(phase.duration, margin + 30, yPos)
-      yPos += 6
+      yPos += 8
 
       doc.setFont("helvetica", "italic")
-      const notesLines = doc.splitTextToSize(phase.notes, contentWidth - 10)
-      doc.text(notesLines, margin + 5, yPos)
-      yPos += notesLines.length * 5 + 10
+      const descLines = doc.splitTextToSize(phase.description, contentWidth - 10)
+      doc.text(descLines, margin + 5, yPos)
+      yPos += descLines.length * 5 + 5
+
+      if (yPos > pageHeight - 50) {
+        doc.addPage()
+        yPos = margin
+      }
+
+      doc.setFillColor(250, 250, 255)
+      const expectHeight = 8 + (doc.splitTextToSize(phase.expectations, contentWidth - 10).length * 5)
+      doc.rect(margin + 5, yPos, contentWidth - 10, expectHeight, "F")
+      doc.setDrawColor(150, 150, 200)
+      doc.rect(margin + 5, yPos, contentWidth - 10, expectHeight)
+      
+      doc.setFont("helvetica", "bold")
+      doc.text("What to Expect:", margin + 8, yPos + 5)
+      doc.setFont("helvetica", "normal")
+      const expectLines = doc.splitTextToSize(phase.expectations, contentWidth - 16)
+      doc.text(expectLines, margin + 8, yPos + 10)
+      yPos += expectHeight + 10
     })
 
     if (yPos < pageHeight - 50) {

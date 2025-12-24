@@ -47,6 +47,13 @@ This is a single-page interactive tool with multi-select vertebrae, persistent s
 - **Progression**: Vertebrae selected → Click email → Default email client opens → Pre-filled subject and body with all vertebra info
 - **Success criteria**: Email contains properly formatted text, includes all selected vertebrae, works on mobile and desktop
 
+### Chiropractic Care Journey Planner
+- **Functionality**: Customizable care plan with three detailed phases (Palliative, Supportive, Preventative) including frequency, duration, descriptions, and patient expectations
+- **Purpose**: Helps practitioners communicate the complete healing journey to clients with clear timelines and what to expect at each stage
+- **Trigger**: Care Journey section displays on page load; practitioners click "Customize Plan" to edit
+- **Progression**: Default plan displays → Click customize → Edit phase details, timing, and expectations → Save → Updated plan persists → Included in PDF export
+- **Success criteria**: Practitioners can adjust session frequency and duration for each phase, add custom phases, edit descriptions of what clients will experience, all changes save to persistent storage and export to PDF
+
 ## Edge Case Handling
 - **No Selection State**: Info panel hidden, export buttons disabled until vertebrae are selected
 - **Single vs. Multiple Selection**: Panel adapts layout - shows full description for single vertebra, compact list view for multiple
@@ -98,23 +105,29 @@ Animations should feel clinical and precise - quick, purposeful movements that g
 ## Component Selection
 
 - **Components**:
-  - `Card` - For info panel container with shadow and border
-  - `Button` - For view toggle, reset, and export actions (variant="outline" for secondary, variant="default" for primary)
+  - `Card` - For info panel container and care journey with shadow and border
+  - `Button` - For view toggle, reset, export, and edit actions (variant="outline" for secondary, variant="default" for primary)
   - `Separator` - To divide panel sections (vertebra info vs. symptoms)
-  - `Badge` - To display vertebra labels and nerve tags
+  - `Badge` - To display vertebra labels, nerve tags, and care phase details
   - `ScrollArea` - For info panel content if symptom lists are long
   - `Tooltip` - For quick vertebra name on hover before click
+  - `Input` - For editing phase frequency and duration
+  - `Textarea` - For editing longer phase descriptions and expectations
+  - `Label` - For form field labels in care journey editor
 
 - **Customizations**:
-  - Custom SVG spine chart component with clickable paths for each vertebra
-  - Highlighted vertebra state with accent color fill and shadow
+  - Custom SVG spine chart component with clickable vertebrae using radial gradients for 3D appearance
+  - Vertebrae sized proportionally (cervical smaller, lumbar larger) with realistic bone-like coloring
+  - Highlighted vertebra state with glowing accent color and drop shadows
   - Info panel with gradient background for depth
-  - Interactive vertebra paths with cursor pointer and hover states
+  - Interactive vertebra paths with cursor pointer, hover scale, and tap feedback
+  - Care journey phases with numbered badges and expandable "What to Expect" sections
 
 - **States**:
   - Buttons: Default (outline), Hover (filled), Active (pressed with scale), Disabled (muted)
-  - Vertebrae: Default (neutral), Hover (highlighted border + tooltip), Selected (filled with accent color + glow)
+  - Vertebrae: Default (neutral with gradient), Hover (highlighted border + scale + tooltip), Selected (teal gradient with glow + larger text)
   - Panel: Hidden (opacity 0, translateY 20px), Visible (opacity 1, translateY 0)
+  - Care Journey: Display mode (read-only with badges) vs Edit mode (inputs with save/cancel)
 
 - **Icon Selection**:
   - `ArrowsClockwise` - Reset view button
