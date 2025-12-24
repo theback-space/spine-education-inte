@@ -52,80 +52,80 @@ function getVertebraPath(cx: number, cy: number, type: "cervical" | "thoracic" |
   if (type === "cervical") {
     const bodyWidth = 62
     const bodyHeight = 52
-    const processWidth = 88
-    const archHeight = 28
+    const processWidth = 90
+    const archHeight = 30
     
     return `
-      M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 5} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 7} ${cy}
-      Q ${cx - bodyWidth/2 - 5} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
-      L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 5} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 7} ${cy}
-      Q ${cx + bodyWidth/2 + 5} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      M ${cx - bodyWidth/2} ${cy - bodyHeight/2 + 4}
+      C ${cx - bodyWidth/2 - 6} ${cy - bodyHeight/2 + 2} ${cx - bodyWidth/2 - 8} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 9} ${cy}
+      C ${cx - bodyWidth/2 - 8} ${cy + bodyHeight/4} ${cx - bodyWidth/2 - 6} ${cy + bodyHeight/2 - 2} ${cx - bodyWidth/2} ${cy + bodyHeight/2 - 4}
+      L ${cx + bodyWidth/2} ${cy + bodyHeight/2 - 4}
+      C ${cx + bodyWidth/2 + 6} ${cy + bodyHeight/2 - 2} ${cx + bodyWidth/2 + 8} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 9} ${cy}
+      C ${cx + bodyWidth/2 + 8} ${cy - bodyHeight/4} ${cx + bodyWidth/2 + 6} ${cy - bodyHeight/2 + 2} ${cx + bodyWidth/2} ${cy - bodyHeight/2 + 4}
       Z
-      M ${cx - processWidth/2} ${cy - bodyHeight/2 - 5}
-      L ${cx - bodyWidth/2 - 4} ${cy - bodyHeight/2 - archHeight}
-      Q ${cx - bodyWidth/2 - 14} ${cy - bodyHeight/2 - archHeight - 7} ${cx - bodyWidth/2 - 22} ${cy - bodyHeight/2 - archHeight - 4}
-      L ${cx - bodyWidth/2 - 25} ${cy - bodyHeight/2 - 4}
+      M ${cx - bodyWidth/2 - 8} ${cy - bodyHeight/2 + 6}
+      C ${cx - bodyWidth/2 - 10} ${cy - bodyHeight/2} ${cx - bodyWidth/2 - 12} ${cy - bodyHeight/2 - 8} ${cx - bodyWidth/2 - 10} ${cy - bodyHeight/2 - archHeight}
+      C ${cx - bodyWidth/2 - 14} ${cy - bodyHeight/2 - archHeight - 8} ${cx - bodyWidth/2 - 24} ${cy - bodyHeight/2 - archHeight - 6} ${cx - bodyWidth/2 - 28} ${cy - bodyHeight/2 - archHeight}
+      C ${cx - bodyWidth/2 - 30} ${cy - bodyHeight/2 - archHeight + 4} ${cx - bodyWidth/2 - 28} ${cy - bodyHeight/2 - 2} ${cx - bodyWidth/2 - 24} ${cy - bodyHeight/2 + 2}
       Z
-      M ${cx + processWidth/2} ${cy - bodyHeight/2 - 5}
-      L ${cx + bodyWidth/2 + 4} ${cy - bodyHeight/2 - archHeight}
-      Q ${cx + bodyWidth/2 + 14} ${cy - bodyHeight/2 - archHeight - 7} ${cx + bodyWidth/2 + 22} ${cy - bodyHeight/2 - archHeight - 4}
-      L ${cx + bodyWidth/2 + 25} ${cy - bodyHeight/2 - 4}
+      M ${cx + bodyWidth/2 + 8} ${cy - bodyHeight/2 + 6}
+      C ${cx + bodyWidth/2 + 10} ${cy - bodyHeight/2} ${cx + bodyWidth/2 + 12} ${cy - bodyHeight/2 - 8} ${cx + bodyWidth/2 + 10} ${cy - bodyHeight/2 - archHeight}
+      C ${cx + bodyWidth/2 + 14} ${cy - bodyHeight/2 - archHeight - 8} ${cx + bodyWidth/2 + 24} ${cy - bodyHeight/2 - archHeight - 6} ${cx + bodyWidth/2 + 28} ${cy - bodyHeight/2 - archHeight}
+      C ${cx + bodyWidth/2 + 30} ${cy - bodyHeight/2 - archHeight + 4} ${cx + bodyWidth/2 + 28} ${cy - bodyHeight/2 - 2} ${cx + bodyWidth/2 + 24} ${cy - bodyHeight/2 + 2}
       Z
     `
   } else if (type === "thoracic") {
     const bodyWidth = 58
     const bodyHeight = 56
-    const processLength = 26
-    const spinousLength = 33
+    const processLength = 28
+    const spinousLength = 36
     
     return `
-      M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 4} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 5} ${cy}
-      Q ${cx - bodyWidth/2 - 4} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
-      L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 4} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 5} ${cy}
-      Q ${cx + bodyWidth/2 + 4} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      M ${cx - bodyWidth/2} ${cy - bodyHeight/2 + 3}
+      C ${cx - bodyWidth/2 - 5} ${cy - bodyHeight/2 + 1} ${cx - bodyWidth/2 - 6} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 7} ${cy}
+      C ${cx - bodyWidth/2 - 6} ${cy + bodyHeight/4} ${cx - bodyWidth/2 - 5} ${cy + bodyHeight/2 - 1} ${cx - bodyWidth/2} ${cy + bodyHeight/2 - 3}
+      L ${cx + bodyWidth/2} ${cy + bodyHeight/2 - 3}
+      C ${cx + bodyWidth/2 + 5} ${cy + bodyHeight/2 - 1} ${cx + bodyWidth/2 + 6} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 7} ${cy}
+      C ${cx + bodyWidth/2 + 6} ${cy - bodyHeight/4} ${cx + bodyWidth/2 + 5} ${cy - bodyHeight/2 + 1} ${cx + bodyWidth/2} ${cy - bodyHeight/2 + 3}
       Z
-      M ${cx - bodyWidth/2 - 3} ${cy - 7}
-      L ${cx - bodyWidth/2 - processLength} ${cy - 13}
-      L ${cx - bodyWidth/2 - processLength - 6} ${cy - 5}
-      L ${cx - bodyWidth/2 - processLength} ${cy + 2}
+      M ${cx - bodyWidth/2 - 5} ${cy - 8}
+      L ${cx - bodyWidth/2 - processLength} ${cy - 15}
+      C ${cx - bodyWidth/2 - processLength - 4} ${cy - 14} ${cx - bodyWidth/2 - processLength - 8} ${cy - 8} ${cx - bodyWidth/2 - processLength - 7} ${cy - 2}
+      C ${cx - bodyWidth/2 - processLength - 4} ${cy + 1} ${cx - bodyWidth/2 - processLength} ${cy + 4} ${cx - bodyWidth/2 - 8} ${cy + 2}
       Z
-      M ${cx + bodyWidth/2 + 3} ${cy - 7}
-      L ${cx + bodyWidth/2 + processLength} ${cy - 13}
-      L ${cx + bodyWidth/2 + processLength + 6} ${cy - 5}
-      L ${cx + bodyWidth/2 + processLength} ${cy + 2}
+      M ${cx + bodyWidth/2 + 5} ${cy - 8}
+      L ${cx + bodyWidth/2 + processLength} ${cy - 15}
+      C ${cx + bodyWidth/2 + processLength + 4} ${cy - 14} ${cx + bodyWidth/2 + processLength + 8} ${cy - 8} ${cx + bodyWidth/2 + processLength + 7} ${cy - 2}
+      C ${cx + bodyWidth/2 + processLength + 4} ${cy + 1} ${cx + bodyWidth/2 + processLength} ${cy + 4} ${cx + bodyWidth/2 + 8} ${cy + 2}
       Z
-      M ${cx} ${cy - bodyHeight/2}
-      L ${cx - 5} ${cy - bodyHeight/2 - spinousLength}
-      L ${cx} ${cy - bodyHeight/2 - spinousLength - 4}
-      L ${cx + 5} ${cy - bodyHeight/2 - spinousLength}
+      M ${cx - 3} ${cy - bodyHeight/2 + 2}
+      L ${cx - 6} ${cy - bodyHeight/2 - spinousLength}
+      C ${cx - 5} ${cy - bodyHeight/2 - spinousLength - 5} ${cx} ${cy - bodyHeight/2 - spinousLength - 6} ${cx + 5} ${cy - bodyHeight/2 - spinousLength - 5}
+      L ${cx + 3} ${cy - bodyHeight/2 + 2}
       Z
     `
   } else {
-    const bodyWidth = 76
-    const bodyHeight = 68
-    const processWidth = 98
+    const bodyWidth = 78
+    const bodyHeight = 70
+    const processWidth = 102
     
     return `
-      M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 7} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 9} ${cy}
-      Q ${cx - bodyWidth/2 - 7} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
-      L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 7} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 9} ${cy}
-      Q ${cx + bodyWidth/2 + 7} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      M ${cx - bodyWidth/2} ${cy - bodyHeight/2 + 5}
+      C ${cx - bodyWidth/2 - 8} ${cy - bodyHeight/2 + 3} ${cx - bodyWidth/2 - 10} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 11} ${cy}
+      C ${cx - bodyWidth/2 - 10} ${cy + bodyHeight/4} ${cx - bodyWidth/2 - 8} ${cy + bodyHeight/2 - 3} ${cx - bodyWidth/2} ${cy + bodyHeight/2 - 5}
+      L ${cx + bodyWidth/2} ${cy + bodyHeight/2 - 5}
+      C ${cx + bodyWidth/2 + 8} ${cy + bodyHeight/2 - 3} ${cx + bodyWidth/2 + 10} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 11} ${cy}
+      C ${cx + bodyWidth/2 + 10} ${cy - bodyHeight/4} ${cx + bodyWidth/2 + 8} ${cy - bodyHeight/2 + 3} ${cx + bodyWidth/2} ${cy - bodyHeight/2 + 5}
       Z
-      M ${cx - bodyWidth/2 - 7} ${cy - 4}
-      L ${cx - processWidth/2} ${cy - 15}
-      L ${cx - processWidth/2 - 9} ${cy - 4}
-      L ${cx - processWidth/2 - 6} ${cy + 9}
+      M ${cx - bodyWidth/2 - 9} ${cy - 6}
+      L ${cx - processWidth/2} ${cy - 18}
+      C ${cx - processWidth/2 - 6} ${cy - 16} ${cx - processWidth/2 - 12} ${cy - 8} ${cx - processWidth/2 - 11} ${cy}
+      C ${cx - processWidth/2 - 8} ${cy + 6} ${cx - processWidth/2 - 4} ${cy + 12} ${cx - bodyWidth/2 - 12} ${cy + 10}
       Z
-      M ${cx + bodyWidth/2 + 7} ${cy - 4}
-      L ${cx + processWidth/2} ${cy - 15}
-      L ${cx + processWidth/2 + 9} ${cy - 4}
-      L ${cx + processWidth/2 + 6} ${cy + 9}
+      M ${cx + bodyWidth/2 + 9} ${cy - 6}
+      L ${cx + processWidth/2} ${cy - 18}
+      C ${cx + processWidth/2 + 6} ${cy - 16} ${cx + processWidth/2 + 12} ${cy - 8} ${cx + processWidth/2 + 11} ${cy}
+      C ${cx + processWidth/2 + 8} ${cy + 6} ${cx + processWidth/2 + 4} ${cy + 12} ${cx + bodyWidth/2 + 12} ${cy + 10}
       Z
     `
   }

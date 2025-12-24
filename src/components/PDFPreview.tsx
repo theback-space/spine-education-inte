@@ -44,115 +44,144 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
 
     const drawSpineDiagram = (selectedIds: string[], startX: number, startY: number) => {
       const allVertebrae = [
-        { id: 'C1', region: 'Cervical', color: [120, 150, 200], width: 4.5, height: 2.5 },
-        { id: 'C2', region: 'Cervical', color: [120, 150, 200], width: 4.5, height: 2.8 },
-        { id: 'C3', region: 'Cervical', color: [120, 150, 200], width: 4.8, height: 2.8 },
-        { id: 'C4', region: 'Cervical', color: [120, 150, 200], width: 5, height: 3 },
-        { id: 'C5', region: 'Cervical', color: [120, 150, 200], width: 5.2, height: 3 },
-        { id: 'C6', region: 'Cervical', color: [120, 150, 200], width: 5.5, height: 3.2 },
-        { id: 'C7', region: 'Cervical', color: [120, 150, 200], width: 5.5, height: 3.5 },
-        { id: 'T1', region: 'Thoracic', color: [150, 180, 120], width: 5.8, height: 3.5 },
-        { id: 'T2', region: 'Thoracic', color: [150, 180, 120], width: 6, height: 3.8 },
-        { id: 'T3', region: 'Thoracic', color: [150, 180, 120], width: 6.2, height: 4 },
-        { id: 'T4', region: 'Thoracic', color: [150, 180, 120], width: 6.5, height: 4 },
-        { id: 'T5', region: 'Thoracic', color: [150, 180, 120], width: 6.8, height: 4.2 },
-        { id: 'T6', region: 'Thoracic', color: [150, 180, 120], width: 7, height: 4.2 },
-        { id: 'T7', region: 'Thoracic', color: [150, 180, 120], width: 7.2, height: 4.2 },
-        { id: 'T8', region: 'Thoracic', color: [150, 180, 120], width: 7.2, height: 4.2 },
-        { id: 'T9', region: 'Thoracic', color: [150, 180, 120], width: 7, height: 4 },
-        { id: 'T10', region: 'Thoracic', color: [150, 180, 120], width: 6.8, height: 4 },
-        { id: 'T11', region: 'Thoracic', color: [150, 180, 120], width: 6.8, height: 4.2 },
-        { id: 'T12', region: 'Thoracic', color: [150, 180, 120], width: 7, height: 4.5 },
-        { id: 'L1', region: 'Lumbar', color: [200, 150, 100], width: 7.5, height: 5 },
-        { id: 'L2', region: 'Lumbar', color: [200, 150, 100], width: 7.8, height: 5.2 },
-        { id: 'L3', region: 'Lumbar', color: [200, 150, 100], width: 8, height: 5.5 },
-        { id: 'L4', region: 'Lumbar', color: [200, 150, 100], width: 8.2, height: 5.8 },
-        { id: 'L5', region: 'Lumbar', color: [200, 150, 100], width: 8.5, height: 6 },
-        { id: 'SACRUM', region: 'Sacral', color: [180, 120, 150], width: 10, height: 8 },
-        { id: 'COCCYX', region: 'Coccygeal', color: [160, 100, 130], width: 3, height: 4 }
+        { id: 'C1', region: 'Cervical', color: [180, 120, 200], width: 3.5, height: 2.8 },
+        { id: 'C2', region: 'Cervical', color: [180, 120, 200], width: 3.8, height: 3 },
+        { id: 'C3', region: 'Cervical', color: [180, 120, 200], width: 4, height: 3.2 },
+        { id: 'C4', region: 'Cervical', color: [180, 120, 200], width: 4.2, height: 3.4 },
+        { id: 'C5', region: 'Cervical', color: [180, 120, 200], width: 4.5, height: 3.6 },
+        { id: 'C6', region: 'Cervical', color: [180, 120, 200], width: 4.8, height: 3.8 },
+        { id: 'C7', region: 'Cervical', color: [180, 120, 200], width: 5, height: 4 },
+        { id: 'T1', region: 'Thoracic', color: [100, 150, 180], width: 5.2, height: 4.2 },
+        { id: 'T2', region: 'Thoracic', color: [100, 150, 180], width: 5.5, height: 4.4 },
+        { id: 'T3', region: 'Thoracic', color: [100, 150, 180], width: 5.8, height: 4.6 },
+        { id: 'T4', region: 'Thoracic', color: [100, 150, 180], width: 6, height: 4.8 },
+        { id: 'T5', region: 'Thoracic', color: [100, 150, 180], width: 6.2, height: 5 },
+        { id: 'T6', region: 'Thoracic', color: [100, 150, 180], width: 6.5, height: 5.2 },
+        { id: 'T7', region: 'Thoracic', color: [100, 150, 180], width: 6.8, height: 5.4 },
+        { id: 'T8', region: 'Thoracic', color: [100, 150, 180], width: 7, height: 5.6 },
+        { id: 'T9', region: 'Thoracic', color: [100, 150, 180], width: 7, height: 5.4 },
+        { id: 'T10', region: 'Thoracic', color: [100, 150, 180], width: 6.8, height: 5.2 },
+        { id: 'T11', region: 'Thoracic', color: [100, 150, 180], width: 6.5, height: 5 },
+        { id: 'T12', region: 'Thoracic', color: [100, 150, 180], width: 6.2, height: 4.8 },
+        { id: 'L1', region: 'Lumbar', color: [120, 180, 100], width: 6.5, height: 5.5 },
+        { id: 'L2', region: 'Lumbar', color: [120, 180, 100], width: 7, height: 6 },
+        { id: 'L3', region: 'Lumbar', color: [120, 180, 100], width: 7.5, height: 6.5 },
+        { id: 'L4', region: 'Lumbar', color: [120, 180, 100], width: 8, height: 7 },
+        { id: 'L5', region: 'Lumbar', color: [120, 180, 100], width: 8.5, height: 7.5 },
+        { id: 'SACRUM', region: 'Sacral', color: [220, 160, 80], width: 9, height: 10 },
+        { id: 'COCCYX', region: 'Coccygeal', color: [200, 140, 100], width: 4, height: 5 }
       ]
       
       let currentX = startX
-      const baseY = startY + 25
+      const baseY = startY + 28
       
-      doc.setFillColor(240, 235, 220)
-      doc.ellipse(startX - 8, baseY - 22, 8, 6, 'F')
+      doc.setFillColor(245, 240, 230)
+      doc.ellipse(startX - 3, baseY - 24, 9, 7, 'F')
       doc.setDrawColor(100, 100, 100)
+      doc.setLineWidth(0.4)
+      doc.ellipse(startX - 3, baseY - 24, 9, 7)
+      
+      doc.setFillColor(250, 245, 235)
+      doc.ellipse(startX - 3, baseY - 26, 6, 5, 'F')
       doc.setLineWidth(0.3)
-      doc.ellipse(startX - 8, baseY - 22, 8, 6)
+      doc.ellipse(startX - 3, baseY - 26, 6, 5)
       
-      doc.setFillColor(235, 230, 215)
-      doc.ellipse(startX - 10, baseY - 24, 5, 4, 'F')
-      doc.ellipse(startX - 10, baseY - 24, 5, 4)
-      
-      doc.setFontSize(5)
-      doc.setTextColor(100, 100, 100)
-      doc.text("Skull", startX - 8, baseY - 30, { align: "center" })
+      doc.setFontSize(6)
+      doc.setTextColor(80, 80, 80)
+      doc.setFont("helvetica", "bold")
+      doc.text("SKULL", startX - 3, baseY - 32, { align: "center" })
       doc.setTextColor(0, 0, 0)
+      doc.setFont("helvetica", "normal")
+      
+      let lastRegion = ''
       
       allVertebrae.forEach((vertebra, index) => {
         const isSelected = selectedIds.includes(vertebra.id)
         
+        if (vertebra.region !== lastRegion) {
+          doc.setFontSize(5)
+          doc.setFont("helvetica", "bold")
+          doc.setTextColor(60, 60, 60)
+          doc.text(vertebra.region.toUpperCase(), currentX + vertebra.width / 2, baseY - 8, { align: "center" })
+          doc.setTextColor(0, 0, 0)
+          doc.setFont("helvetica", "normal")
+          lastRegion = vertebra.region
+        }
+        
         let yOffset = 0
         if (index < 7) {
-          yOffset = -index * 0.8
+          yOffset = -3 + index * 0.4
         } else if (index < 19) {
-          yOffset = -7 * 0.8 + (index - 7) * 0.3
+          yOffset = -3 + 7 * 0.4 + (index - 7) * 0.3
         } else if (index < 24) {
-          yOffset = -7 * 0.8 + 12 * 0.3 + (index - 19) * 0.5
+          yOffset = -3 + 7 * 0.4 + 12 * 0.3 + (index - 19) * 0.5
+        } else if (index === 24) {
+          yOffset = -3 + 7 * 0.4 + 12 * 0.3 + 5 * 0.5 + 0.8
         } else {
-          yOffset = -7 * 0.8 + 12 * 0.3 + 5 * 0.5 + (index - 24) * 0.8
+          yOffset = -3 + 7 * 0.4 + 12 * 0.3 + 5 * 0.5 + 1.6 + 0.5
         }
         
         const centerY = baseY + yOffset
         
         if (isSelected) {
-          doc.setFillColor(220, 50, 50)
+          doc.setFillColor(220, 38, 38)
+          doc.setDrawColor(180, 30, 30)
         } else {
           doc.setFillColor(vertebra.color[0], vertebra.color[1], vertebra.color[2])
+          doc.setDrawColor(vertebra.color[0] - 40, vertebra.color[1] - 40, vertebra.color[2] - 40)
         }
         
-        doc.ellipse(currentX + vertebra.width / 2, centerY, vertebra.width / 2, vertebra.height / 2, 'F')
+        if (vertebra.id === 'SACRUM') {
+          doc.roundedRect(currentX, centerY - vertebra.height / 2, vertebra.width, vertebra.height, 1.5, 1.5, 'FD')
+        } else if (vertebra.id === 'COCCYX') {
+          doc.ellipse(currentX + vertebra.width / 2, centerY, vertebra.width / 2, vertebra.height / 2, 'FD')
+        } else {
+          doc.roundedRect(currentX, centerY - vertebra.height / 2, vertebra.width, vertebra.height, 0.8, 0.8, 'FD')
+        }
         
-        doc.setDrawColor(80, 80, 80)
-        doc.setLineWidth(0.2)
-        doc.ellipse(currentX + vertebra.width / 2, centerY, vertebra.width / 2, vertebra.height / 2)
+        doc.setLineWidth(0.25)
         
-        doc.setFontSize(4)
+        doc.setFontSize(3.5)
         doc.setTextColor(255, 255, 255)
-        doc.text(vertebra.id, currentX + vertebra.width / 2, centerY + 0.8, { align: "center" })
+        doc.setFont("helvetica", "bold")
+        doc.text(vertebra.id, currentX + vertebra.width / 2, centerY + 0.5, { align: "center" })
         doc.setTextColor(0, 0, 0)
+        doc.setFont("helvetica", "normal")
         
-        currentX += vertebra.width + 0.3
+        currentX += vertebra.width + 0.4
       })
       
-      const pelvisX = currentX - 5
-      const pelvisY = baseY + 6
+      const pelvisX = currentX + 3
+      const pelvisY = baseY + 10
       
-      doc.setFillColor(240, 235, 220)
-      doc.ellipse(pelvisX, pelvisY, 12, 8, 'F')
+      doc.setFillColor(245, 240, 230)
+      doc.ellipse(pelvisX, pelvisY - 3, 13, 10, 'F')
       doc.setDrawColor(100, 100, 100)
+      doc.setLineWidth(0.4)
+      doc.ellipse(pelvisX, pelvisY - 3, 13, 10)
+      
+      doc.setFillColor(250, 245, 235)
+      doc.ellipse(pelvisX - 7, pelvisY + 2, 4.5, 6, 'F')
       doc.setLineWidth(0.3)
-      doc.ellipse(pelvisX, pelvisY, 12, 8)
+      doc.ellipse(pelvisX - 7, pelvisY + 2, 4.5, 6)
+      doc.ellipse(pelvisX + 7, pelvisY + 2, 4.5, 6, 'F')
+      doc.ellipse(pelvisX + 7, pelvisY + 2, 4.5, 6)
       
-      doc.setFillColor(245, 240, 225)
-      doc.ellipse(pelvisX - 6, pelvisY + 3, 4, 5, 'F')
-      doc.ellipse(pelvisX - 6, pelvisY + 3, 4, 5)
-      doc.ellipse(pelvisX + 6, pelvisY + 3, 4, 5, 'F')
-      doc.ellipse(pelvisX + 6, pelvisY + 3, 4, 5)
+      doc.setFillColor(245, 240, 230)
+      doc.circle(pelvisX - 7, pelvisY, 2.2, 'F')
+      doc.setDrawColor(100, 100, 100)
+      doc.circle(pelvisX - 7, pelvisY, 2.2)
+      doc.circle(pelvisX + 7, pelvisY, 2.2, 'F')
+      doc.circle(pelvisX + 7, pelvisY, 2.2)
       
-      doc.setFillColor(235, 230, 215)
-      doc.circle(pelvisX - 6, pelvisY + 1, 2, 'F')
-      doc.circle(pelvisX - 6, pelvisY + 1, 2)
-      doc.circle(pelvisX + 6, pelvisY + 1, 2, 'F')
-      doc.circle(pelvisX + 6, pelvisY + 1, 2)
-      
-      doc.setFontSize(5)
-      doc.setTextColor(100, 100, 100)
-      doc.text("Pelvis", pelvisX, pelvisY + 15, { align: "center" })
+      doc.setFontSize(6)
+      doc.setTextColor(80, 80, 80)
+      doc.setFont("helvetica", "bold")
+      doc.text("PELVIS", pelvisX, pelvisY + 14, { align: "center" })
       doc.setTextColor(0, 0, 0)
+      doc.setFont("helvetica", "normal")
       
-      return startY + 45
+      return startY + 48
     }
 
     doc.setFillColor(255, 220, 100)
