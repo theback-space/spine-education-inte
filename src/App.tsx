@@ -7,9 +7,9 @@ import { SpineChart } from "@/components/SpineChart"
 import { InfoPanel } from "@/components/InfoPanel"
 import { CareJourney } from "@/components/CareJourney"
 import { BrandingSettings } from "@/components/BrandingSettings"
+import { PDFPreview } from "@/components/PDFPreview"
 import { getVertebraById } from "@/lib/spineData"
-import { generateSubluxationPDF } from "@/lib/pdfGenerator"
-import { ArrowsClockwise, DownloadSimple, EnvelopeSimple } from "@phosphor-icons/react"
+import { ArrowsClockwise, Eye, EnvelopeSimple } from "@phosphor-icons/react"
 import { toast } from "sonner"
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
   const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
+  const [showPDFPreview, setShowPDFPreview] = useState(false)
 
   useEffect(() => {
     if (brandFont && !document.getElementById(`font-${brandFont.replace(/\s+/g, '-')}`)) {
@@ -47,17 +48,9 @@ function App() {
     toast.success("Selection cleared")
   }
 
-  const handleDownloadPDF = async () => {
+  const handlePreviewPDF = () => {
     if (vertebraeData.length === 0) return
-    
-    try {
-      toast.loading("Generating PDF report...", { id: "pdf-gen" })
-      await generateSubluxationPDF(vertebraeData, carePhases || [], practiceName || "THE-BACK.SPACE")
-      toast.success("PDF downloaded successfully!", { id: "pdf-gen" })
-    } catch (error) {
-      console.error("PDF generation error:", error)
-      toast.error("Failed to generate PDF", { id: "pdf-gen" })
-    }
+    setShowPDFPreview(true)
   }
 
   const handleEmailShare = () => {
@@ -102,6 +95,14 @@ This information is for educational purposes only. Always consult with a healthc
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <Toaster position="top-center" />
+        
+        <PDFPreview
+          vertebraeData={vertebraeData}
+          carePhases={carePhases || []}
+          practiceName={practiceName || "THE-BACK.SPACE"}
+          open={showPDFPreview}
+          onOpenChange={setShowPDFPreview}
+        />
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           <header className="text-center mb-6 space-y-3">
             <h1 
@@ -146,14 +147,14 @@ This information is for educational purposes only. Always consult with a healthc
                     <Button
                       variant="default"
                       size="lg"
-                      onClick={handleDownloadPDF}
+                      onClick={handlePreviewPDF}
                       className="gap-2"
                     >
-                      <DownloadSimple className="w-5 h-5" />
-                      Download PDF
+                      <Eye className="w-5 h-5" />
+                      Preview & Download PDF
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Download subluxation pattern report</TooltipContent>
+                  <TooltipContent>Preview report before downloading</TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
