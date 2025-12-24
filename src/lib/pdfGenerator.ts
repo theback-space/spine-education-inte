@@ -10,7 +10,7 @@ interface CarePhase {
   expectations: string
 }
 
-export async function generateSubluxationPDF(vertebraeData: VertebraData[], carePhases?: CarePhase[]): Promise<void> {
+export async function generateSubluxationPDF(vertebraeData: VertebraData[], carePhases?: CarePhase[], practiceName?: string): Promise<void> {
   const doc = new jsPDF()
   
   const pageWidth = doc.internal.pageSize.getWidth()
@@ -26,7 +26,7 @@ export async function generateSubluxationPDF(vertebraeData: VertebraData[], care
   yPos += 10
   doc.setFontSize(10)
   doc.setFont("helvetica", "normal")
-  doc.text("THE-BACK.SPACE", pageWidth / 2, yPos, { align: "center" })
+  doc.text(practiceName || "THE-BACK.SPACE", pageWidth / 2, yPos, { align: "center" })
   
   yPos += 15
   doc.setLineWidth(0.5)

@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { SpineChart } from "@/components/SpineChart"
 import { InfoPanel } from "@/components/InfoPanel"
 import { CareJourney } from "@/components/CareJourney"
+import { BrandingSettings } from "@/components/BrandingSettings"
 import { getVertebraById } from "@/lib/spineData"
 import { generateSubluxationPDF } from "@/lib/pdfGenerator"
 import { ArrowsClockwise, DownloadSimple, EnvelopeSimple } from "@phosphor-icons/react"
@@ -14,6 +15,7 @@ import { toast } from "sonner"
 function App() {
   const [selectedVertebrae, setSelectedVertebrae] = useKV<string[]>("selected-vertebrae", [])
   const [carePhases, setCarePhases] = useKV<any[]>("care-phases", [])
+  const [practiceName] = useKV<string>("practice-name", "THE-BACK.SPACE")
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
 
@@ -39,7 +41,7 @@ function App() {
     
     try {
       toast.loading("Generating PDF report...", { id: "pdf-gen" })
-      await generateSubluxationPDF(vertebraeData, carePhases || [])
+      await generateSubluxationPDF(vertebraeData, carePhases || [], practiceName || "THE-BACK.SPACE")
       toast.success("PDF downloaded successfully!", { id: "pdf-gen" })
     } catch (error) {
       console.error("PDF generation error:", error)
@@ -89,8 +91,8 @@ This information is for educational purposes only. Always consult with a healthc
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <Toaster position="top-center" />
-        <div className="container mx-auto px-4 py-8 max-w-6xl">
-          <header className="text-center mb-8 space-y-3">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <header className="text-center mb-6 space-y-3">
             <h1 
               className="text-4xl md:text-5xl font-bold text-primary tracking-tight"
               style={{ fontFamily: "var(--font-heading)" }}
@@ -108,6 +110,8 @@ This information is for educational purposes only. Always consult with a healthc
           </header>
 
           <div className="mb-6 flex flex-wrap justify-center gap-3">
+            <BrandingSettings />
+            
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -160,9 +164,9 @@ This information is for educational purposes only. Always consult with a healthc
           </div>
 
           <div className="grid grid-cols-1 gap-8">
-            <div className="bg-card rounded-lg shadow-md p-6 border">
+            <div className="bg-card rounded-lg shadow-md border">
               {hoveredVertebra && (!selectedVertebrae || selectedVertebrae.length === 0) && (
-                <div className="text-center mb-2">
+                <div className="text-center py-2">
                   <span className="text-sm font-medium text-muted-foreground">
                     Hovering: <span className="text-accent font-semibold">{hoveredVertebra}</span>
                   </span>
@@ -174,6 +178,7 @@ This information is for educational purposes only. Always consult with a healthc
                 selectedVertebrae={selectedVertebrae ?? []}
                 onVertebraClick={handleVertebraClick}
                 onVertebraHover={setHoveredVertebra}
+                practiceName={practiceName || "THE-BACK.SPACE"}
               />
             </div>
 
