@@ -11,48 +11,68 @@ interface CarePhase {
 }
 
 const drawSpineDiagram = (doc: jsPDF, selectedIds: string[], startX: number, startY: number) => {
-  const vertebraHeight = 2.5
-  const vertebraSpacing = 0.5
-  const spineWidth = 18
-  
   const allVertebrae = [
-    { id: 'C1', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'C2', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'C3', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'C4', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'C5', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'C6', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'C7', region: 'Cervical', color: [120, 150, 200] },
-    { id: 'T1', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T2', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T3', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T4', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T5', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T6', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T7', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T8', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T9', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T10', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T11', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'T12', region: 'Thoracic', color: [150, 180, 120] },
-    { id: 'L1', region: 'Lumbar', color: [200, 150, 100] },
-    { id: 'L2', region: 'Lumbar', color: [200, 150, 100] },
-    { id: 'L3', region: 'Lumbar', color: [200, 150, 100] },
-    { id: 'L4', region: 'Lumbar', color: [200, 150, 100] },
-    { id: 'L5', region: 'Lumbar', color: [200, 150, 100] },
-    { id: 'SACRUM', region: 'Sacral', color: [180, 120, 150] },
-    { id: 'COCCYX', region: 'Coccygeal', color: [160, 100, 130] }
+    { id: 'C1', region: 'Cervical', color: [120, 150, 200], width: 4.5, height: 2.5 },
+    { id: 'C2', region: 'Cervical', color: [120, 150, 200], width: 4.5, height: 2.8 },
+    { id: 'C3', region: 'Cervical', color: [120, 150, 200], width: 4.8, height: 2.8 },
+    { id: 'C4', region: 'Cervical', color: [120, 150, 200], width: 5, height: 3 },
+    { id: 'C5', region: 'Cervical', color: [120, 150, 200], width: 5.2, height: 3 },
+    { id: 'C6', region: 'Cervical', color: [120, 150, 200], width: 5.5, height: 3.2 },
+    { id: 'C7', region: 'Cervical', color: [120, 150, 200], width: 5.5, height: 3.5 },
+    { id: 'T1', region: 'Thoracic', color: [150, 180, 120], width: 5.8, height: 3.5 },
+    { id: 'T2', region: 'Thoracic', color: [150, 180, 120], width: 6, height: 3.8 },
+    { id: 'T3', region: 'Thoracic', color: [150, 180, 120], width: 6.2, height: 4 },
+    { id: 'T4', region: 'Thoracic', color: [150, 180, 120], width: 6.5, height: 4 },
+    { id: 'T5', region: 'Thoracic', color: [150, 180, 120], width: 6.8, height: 4.2 },
+    { id: 'T6', region: 'Thoracic', color: [150, 180, 120], width: 7, height: 4.2 },
+    { id: 'T7', region: 'Thoracic', color: [150, 180, 120], width: 7.2, height: 4.2 },
+    { id: 'T8', region: 'Thoracic', color: [150, 180, 120], width: 7.2, height: 4.2 },
+    { id: 'T9', region: 'Thoracic', color: [150, 180, 120], width: 7, height: 4 },
+    { id: 'T10', region: 'Thoracic', color: [150, 180, 120], width: 6.8, height: 4 },
+    { id: 'T11', region: 'Thoracic', color: [150, 180, 120], width: 6.8, height: 4.2 },
+    { id: 'T12', region: 'Thoracic', color: [150, 180, 120], width: 7, height: 4.5 },
+    { id: 'L1', region: 'Lumbar', color: [200, 150, 100], width: 7.5, height: 5 },
+    { id: 'L2', region: 'Lumbar', color: [200, 150, 100], width: 7.8, height: 5.2 },
+    { id: 'L3', region: 'Lumbar', color: [200, 150, 100], width: 8, height: 5.5 },
+    { id: 'L4', region: 'Lumbar', color: [200, 150, 100], width: 8.2, height: 5.8 },
+    { id: 'L5', region: 'Lumbar', color: [200, 150, 100], width: 8.5, height: 6 },
+    { id: 'SACRUM', region: 'Sacral', color: [180, 120, 150], width: 10, height: 8 },
+    { id: 'COCCYX', region: 'Coccygeal', color: [160, 100, 130], width: 3, height: 4 }
   ]
   
-  let currentY = startY
+  let currentX = startX
+  const baseY = startY + 25
   
-  doc.setFontSize(6)
-  doc.setFont("helvetica", "bold")
-  doc.text("Spine", startX + spineWidth / 2, currentY, { align: "center" })
-  currentY += 3
+  doc.setFillColor(240, 235, 220)
+  doc.ellipse(startX - 8, baseY - 22, 8, 6, 'F')
+  doc.setDrawColor(100, 100, 100)
+  doc.setLineWidth(0.3)
+  doc.ellipse(startX - 8, baseY - 22, 8, 6)
   
-  allVertebrae.forEach((vertebra) => {
+  doc.setFillColor(235, 230, 215)
+  doc.ellipse(startX - 10, baseY - 24, 5, 4, 'F')
+  doc.ellipse(startX - 10, baseY - 24, 5, 4)
+  
+  doc.setFontSize(5)
+  doc.setTextColor(100, 100, 100)
+  doc.text("Skull", startX - 8, baseY - 30, { align: "center" })
+  doc.setTextColor(0, 0, 0)
+  
+  allVertebrae.forEach((vertebra, index) => {
     const isSelected = selectedIds.includes(vertebra.id)
+    
+    let yOffset = 0
+    if (index < 7) {
+      yOffset = -index * 0.8
+    } else if (index < 19) {
+      yOffset = -7 * 0.8 + (index - 7) * 0.3
+    } else if (index < 24) {
+      yOffset = -7 * 0.8 + 12 * 0.3 + (index - 19) * 0.5
+    } else {
+      yOffset = -7 * 0.8 + 12 * 0.3 + 5 * 0.5 + (index - 24) * 0.8
+    }
+    
+    const centerY = baseY + yOffset
     
     if (isSelected) {
       doc.setFillColor(220, 50, 50)
@@ -60,21 +80,47 @@ const drawSpineDiagram = (doc: jsPDF, selectedIds: string[], startX: number, sta
       doc.setFillColor(vertebra.color[0], vertebra.color[1], vertebra.color[2])
     }
     
-    doc.roundedRect(startX, currentY, spineWidth, vertebraHeight, 0.5, 0.5, 'F')
+    doc.ellipse(currentX + vertebra.width / 2, centerY, vertebra.width / 2, vertebra.height / 2, 'F')
     
-    doc.setDrawColor(100, 100, 100)
+    doc.setDrawColor(80, 80, 80)
     doc.setLineWidth(0.2)
-    doc.roundedRect(startX, currentY, spineWidth, vertebraHeight, 0.5, 0.5)
+    doc.ellipse(currentX + vertebra.width / 2, centerY, vertebra.width / 2, vertebra.height / 2)
     
-    doc.setFontSize(5)
+    doc.setFontSize(4)
     doc.setTextColor(255, 255, 255)
-    doc.text(vertebra.id, startX + spineWidth / 2, currentY + vertebraHeight / 2 + 0.8, { align: "center" })
+    doc.text(vertebra.id, currentX + vertebra.width / 2, centerY + 0.8, { align: "center" })
     doc.setTextColor(0, 0, 0)
     
-    currentY += vertebraHeight + vertebraSpacing
+    currentX += vertebra.width + 0.3
   })
   
-  return currentY
+  const pelvisX = currentX - 5
+  const pelvisY = baseY + 6
+  
+  doc.setFillColor(240, 235, 220)
+  doc.ellipse(pelvisX, pelvisY, 12, 8, 'F')
+  doc.setDrawColor(100, 100, 100)
+  doc.setLineWidth(0.3)
+  doc.ellipse(pelvisX, pelvisY, 12, 8)
+  
+  doc.setFillColor(245, 240, 225)
+  doc.ellipse(pelvisX - 6, pelvisY + 3, 4, 5, 'F')
+  doc.ellipse(pelvisX - 6, pelvisY + 3, 4, 5)
+  doc.ellipse(pelvisX + 6, pelvisY + 3, 4, 5, 'F')
+  doc.ellipse(pelvisX + 6, pelvisY + 3, 4, 5)
+  
+  doc.setFillColor(235, 230, 215)
+  doc.circle(pelvisX - 6, pelvisY + 1, 2, 'F')
+  doc.circle(pelvisX - 6, pelvisY + 1, 2)
+  doc.circle(pelvisX + 6, pelvisY + 1, 2, 'F')
+  doc.circle(pelvisX + 6, pelvisY + 1, 2)
+  
+  doc.setFontSize(5)
+  doc.setTextColor(100, 100, 100)
+  doc.text("Pelvis", pelvisX, pelvisY + 15, { align: "center" })
+  doc.setTextColor(0, 0, 0)
+  
+  return startY + 45
 }
 
 export async function generateSubluxationPDF(
@@ -149,7 +195,7 @@ export async function generateSubluxationPDF(
   yPos += 5
 
   const spineStartY = yPos
-  const spineEndY = drawSpineDiagram(doc, vertebraeData.map(v => v.id), pageWidth - margin - 20, spineStartY)
+  const spineEndY = drawSpineDiagram(doc, vertebraeData.map(v => v.id), margin + 5, spineStartY)
 
   doc.setFontSize(8)
   doc.setFont("helvetica", "normal")
@@ -179,9 +225,9 @@ export async function generateSubluxationPDF(
   
   doc.setFont("helvetica", "normal")
   const vertebraeList = vertebraeData.map(v => v.name).join(", ")
-  const splitText = doc.splitTextToSize(`Pattern: ${vertebraeList}`, contentWidth - 25)
+  const splitText = doc.splitTextToSize(`Pattern: ${vertebraeList}`, contentWidth)
   doc.text(splitText, margin, yPos)
-  yPos = Math.max(yPos + splitText.length * 4 + 5, spineEndY + 3)
+  yPos = Math.max(yPos + splitText.length * 4 + 5, spineEndY + 2)
 
   const columnWidth = (contentWidth - 4) / 2
   const leftColumnX = margin
