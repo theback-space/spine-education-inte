@@ -95,56 +95,12 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
               </>
             )}
 
-            <div className="space-y-3">
-              <h3 
-                className="text-lg font-semibold text-foreground"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Nerve Supply
-              </h3>
-              <div className="flex flex-wrap gap-2 items-center">
-                {allNerveSupply.map((nerve, idx) => (
-                  <Badge 
-                    key={idx} 
-                    variant="secondary"
-                    className="text-sm px-3 py-1.5 whitespace-normal break-words flex-shrink-0 inline-block"
-                  >
-                    {nerve}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <Separator />
-
-            <div className="space-y-3">
-              <h3 
-                className="text-lg font-semibold text-foreground"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Associated Organs
-              </h3>
-              <div className="flex flex-wrap gap-2 items-center">
-                {allOrgans.map((organ, idx) => (
-                  <Badge 
-                    key={idx} 
-                    variant="outline"
-                    className="text-sm px-3 py-1.5 border-primary/30 whitespace-normal break-words flex-shrink-0 inline-block"
-                  >
-                    {organ}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <Separator />
-
             <div className="space-y-5">
               <h3 
                 className="text-lg font-semibold text-foreground mb-2"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
-                Possible Symptoms When Subluxated
+                Possible/Likely Symptoms When Subluxated
               </h3>
               <div className="space-y-5 max-h-[500px] overflow-y-auto pr-2">
                 {vertebraeData.map((v) => (

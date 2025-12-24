@@ -20,11 +20,13 @@ interface PDFPreviewProps {
   carePhases: CarePhase[]
   practiceName: string
   clientName?: string
+  clientEmail?: string
+  reportDate?: string
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName = "", open, onOpenChange }: PDFPreviewProps) {
+export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName = "", clientEmail = "", reportDate, open, onOpenChange }: PDFPreviewProps) {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
 
   const generatePreview = async () => {
@@ -54,13 +56,18 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
     doc.setFontSize(10)
     doc.setFont("helvetica", "normal")
     
-    const date = new Date().toLocaleDateString()
-    doc.text(`Date: ${date}`, margin, yPos)
+    const formattedDate = reportDate ? new Date(reportDate).toLocaleDateString() : new Date().toLocaleDateString()
+    doc.text(`Date: ${formattedDate}`, margin, yPos)
     if (clientName) {
       doc.text(`Client: ${clientName}`, pageWidth / 2, yPos, { align: "center" })
     }
-    doc.text(`Vertebrae Selected: ${vertebraeData.length}`, pageWidth - margin, yPos, { align: "right" })
-    yPos += 10
+    doc.text(`Vertebrae: ${vertebraeData.length}`, pageWidth - margin, yPos, { align: "right" })
+    yPos += 6
+    
+    if (clientEmail) {
+      doc.text(`Email: ${clientEmail}`, margin, yPos)
+      yPos += 6
+    }
 
     const vertebraeList = vertebraeData.map(v => v.name).join(", ")
     const splitText = doc.splitTextToSize(`Pattern: ${vertebraeList}`, contentWidth)
@@ -89,50 +96,13 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
       doc.text(descLines, margin, yPos)
       yPos += descLines.length * 5 + 8
 
-      doc.setFont("helvetica", "bold")
-      doc.text("Nerve Supply:", margin, yPos)
-      yPos += 6
-      doc.setFont("helvetica", "normal")
-      
-      v.nerveSupply.forEach(nerve => {
-        if (yPos > pageHeight - 20) {
-          doc.addPage()
-          yPos = margin
-        }
-        const nerveLines = doc.splitTextToSize(`• ${nerve}`, contentWidth - 5)
-        doc.text(nerveLines, margin + 3, yPos)
-        yPos += nerveLines.length * 5
-      })
-      yPos += 5
-
       if (yPos > pageHeight - 40) {
         doc.addPage()
         yPos = margin
       }
 
       doc.setFont("helvetica", "bold")
-      doc.text("Associated Organs:", margin, yPos)
-      yPos += 6
-      doc.setFont("helvetica", "normal")
-      
-      v.associatedOrgans.forEach(organ => {
-        if (yPos > pageHeight - 20) {
-          doc.addPage()
-          yPos = margin
-        }
-        const organLines = doc.splitTextToSize(`• ${organ}`, contentWidth - 5)
-        doc.text(organLines, margin + 3, yPos)
-        yPos += organLines.length * 5
-      })
-      yPos += 5
-
-      if (yPos > pageHeight - 40) {
-        doc.addPage()
-        yPos = margin
-      }
-
-      doc.setFont("helvetica", "bold")
-      doc.text(`Possible Symptoms (${v.name}):`, margin, yPos)
+      doc.text(`Possible/Likely Symptoms (${v.name}):`, margin, yPos)
       yPos += 6
       doc.setFont("helvetica", "normal")
       
@@ -259,7 +229,7 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
 
   const handleDownload = async () => {
     try {
-      await generateSubluxationPDF(vertebraeData, carePhases, practiceName, clientName)
+      await generateSubluxationPDF(vertebraeData, carePhases, practiceName, clientName, clientEmail, reportDate)
       toast.success("PDF downloaded successfully!")
       onOpenChange(false)
     } catch (error) {

@@ -17,7 +17,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Pituitary gland", "Scalp", "Brain", "Left eye", "Left ear", "Right eye", "Right ear"],
     associatedOrgans: ["Brain", "Pituitary gland", "Scalp", "Eyes", "Ears"],
-    commonSymptoms: ["Headaches", "Migraines", "Nervousness", "Insomnia", "Head colds", "High blood pressure", "Memory issues", "Chronic fatigue", "Dizziness"],
+    commonSymptoms: ["Headaches", "Migraines", "Nervousness", "Insomnia", "Head colds", "High blood pressure", "Memory issues", "Chronic fatigue", "Dizziness", "Mental fog", "Anxiety", "Vision problems", "Hearing disturbances", "Balance issues"],
     description: "The Atlas supports your head and affects blood flow to the brain. Misalignment here can impact your entire nervous system and affect vision, hearing, and cognitive function."
   },
   C2: {
@@ -27,7 +27,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Heart", "Left eye", "Left ear", "Right eye", "Right ear", "Tongue", "Eyes", "Head"],
     associatedOrgans: ["Heart", "Eyes", "Ears", "Tongue"],
-    commonSymptoms: ["Sinus trouble", "Allergies", "Eye problems", "Earaches", "Fainting spells", "Heart palpitations", "Tongue problems"],
+    commonSymptoms: ["Sinus trouble", "Allergies", "Eye problems", "Earaches", "Fainting spells", "Heart palpitations", "Tongue problems", "Blurred vision", "Tinnitus", "Dizziness", "Nasal congestion", "Taste disturbances"],
     description: "C2 influences your senses and heart function. Issues here often manifest as sensory problems and cardiovascular irregularities."
   },
   C3: {
@@ -37,7 +37,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Diaphragm", "Face", "Left side of neck", "Left ear", "Left shoulder", "Right shoulder", "Right ear", "Right side of neck"],
     associatedOrgans: ["Diaphragm", "Face", "Shoulders", "Neck"],
-    commonSymptoms: ["Neuralgia", "Neuritis", "Acne", "Eczema", "Breathing difficulties", "Shoulder pain", "Neck pain"],
+    commonSymptoms: ["Neuralgia", "Neuritis", "Acne", "Eczema", "Breathing difficulties", "Shoulder pain", "Neck pain", "Facial pain", "Skin rashes", "Shallow breathing", "Trigeminal neuralgia", "Facial numbness"],
     description: "This vertebra affects facial nerves, breathing, and shoulder function. Subluxations can cause facial pain, skin conditions, and respiratory issues."
   },
   C4: {
@@ -47,7 +47,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Diaphragm", "Face", "Left side of neck", "Left chest", "Right chest", "Right side of neck"],
     associatedOrgans: ["Diaphragm", "Face", "Chest", "Neck"],
-    commonSymptoms: ["Hay fever", "Catarrh", "Hearing loss", "Breathing problems", "Chest tightness"],
+    commonSymptoms: ["Hay fever", "Catarrh", "Hearing loss", "Breathing problems", "Chest tightness", "Chronic allergies", "Sinus pressure", "Respiratory infections", "Wheezing"],
     description: "C4 controls the diaphragm and chest area. Misalignment often leads to respiratory issues and allergies."
   },
   C5: {
@@ -57,7 +57,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Neck", "Vocal cords", "Left shoulder", "Left upper arm", "Diaphragm", "Right shoulder and upper arm"],
     associatedOrgans: ["Throat", "Vocal cords", "Shoulders", "Neck"],
-    commonSymptoms: ["Laryngitis", "Hoarseness", "Throat conditions", "Sore throat", "Shoulder pain", "Upper arm weakness"],
+    commonSymptoms: ["Laryngitis", "Hoarseness", "Throat conditions", "Sore throat", "Shoulder pain", "Upper arm weakness", "Voice changes", "Difficulty swallowing", "Chronic cough", "Shoulder stiffness"],
     description: "This area controls throat function, voice, and shoulder movement. Problems here often affect speaking and arm strength."
   },
   C6: {
@@ -67,7 +67,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Left shoulder", "Left arm", "Tonsils", "Tonsil", "Right arm", "Right shoulder"],
     associatedOrgans: ["Shoulders", "Arms", "Tonsils"],
-    commonSymptoms: ["Stiff neck", "Pain in upper arm", "Tonsillitis", "Whooping cough", "Croup", "Arm numbness"],
+    commonSymptoms: ["Stiff neck", "Pain in upper arm", "Tonsillitis", "Whooping cough", "Croup", "Arm numbness", "Chronic sore throat", "Shoulder tension", "Arm tingling", "Wrist weakness"],
     description: "C6 affects shoulder and arm muscles. Misalignment commonly causes neck stiffness, shoulder pain, and arm problems."
   },
   C7: {
@@ -77,7 +77,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Cervical",
     nerveSupply: ["Left shoulder", "Left arm", "Left wrist", "Left hand", "Thyroid", "Right hand", "Right wrist", "Right arm", "Right shoulder"],
     associatedOrgans: ["Thyroid", "Shoulders", "Arms", "Hands"],
-    commonSymptoms: ["Bursitis", "Colds", "Thyroid conditions", "Arm pain", "Hand numbness", "Wrist problems"],
+    commonSymptoms: ["Bursitis", "Colds", "Thyroid conditions", "Arm pain", "Hand numbness", "Wrist problems", "Weight fluctuations", "Fatigue", "Temperature sensitivity", "Hand tingling", "Grip weakness"],
     description: "The last cervical vertebra influences the thyroid and arms. Issues here can affect metabolism and hand/wrist function."
   },
   T1: {
@@ -87,7 +87,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Thoracic",
     nerveSupply: ["Left shoulder", "Left arm", "Left elbow", "Left wrist", "Left hand", "Right hand", "Right wrist", "Right elbow", "Right arm", "Right shoulder"],
     associatedOrgans: ["Arms", "Hands", "Wrists", "Elbows"],
-    commonSymptoms: ["Asthma", "Cough", "Difficult breathing", "Shortness of breath", "Pain in forearms and hands", "Elbow pain"],
+    commonSymptoms: ["Asthma", "Cough", "Difficult breathing", "Shortness of breath", "Pain in forearms and hands", "Elbow pain", "Hand cramping", "Finger numbness", "Carpal tunnel symptoms", "Chronic bronchitis"],
     description: "T1 controls the lower arms and can affect breathing. Compression affects respiratory function and hand dexterity."
   },
   T2: {
@@ -207,7 +207,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Lumbar",
     nerveSupply: ["Left kidney", "Reproductive organs", "Left leg", "Small intestine", "Large intestine", "Bladder", "Adrenal glands", "Upper and lower back", "Ileocecal valve"],
     associatedOrgans: ["Large intestine", "Colon", "Inguinal rings"],
-    commonSymptoms: ["Constipation", "Colitis", "Diarrhea", "Hernias", "Lower back pain"],
+    commonSymptoms: ["Constipation", "Colitis", "Diarrhea", "Hernias", "Lower back pain", "Digestive issues", "Bloating", "IBS symptoms", "Abdominal cramping", "Gas"],
     description: "L1 controls the large intestine. Issues here commonly cause bowel irregularities and hernias."
   },
   L2: {
@@ -217,7 +217,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Lumbar",
     nerveSupply: ["Abdomen", "Reproductive organs", "Left foot and left leg", "Large intestine", "Bladder", "Right leg and right foot", "Reproductive organs", "Abdomen", "Bladder", "Large intestine"],
     associatedOrgans: ["Appendix", "Abdomen", "Upper leg", "Bladder"],
-    commonSymptoms: ["Appendicitis", "Cramps", "Difficult breathing", "Acidosis", "Varicose veins"],
+    commonSymptoms: ["Appendicitis", "Cramps", "Difficult breathing", "Acidosis", "Varicose veins", "Thigh pain", "Leg weakness", "Abdominal pain", "Digestive cramping"],
     description: "This area affects the abdomen and upper legs. Compression can cause digestive and leg issues."
   },
   L3: {
@@ -227,7 +227,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Lumbar",
     nerveSupply: ["Reproductive organs", "Left leg and left foot", "Large intestine", "Bladder", "Abdomen", "Appendix", "Bladder", "Large intestine"],
     associatedOrgans: ["Sex organs", "Uterus", "Bladder", "Knees"],
-    commonSymptoms: ["Bladder troubles", "Menstrual troubles", "Miscarriages", "Bed wetting", "Impotency", "Knee pain"],
+    commonSymptoms: ["Bladder troubles", "Menstrual troubles", "Miscarriages", "Bed wetting", "Impotency", "Knee pain", "Urinary frequency", "Menstrual cramps", "Knee instability", "Sexual dysfunction"],
     description: "L3 influences reproductive and urinary systems, plus knee function."
   },
   L4: {
@@ -237,7 +237,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Lumbar",
     nerveSupply: ["Left leg and left foot", "Reproductive organs", "Bladder", "Prostate", "Large intestine", "Right leg and right foot", "Large intestine", "Prostate", "Bladder"],
     associatedOrgans: ["Prostate gland", "Lower back muscles", "Sciatic nerve"],
-    commonSymptoms: ["Sciatica", "Lumbago", "Difficult/painful urination", "Backaches", "Frequent urination"],
+    commonSymptoms: ["Sciatica", "Lumbago", "Difficult/painful urination", "Backaches", "Frequent urination", "Leg pain", "Shooting pains", "Hip pain", "Numbness in legs", "Prostate issues"],
     description: "This vertebra is often involved in sciatica and low back pain. Also affects prostate health."
   },
   L5: {
@@ -247,7 +247,7 @@ export const spineData: Record<string, VertebraData> = {
     region: "Lumbar",
     nerveSupply: ["Left buttocks", "Left leg and left foot", "Prostate", "Muscles of the lower back", "Muscles of the lower back", "Prostate", "Right foot and right leg", "Right buttocks"],
     associatedOrgans: ["Lower legs", "Ankles", "Feet"],
-    commonSymptoms: ["Poor circulation in legs", "Swollen ankles", "Weak ankles and arches", "Cold feet", "Leg cramps"],
+    commonSymptoms: ["Poor circulation in legs", "Swollen ankles", "Weak ankles and arches", "Cold feet", "Leg cramps", "Foot pain", "Plantar fasciitis", "Achilles tendon pain", "Calf cramping", "Restless legs"],
     description: "The last lumbar vertebra affects your legs and feet. Problems here impact walking and standing."
   },
   SACRUM: {

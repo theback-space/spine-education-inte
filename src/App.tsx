@@ -19,6 +19,8 @@ function App() {
   const [practiceName] = useKV<string>("practice-name", "THE-BACK.SPACE")
   const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
   const [clientName, setClientName] = useKV<string>("client-name", "")
+  const [clientEmail, setClientEmail] = useKV<string>("client-email", "")
+  const [reportDate, setReportDate] = useKV<string>("report-date", new Date().toISOString().split('T')[0])
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
   const [showPDFPreview, setShowPDFPreview] = useState(false)
@@ -104,6 +106,8 @@ This information is for educational purposes only. Always consult with a healthc
           carePhases={carePhases || []}
           practiceName={practiceName || "THE-BACK.SPACE"}
           clientName={clientName || ""}
+          clientEmail={clientEmail || ""}
+          reportDate={reportDate || new Date().toISOString().split('T')[0]}
           open={showPDFPreview}
           onOpenChange={setShowPDFPreview}
         />
@@ -119,18 +123,47 @@ This information is for educational purposes only. Always consult with a healthc
               Click vertebrae to select your subluxation pattern for client education
             </p>
             
-            <div className="flex justify-center items-center gap-3 mt-4">
-              <label htmlFor="client-name" className="text-sm font-semibold text-foreground">
-                Client Name:
-              </label>
-              <Input
-                id="client-name"
-                type="text"
-                placeholder="Enter client name"
-                value={clientName || ""}
-                onChange={(e) => setClientName(e.target.value)}
-                className="max-w-xs"
-              />
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <label htmlFor="client-name" className="text-sm font-semibold text-foreground whitespace-nowrap">
+                  Client Name:
+                </label>
+                <Input
+                  id="client-name"
+                  type="text"
+                  placeholder="Enter client name"
+                  value={clientName || ""}
+                  onChange={(e) => setClientName(e.target.value)}
+                  className="w-48"
+                />
+              </div>
+
+              <div className="flex items-center gap-3">
+                <label htmlFor="client-email" className="text-sm font-semibold text-foreground whitespace-nowrap">
+                  Client Email:
+                </label>
+                <Input
+                  id="client-email"
+                  type="email"
+                  placeholder="client@example.com"
+                  value={clientEmail || ""}
+                  onChange={(e) => setClientEmail(e.target.value)}
+                  className="w-56"
+                />
+              </div>
+
+              <div className="flex items-center gap-3">
+                <label htmlFor="report-date" className="text-sm font-semibold text-foreground whitespace-nowrap">
+                  Report Date:
+                </label>
+                <Input
+                  id="report-date"
+                  type="date"
+                  value={reportDate || new Date().toISOString().split('T')[0]}
+                  onChange={(e) => setReportDate(e.target.value)}
+                  className="w-44"
+                />
+              </div>
             </div>
             
             {selectedVertebrae && selectedVertebrae.length > 0 && (
