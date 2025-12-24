@@ -385,21 +385,66 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
 
             <g opacity="0.4">
               <path 
-                d="M 310 1265 Q 310 1195 345 1160 L 357 1245 Q 353 1290 333 1340 Z" 
+                d="M 320 1265 
+                   Q 315 1230 330 1195 
+                   Q 340 1170 360 1160 
+                   L 365 1180 
+                   Q 368 1215 365 1245 
+                   Q 362 1270 355 1295 
+                   Q 348 1320 338 1340 
+                   L 330 1350 
+                   Z" 
                 fill="url(#boneGradient)" 
                 stroke="oklch(0.65 0.02 45)" 
                 strokeWidth="2"
               />
               <path 
-                d="M 640 1265 Q 640 1195 605 1160 L 593 1245 Q 597 1290 617 1340 Z" 
+                d="M 630 1265 
+                   Q 635 1230 620 1195 
+                   Q 610 1170 590 1160 
+                   L 585 1180 
+                   Q 582 1215 585 1245 
+                   Q 588 1270 595 1295 
+                   Q 602 1320 612 1340 
+                   L 620 1350 
+                   Z" 
                 fill="url(#boneGradient)" 
                 stroke="oklch(0.65 0.02 45)" 
                 strokeWidth="2"
               />
-              <ellipse cx="333" cy="1360" rx="45" ry="55" fill="url(#boneGradient)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
-              <ellipse cx="617" cy="1360" rx="45" ry="55" fill="url(#boneGradient)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
-              <text x="270" y="1395" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
-              <text x="680" y="1395" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
+              
+              <ellipse cx="320" cy="1365" rx="32" ry="38" fill="oklch(0.92 0.01 48)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <path 
+                d="M 288 1365 
+                   Q 280 1340 285 1315 
+                   L 295 1320 
+                   Q 293 1345 295 1365 
+                   Q 297 1385 302 1400 
+                   L 292 1405 
+                   Q 285 1385 288 1365 Z" 
+                fill="url(#boneGradient)" 
+                stroke="oklch(0.65 0.02 45)" 
+                strokeWidth="1.5"
+              />
+              <ellipse cx="320" cy="1365" rx="18" ry="22" fill="oklch(0.85 0.01 48)" stroke="none"/>
+              
+              <ellipse cx="630" cy="1365" rx="32" ry="38" fill="oklch(0.92 0.01 48)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <path 
+                d="M 662 1365 
+                   Q 670 1340 665 1315 
+                   L 655 1320 
+                   Q 657 1345 655 1365 
+                   Q 653 1385 648 1400 
+                   L 658 1405 
+                   Q 665 1385 662 1365 Z" 
+                fill="url(#boneGradient)" 
+                stroke="oklch(0.65 0.02 45)" 
+                strokeWidth="1.5"
+              />
+              <ellipse cx="630" cy="1365" rx="18" ry="22" fill="oklch(0.85 0.01 48)" stroke="none"/>
+              
+              <text x="255" y="1405" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
+              <text x="695" y="1405" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
             </g>
 
             <text x="475" y="1470" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">

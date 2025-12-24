@@ -163,8 +163,8 @@ This information is for educational purposes only. Always consult with a healthc
             )}
           </div>
 
-          <div className="grid grid-cols-1 gap-8">
-            <div className="bg-card rounded-lg shadow-md border">
+          <div className="flex flex-col gap-10">
+            <div className="bg-card rounded-lg shadow-md border flex-shrink-0">
               {hoveredVertebra && (!selectedVertebrae || selectedVertebrae.length === 0) && (
                 <div className="text-center py-2">
                   <span className="text-sm font-medium text-muted-foreground">
@@ -183,12 +183,12 @@ This information is for educational purposes only. Always consult with a healthc
             </div>
 
             {vertebraeData && vertebraeData.length > 0 && (
-              <div>
+              <div className="flex-shrink-0">
                 <InfoPanel vertebraeData={vertebraeData} />
               </div>
             )}
 
-            <div>
+            <div className="flex-shrink-0">
               <CareJourney />
             </div>
           </div>

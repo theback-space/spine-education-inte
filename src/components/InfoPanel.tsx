@@ -2,7 +2,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { VertebraData } from "@/lib/spineData"
 
 interface InfoPanelProps {
@@ -30,162 +29,158 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
         className="w-full"
       >
         <Card className="p-6 shadow-lg border-2">
-          <ScrollArea className="h-full max-h-[600px]">
-            <div className="space-y-6 pr-4">
-              <div className="space-y-3">
-                <h2 
-                  className="text-2xl font-bold text-foreground"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Subluxation Pattern Summary
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                  {vertebraeData.map((v) => (
-                    <Badge 
-                      key={v.id}
-                      variant="default" 
-                      className="text-base px-3 py-1.5 bg-accent text-accent-foreground"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {v.name}
-                    </Badge>
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {vertebraeData.length} vertebra{vertebraeData.length !== 1 ? 'e' : ''} selected
-                </p>
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <h2 
+                className="text-2xl font-bold text-foreground"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Subluxation Pattern Summary
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {vertebraeData.map((v) => (
+                  <Badge 
+                    key={v.id}
+                    variant="default" 
+                    className="text-base px-3 py-1.5 bg-accent text-accent-foreground"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    {v.name}
+                  </Badge>
+                ))}
               </div>
+              <p className="text-sm text-muted-foreground">
+                {vertebraeData.length} vertebra{vertebraeData.length !== 1 ? 'e' : ''} selected
+              </p>
+            </div>
 
-              <Separator />
+            <Separator />
 
-              {vertebraeData.length === 1 ? (
-                <>
-                  <div className="space-y-2">
-                    <h3 
-                      className="text-xl font-bold text-foreground"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {vertebraeData[0].fullName}
-                    </h3>
-                    <p className="text-base text-muted-foreground leading-relaxed">
-                      {vertebraeData[0].description}
-                    </p>
-                  </div>
+            {vertebraeData.length === 1 ? (
+              <>
+                <div className="space-y-2">
+                  <h3 
+                    className="text-xl font-bold text-foreground"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    {vertebraeData[0].fullName}
+                  </h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">
+                    {vertebraeData[0].description}
+                  </p>
+                </div>
 
-                  <Separator />
-                </>
-              ) : (
-                <>
+                <Separator />
+              </>
+            ) : (
+              <>
+                <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                  <h3 
+                    className="text-lg font-semibold text-foreground sticky top-0 bg-card pb-2 z-10"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    Selected Vertebrae Details
+                  </h3>
                   <div className="space-y-3">
-                    <h3 
-                      className="text-lg font-semibold text-foreground"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      Selected Vertebrae Details
-                    </h3>
-                    <div className="space-y-3">
-                      {vertebraeData.map((v) => (
-                        <div key={v.id} className="bg-muted/30 rounded-md p-3">
-                          <p className="font-semibold text-sm text-foreground mb-1">{v.fullName}</p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">{v.description}</p>
-                        </div>
+                    {vertebraeData.map((v) => (
+                      <div key={v.id} className="bg-muted/30 rounded-md p-3">
+                        <p className="font-semibold text-sm text-foreground mb-1">{v.fullName}</p>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{v.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Separator />
+              </>
+            )}
+
+            <div className="space-y-3">
+              <h3 
+                className="text-lg font-semibold text-foreground"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Nerve Supply
+              </h3>
+              <div className="flex flex-wrap gap-2 items-center">
+                {allNerveSupply.map((nerve, idx) => (
+                  <Badge 
+                    key={idx} 
+                    variant="secondary"
+                    className="text-sm px-3 py-1.5 whitespace-normal break-words flex-shrink-0 inline-block"
+                  >
+                    {nerve}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-3">
+              <h3 
+                className="text-lg font-semibold text-foreground"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Associated Organs
+              </h3>
+              <div className="flex flex-wrap gap-2 items-center">
+                {allOrgans.map((organ, idx) => (
+                  <Badge 
+                    key={idx} 
+                    variant="outline"
+                    className="text-sm px-3 py-1.5 border-primary/30 whitespace-normal break-words flex-shrink-0 inline-block"
+                  >
+                    {organ}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-5">
+              <h3 
+                className="text-lg font-semibold text-foreground mb-2"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Possible Symptoms When Subluxated
+              </h3>
+              <div className="space-y-5 max-h-[500px] overflow-y-auto pr-2">
+                {vertebraeData.map((v) => (
+                  <div key={v.id} className="bg-muted/20 rounded-lg p-4 border-l-4 border-accent">
+                    <div className="flex items-center gap-2 flex-wrap mb-3">
+                      <Badge 
+                        variant="default" 
+                        className="text-sm font-bold px-3 py-1.5 bg-accent text-accent-foreground shrink-0"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {v.name}
+                      </Badge>
+                      <span className="text-sm text-muted-foreground font-medium">{v.fullName}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {v.commonSymptoms.map((symptom, idx) => (
+                        <Badge 
+                          key={idx}
+                          variant="outline"
+                          className="text-xs px-2.5 py-1 border-accent/40 bg-background/50 whitespace-normal text-center"
+                        >
+                          {symptom}
+                        </Badge>
                       ))}
                     </div>
                   </div>
-
-                  <Separator />
-                </>
-              )}
-
-              <div className="space-y-3">
-                <h3 
-                  className="text-lg font-semibold text-foreground"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Nerve Supply
-                </h3>
-                <div className="flex flex-wrap gap-2 items-center">
-                  {allNerveSupply.map((nerve, idx) => (
-                    <Badge 
-                      key={idx} 
-                      variant="secondary"
-                      className="text-sm px-3 py-1.5 whitespace-normal break-words flex-shrink-0 inline-block"
-                    >
-                      {nerve}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-3">
-                <h3 
-                  className="text-lg font-semibold text-foreground"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Associated Organs
-                </h3>
-                <div className="flex flex-wrap gap-2 items-center">
-                  {allOrgans.map((organ, idx) => (
-                    <Badge 
-                      key={idx} 
-                      variant="outline"
-                      className="text-sm px-3 py-1.5 border-primary/30 whitespace-normal break-words flex-shrink-0 inline-block"
-                    >
-                      {organ}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-5">
-                <h3 
-                  className="text-lg font-semibold text-foreground mb-2"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Possible Symptoms When Subluxated
-                </h3>
-                <div className="space-y-6">
-                  {vertebraeData.map((v) => (
-                    <div key={v.id} className="bg-muted/20 rounded-lg p-5 border-l-4 border-accent">
-                      <div className="flex flex-col gap-2 mb-4">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <Badge 
-                            variant="default" 
-                            className="text-sm font-bold px-3 py-1.5 bg-accent text-accent-foreground shrink-0"
-                            style={{ fontFamily: "var(--font-heading)" }}
-                          >
-                            {v.name}
-                          </Badge>
-                          <span className="text-sm text-muted-foreground font-medium">{v.fullName}</span>
-                        </div>
-                      </div>
-                      <ul className="space-y-2.5 ml-1">
-                        {v.commonSymptoms.map((symptom, idx) => (
-                          <li 
-                            key={idx}
-                            className="text-sm text-foreground flex items-start gap-3"
-                          >
-                            <span className="text-accent mt-0.5 flex-shrink-0 font-bold text-base leading-none">•</span>
-                            <span className="leading-relaxed flex-1 pt-0.5">{symptom}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <p className="text-xs text-muted-foreground italic">
-                  This information is for educational purposes. Always consult with a healthcare professional for proper diagnosis and treatment.
-                </p>
+                ))}
               </div>
             </div>
-          </ScrollArea>
+
+            <div className="pt-2">
+              <p className="text-xs text-muted-foreground italic">
+                This information is for educational purposes. Always consult with a healthcare professional for proper diagnosis and treatment.
+              </p>
+            </div>
+          </div>
         </Card>
       </motion.div>
     </AnimatePresence>
