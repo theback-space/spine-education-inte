@@ -197,125 +197,158 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
     doc.text(splitText, margin, yPos)
     yPos = Math.max(yPos + splitText.length * 4 + 5, spineEndY + 3)
 
+    const columnWidth = (contentWidth - 4) / 2
+    const leftColumnX = margin
+    const rightColumnX = margin + columnWidth + 4
+    
+    let leftYPos = yPos
+    let rightYPos = yPos
+    let currentColumn: 'left' | 'right' = 'left'
+
     for (let i = 0; i < vertebraeData.length; i++) {
       const v = vertebraeData[i]
+      const columnX = currentColumn === 'left' ? leftColumnX : rightColumnX
+      let columnY = currentColumn === 'left' ? leftYPos : rightYPos
 
       doc.setFillColor(255, 240, 150)
-      doc.rect(margin, yPos - 2, contentWidth, 7, "F")
+      doc.rect(columnX, columnY - 2, columnWidth, 6, "F")
       
-      doc.setFontSize(9)
+      doc.setFontSize(8)
       doc.setFont("helvetica", "bold")
       doc.setTextColor(40, 40, 40)
-      doc.text(v.fullName, margin + 2, yPos + 2)
+      doc.text(v.fullName, columnX + 1, columnY + 1.5)
       doc.setTextColor(0, 0, 0)
-      yPos += 8
+      columnY += 7
 
-      doc.setFontSize(7)
+      doc.setFontSize(6)
       doc.setFont("helvetica", "normal")
-      const descLines = doc.splitTextToSize(v.description, contentWidth)
-      doc.text(descLines, margin, yPos)
-      yPos += descLines.length * 3.5 + 3
+      const descLines = doc.splitTextToSize(v.description, columnWidth - 2)
+      doc.text(descLines, columnX + 1, columnY)
+      columnY += descLines.length * 3 + 2
 
-      doc.setFontSize(7)
+      doc.setFontSize(6)
       doc.setFont("helvetica", "bold")
-      doc.text(`Possible/Likely Symptoms (${v.name}): `, margin, yPos)
+      doc.text(`Symptoms (${v.name}):`, columnX + 1, columnY)
       doc.setFont("helvetica", "normal")
+      columnY += 3
       
       const symptomsText = v.commonSymptoms.join("; ")
-      const symptomLines = doc.splitTextToSize(symptomsText, contentWidth - 2)
-      doc.text(symptomLines, margin, yPos + 3)
-      yPos += symptomLines.length * 3.5 + 4
+      const symptomLines = doc.splitTextToSize(symptomsText, columnWidth - 2)
+      doc.text(symptomLines, columnX + 1, columnY)
+      columnY += symptomLines.length * 3 + 3
       
-      if (i < vertebraeData.length - 1) {
-        doc.setLineWidth(0.2)
-        doc.setDrawColor(200, 200, 200)
-        doc.line(margin, yPos, pageWidth - margin, yPos)
-        yPos += 3
+      if (currentColumn === 'left') {
+        leftYPos = columnY
+        currentColumn = 'right'
+      } else {
+        rightYPos = columnY
+        currentColumn = 'left'
       }
     }
 
+    yPos = Math.max(leftYPos, rightYPos) + 2
+
     if (carePhases && carePhases.length > 0) {
-      yPos += 3
+      yPos += 2
 
       doc.setFillColor(255, 220, 100)
-      doc.rect(margin, yPos - 2, contentWidth, 8, "F")
-      doc.setFontSize(11)
+      doc.rect(margin, yPos - 2, contentWidth, 6, "F")
+      doc.setFontSize(9)
       doc.setFont("helvetica", "bold")
       doc.setTextColor(40, 40, 40)
-      doc.text("YOUR CHIROPRACTIC CARE JOURNEY", pageWidth / 2, yPos + 3, { align: "center" })
+      doc.text("YOUR CHIROPRACTIC CARE JOURNEY", pageWidth / 2, yPos + 2, { align: "center" })
       doc.setTextColor(0, 0, 0)
-      yPos += 10
+      yPos += 7
+
+      const phaseColumnWidth = (contentWidth - 4) / 2
+      let phaseLeftY = yPos
+      let phaseRightY = yPos
+      let phaseColumn: 'left' | 'right' = 'left'
 
       carePhases.forEach((phase, index) => {
+        const phaseX = phaseColumn === 'left' ? leftColumnX : rightColumnX
+        let phaseY = phaseColumn === 'left' ? phaseLeftY : phaseRightY
+
         doc.setFillColor(255, 245, 200)
-        doc.rect(margin, yPos - 2, contentWidth, 6, "F")
+        doc.rect(phaseX, phaseY - 1, phaseColumnWidth, 5, "F")
         
-        doc.setFontSize(8)
-        doc.setFont("helvetica", "bold")
-        doc.text(`${index + 1}. ${phase.name}`, margin + 2, yPos + 2)
-        yPos += 7
-
         doc.setFontSize(7)
         doc.setFont("helvetica", "bold")
-        doc.text("Frequency: ", margin + 3, yPos)
+        doc.text(`${index + 1}. ${phase.name}`, phaseX + 1, phaseY + 2)
+        phaseY += 6
+
+        doc.setFontSize(6)
+        doc.setFont("helvetica", "bold")
+        doc.text("Frequency: ", phaseX + 2, phaseY)
         doc.setFont("helvetica", "normal")
-        doc.text(phase.frequency, margin + 22, yPos)
-        yPos += 3.5
+        const freqText = doc.splitTextToSize(phase.frequency, phaseColumnWidth - 20)
+        doc.text(freqText, phaseX + 18, phaseY)
+        phaseY += freqText.length * 3 + 0.5
 
         doc.setFont("helvetica", "bold")
-        doc.text("Duration: ", margin + 3, yPos)
+        doc.text("Duration: ", phaseX + 2, phaseY)
         doc.setFont("helvetica", "normal")
-        doc.text(phase.duration, margin + 22, yPos)
-        yPos += 4
+        const durText = doc.splitTextToSize(phase.duration, phaseColumnWidth - 20)
+        doc.text(durText, phaseX + 18, phaseY)
+        phaseY += durText.length * 3 + 1
 
-        doc.setFontSize(7)
+        doc.setFontSize(6)
         doc.setFont("helvetica", "italic")
-        const descLines = doc.splitTextToSize(phase.description, contentWidth - 6)
-        doc.text(descLines, margin + 3, yPos)
-        yPos += descLines.length * 3.5 + 2
+        const descLines = doc.splitTextToSize(phase.description, phaseColumnWidth - 3)
+        doc.text(descLines, phaseX + 2, phaseY)
+        phaseY += descLines.length * 2.5 + 1
 
         doc.setFillColor(255, 250, 220)
-        const expectLines = doc.splitTextToSize(phase.expectations, contentWidth - 8)
-        const expectHeight = 5 + expectLines.length * 3.5
-        doc.rect(margin + 3, yPos, contentWidth - 6, expectHeight, "F")
+        const expectLines = doc.splitTextToSize(phase.expectations, phaseColumnWidth - 5)
+        const expectHeight = 4 + expectLines.length * 2.5
+        doc.rect(phaseX + 1, phaseY, phaseColumnWidth - 2, expectHeight, "F")
         doc.setDrawColor(200, 180, 100)
-        doc.setLineWidth(0.2)
-        doc.rect(margin + 3, yPos, contentWidth - 6, expectHeight)
+        doc.setLineWidth(0.1)
+        doc.rect(phaseX + 1, phaseY, phaseColumnWidth - 2, expectHeight)
         
-        doc.setFontSize(7)
+        doc.setFontSize(6)
         doc.setFont("helvetica", "bold")
-        doc.text("What to Expect:", margin + 5, yPos + 3)
+        doc.text("Expect:", phaseX + 2, phaseY + 2.5)
         doc.setFont("helvetica", "normal")
-        doc.text(expectLines, margin + 5, yPos + 6)
-        yPos += expectHeight + 4
+        doc.text(expectLines, phaseX + 2, phaseY + 5)
+        phaseY += expectHeight + 2
+
+        if (phaseColumn === 'left') {
+          phaseLeftY = phaseY
+          phaseColumn = 'right'
+        } else {
+          phaseRightY = phaseY
+          phaseColumn = 'left'
+        }
       })
 
-      yPos += 2
+      yPos = Math.max(phaseLeftY, phaseRightY) + 1
       doc.setFillColor(255, 250, 230)
-      const boxHeight = 14
+      const boxHeight = 10
       doc.rect(margin, yPos, contentWidth, boxHeight, "F")
       doc.setDrawColor(200, 180, 100)
-      doc.setLineWidth(0.2)
+      doc.setLineWidth(0.15)
       doc.rect(margin, yPos, contentWidth, boxHeight)
       
-      doc.setFontSize(7)
+      doc.setFontSize(6)
       doc.setFont("helvetica", "bold")
-      doc.text("Important:", margin + 2, yPos + 3.5)
+      doc.text("Important:", margin + 1.5, yPos + 3)
       doc.setFont("helvetica", "normal")
-      const importantText = "This care plan is tailored to your specific subluxation pattern and overall health goals. Consistency is key to achieving optimal results. We'll reassess your progress regularly and adjust as needed."
-      const importantLines = doc.splitTextToSize(importantText, contentWidth - 4)
-      doc.text(importantLines, margin + 2, yPos + 7)
+      const importantText = "This care plan is tailored to your specific subluxation pattern and health goals. Consistency is key. We'll reassess your progress regularly."
+      const importantLines = doc.splitTextToSize(importantText, contentWidth - 3)
+      doc.text(importantLines, margin + 1.5, yPos + 5.5)
+      yPos += boxHeight
     }
 
-    doc.setFontSize(6)
+    doc.setFontSize(5)
     doc.setFont("helvetica", "italic")
     doc.setTextColor(128, 128, 128)
     
     const disclaimerText = "This information is for educational purposes only. Always consult with a healthcare professional for proper diagnosis and treatment."
     const disclaimerLines = doc.splitTextToSize(disclaimerText, contentWidth)
-    doc.text(disclaimerLines, pageWidth / 2, pageHeight - 8, { align: "center" })
+    doc.text(disclaimerLines, pageWidth / 2, pageHeight - 6, { align: "center" })
     
-    doc.text("Page 1 of 1", pageWidth / 2, pageHeight - 5, { align: "center" })
+    doc.text("Page 1 of 1", pageWidth / 2, pageHeight - 4, { align: "center" })
 
     const pdfBlob = doc.output("blob")
     const url = URL.createObjectURL(pdfBlob)
