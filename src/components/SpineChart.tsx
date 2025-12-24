@@ -144,7 +144,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
   return (
     <div className="w-full flex flex-col items-center justify-start py-4">
       <div className="relative w-full mx-auto">
-        <div className="w-full relative bg-[oklch(0.97_0.008_45)] rounded-lg border-[8px] border-[oklch(0.75_0.015_38)] shadow-2xl overflow-hidden">
+        <div className="w-full relative bg-[oklch(0.95_0.18_95)] rounded-lg border-[8px] border-[oklch(0.75_0.015_38)] shadow-2xl overflow-hidden">
           <svg
             viewBox="0 0 950 2900"
             className="w-full h-auto"
