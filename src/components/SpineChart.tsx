@@ -8,6 +8,7 @@ interface SpineChartProps {
   onVertebraClick: (id: string) => void
   onVertebraHover: (id: string | null) => void
   practiceName?: string
+  clientName?: string
 }
 
 interface VertebraRegion {
@@ -49,76 +50,82 @@ const vertebraRegions: VertebraRegion[] = [
 
 function getVertebraPath(cx: number, cy: number, type: "cervical" | "thoracic" | "lumbar"): string {
   if (type === "cervical") {
-    const bodyWidth = 37.5
-    const bodyHeight = 31.5
-    const processWidth = 52.5
-    const processHeight = 13.5
+    const bodyWidth = 34
+    const bodyHeight = 28
+    const processWidth = 48
+    const archHeight = 15
     
     return `
       M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      L ${cx + bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 6} ${cy} ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      L ${cx - bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 6} ${cy} ${cx - bodyWidth/2} ${cy - bodyHeight/2}
+      Q ${cx - bodyWidth/2 - 3} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 4} ${cy}
+      Q ${cx - bodyWidth/2 - 3} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
+      L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
+      Q ${cx + bodyWidth/2 + 3} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 4} ${cy}
+      Q ${cx + bodyWidth/2 + 3} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
       Z
-      M ${cx - processWidth/2} ${cy - bodyHeight/2 - 7.5}
-      L ${cx - bodyWidth/2 - 3.75} ${cy - bodyHeight/2 - processHeight}
-      L ${cx - bodyWidth/2 - 11.25} ${cy - bodyHeight/2 - processHeight - 6}
-      L ${cx - bodyWidth/2 - 13.5} ${cy - bodyHeight/2 - 3.75}
+      M ${cx - processWidth/2} ${cy - bodyHeight/2 - 3}
+      L ${cx - bodyWidth/2 - 2} ${cy - bodyHeight/2 - archHeight}
+      Q ${cx - bodyWidth/2 - 8} ${cy - bodyHeight/2 - archHeight - 4} ${cx - bodyWidth/2 - 12} ${cy - bodyHeight/2 - archHeight - 2}
+      L ${cx - bodyWidth/2 - 14} ${cy - bodyHeight/2 - 2}
       Z
-      M ${cx + processWidth/2} ${cy - bodyHeight/2 - 7.5}
-      L ${cx + bodyWidth/2 + 3.75} ${cy - bodyHeight/2 - processHeight}
-      L ${cx + bodyWidth/2 + 11.25} ${cy - bodyHeight/2 - processHeight - 6}
-      L ${cx + bodyWidth/2 + 13.5} ${cy - bodyHeight/2 - 3.75}
+      M ${cx + processWidth/2} ${cy - bodyHeight/2 - 3}
+      L ${cx + bodyWidth/2 + 2} ${cy - bodyHeight/2 - archHeight}
+      Q ${cx + bodyWidth/2 + 8} ${cy - bodyHeight/2 - archHeight - 4} ${cx + bodyWidth/2 + 12} ${cy - bodyHeight/2 - archHeight - 2}
+      L ${cx + bodyWidth/2 + 14} ${cy - bodyHeight/2 - 2}
       Z
     `
   } else if (type === "thoracic") {
-    const bodyWidth = 36
-    const bodyHeight = 34.5
-    const processLength = 16.5
+    const bodyWidth = 32
+    const bodyHeight = 30
+    const processLength = 14
+    const spinousLength = 18
     
     return `
       M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 3} ${cy} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
+      Q ${cx - bodyWidth/2 - 2.5} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 3} ${cy}
+      Q ${cx - bodyWidth/2 - 2.5} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
       L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 3} ${cy} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      Q ${cx + bodyWidth/2 + 2.5} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 3} ${cy}
+      Q ${cx + bodyWidth/2 + 2.5} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
       Z
-      M ${cx - bodyWidth/2 - 3.75} ${cy - 6}
-      L ${cx - bodyWidth/2 - processLength} ${cy - 9}
-      L ${cx - bodyWidth/2 - processLength - 3.75} ${cy - 4.5}
-      L ${cx - bodyWidth/2 - processLength} ${cy}
+      M ${cx - bodyWidth/2 - 2} ${cy - 4}
+      L ${cx - bodyWidth/2 - processLength} ${cy - 7}
+      L ${cx - bodyWidth/2 - processLength - 3} ${cy - 3}
+      L ${cx - bodyWidth/2 - processLength} ${cy + 1}
       Z
-      M ${cx + bodyWidth/2 + 3.75} ${cy - 6}
-      L ${cx + bodyWidth/2 + processLength} ${cy - 9}
-      L ${cx + bodyWidth/2 + processLength + 3.75} ${cy - 4.5}
-      L ${cx + bodyWidth/2 + processLength} ${cy}
+      M ${cx + bodyWidth/2 + 2} ${cy - 4}
+      L ${cx + bodyWidth/2 + processLength} ${cy - 7}
+      L ${cx + bodyWidth/2 + processLength + 3} ${cy - 3}
+      L ${cx + bodyWidth/2 + processLength} ${cy + 1}
       Z
       M ${cx} ${cy - bodyHeight/2}
-      L ${cx - 4.5} ${cy - bodyHeight/2 - 13.5}
-      L ${cx} ${cy - bodyHeight/2 - 16.5}
-      L ${cx + 4.5} ${cy - bodyHeight/2 - 13.5}
+      L ${cx - 3} ${cy - bodyHeight/2 - spinousLength}
+      L ${cx} ${cy - bodyHeight/2 - spinousLength - 2}
+      L ${cx + 3} ${cy - bodyHeight/2 - spinousLength}
       Z
     `
   } else {
-    const bodyWidth = 46.5
-    const bodyHeight = 42
-    const processWidth = 60
+    const bodyWidth = 42
+    const bodyHeight = 36
+    const processWidth = 54
     
     return `
       M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 4.5} ${cy} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
+      Q ${cx - bodyWidth/2 - 4} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 5} ${cy}
+      Q ${cx - bodyWidth/2 - 4} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
       L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 4.5} ${cy} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      Q ${cx + bodyWidth/2 + 4} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 5} ${cy}
+      Q ${cx + bodyWidth/2 + 4} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
       Z
-      M ${cx - bodyWidth/2 - 6} ${cy}
-      L ${cx - processWidth/2} ${cy - 7.5}
-      L ${cx - processWidth/2 - 6} ${cy - 3}
-      L ${cx - processWidth/2 - 4.5} ${cy + 6}
+      M ${cx - bodyWidth/2 - 4} ${cy - 2}
+      L ${cx - processWidth/2} ${cy - 8}
+      L ${cx - processWidth/2 - 5} ${cy - 2}
+      L ${cx - processWidth/2 - 3} ${cy + 5}
       Z
-      M ${cx + bodyWidth/2 + 6} ${cy}
-      L ${cx + processWidth/2} ${cy - 7.5}
-      L ${cx + processWidth/2 + 6} ${cy - 3}
-      L ${cx + processWidth/2 + 4.5} ${cy + 6}
+      M ${cx + bodyWidth/2 + 4} ${cy - 2}
+      L ${cx + processWidth/2} ${cy - 8}
+      L ${cx + processWidth/2 + 5} ${cy - 2}
+      L ${cx + processWidth/2 + 3} ${cy + 5}
       Z
     `
   }
@@ -130,7 +137,7 @@ function getVertebraLabelPosition(cx: number, cy: number, type: "cervical" | "th
 
 
 
-export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebraHover, practiceName = "THE-BACK.SPACE" }: SpineChartProps) {
+export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebraHover, practiceName = "THE-BACK.SPACE", clientName = "" }: SpineChartProps) {
   const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
   const [logoUrl] = useKV<string>("logo-url", "")
 
@@ -484,7 +491,11 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
             
             <g fontSize="16" fontFamily="var(--font-body)" fill="oklch(0.20 0 0)">
               <text x="80" y="1515" fontWeight="600">CLIENT:</text>
-              <line x1="180" y1="1520" x2="420" y2="1520" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
+              {clientName ? (
+                <text x="180" y="1515" fontWeight="500" fill="oklch(0.35 0 0)">{clientName}</text>
+              ) : (
+                <line x1="180" y1="1520" x2="420" y2="1520" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
+              )}
               
               <text x="530" y="1515" fontWeight="600">DATE:</text>
               <line x1="600" y1="1520" x2="870" y2="1520" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />

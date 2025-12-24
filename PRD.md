@@ -27,11 +27,18 @@ This is a single-page interactive tool with multi-select vertebrae, persistent s
 - **Success criteria**: Panel aggregates unique symptoms/organs across all selections, maintains readability with many selections, shows count of selected vertebrae
 
 ### PDF Report Generation
-- **Functionality**: Creates a professional multi-page PDF document with THE-BACK.SPACE branding containing all selected vertebrae information
-- **Purpose**: Provides clients with a take-home educational document to reinforce understanding and treatment value
-- **Trigger**: Clicking "Download PDF" button when vertebrae are selected
-- **Progression**: Vertebrae selected → Click download → PDF generates with proper formatting → File downloads to device
-- **Success criteria**: PDF contains all vertebra details, proper page breaks, professional formatting, includes disclaimer, file name includes vertebrae and date
+- **Functionality**: Creates a professional multi-page PDF document with THE-BACK.SPACE branding containing all selected vertebrae information and client name
+- **Purpose**: Provides clients with a personalized take-home educational document to reinforce understanding and treatment value
+- **Trigger**: Clicking "Preview & Download PDF" button when vertebrae are selected
+- **Progression**: Vertebrae selected → Enter client name (optional) → Click download → PDF generates with proper formatting → File downloads to device
+- **Success criteria**: PDF contains client name, all vertebra details, proper page breaks, professional formatting, includes disclaimer, file name includes vertebrae and date
+
+### Client Name Input
+- **Functionality**: Text input field to capture client's name for personalized reports
+- **Purpose**: Personalizes the PDF report and spine chart for each client
+- **Trigger**: Practitioner enters client name in the header input field
+- **Progression**: Field empty → Practitioner types name → Name saves automatically → Appears on spine chart and in PDF export
+- **Success criteria**: Name persists across sessions, displays on chart and PDF, clears when reset
 
 ### Reset & Clear Functionality
 - **Functionality**: Clear all selected vertebrae and hide info panel

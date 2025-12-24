@@ -10,7 +10,7 @@ interface CarePhase {
   expectations: string
 }
 
-export async function generateSubluxationPDF(vertebraeData: VertebraData[], carePhases?: CarePhase[], practiceName?: string): Promise<void> {
+export async function generateSubluxationPDF(vertebraeData: VertebraData[], carePhases?: CarePhase[], practiceName?: string, clientName?: string): Promise<void> {
   const doc = new jsPDF()
   
   const pageWidth = doc.internal.pageSize.getWidth()
@@ -38,6 +38,9 @@ export async function generateSubluxationPDF(vertebraeData: VertebraData[], care
   
   const date = new Date().toLocaleDateString()
   doc.text(`Date: ${date}`, margin, yPos)
+  if (clientName) {
+    doc.text(`Client: ${clientName}`, pageWidth / 2, yPos, { align: "center" })
+  }
   doc.text(`Vertebrae Selected: ${vertebraeData.length}`, pageWidth - margin, yPos, { align: "right" })
   yPos += 10
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useKV } from "@github/spark/hooks"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Toaster } from "@/components/ui/sonner"
 import { SpineChart } from "@/components/SpineChart"
@@ -17,6 +18,7 @@ function App() {
   const [carePhases, setCarePhases] = useKV<any[]>("care-phases", [])
   const [practiceName] = useKV<string>("practice-name", "THE-BACK.SPACE")
   const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
+  const [clientName, setClientName] = useKV<string>("client-name", "")
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
   const [showPDFPreview, setShowPDFPreview] = useState(false)
@@ -96,10 +98,12 @@ This information is for educational purposes only. Always consult with a healthc
       <div className="min-h-screen bg-background">
         <Toaster position="top-center" />
         
+        
         <PDFPreview
           vertebraeData={vertebraeData}
           carePhases={carePhases || []}
           practiceName={practiceName || "THE-BACK.SPACE"}
+          clientName={clientName || ""}
           open={showPDFPreview}
           onOpenChange={setShowPDFPreview}
         />
@@ -114,6 +118,21 @@ This information is for educational purposes only. Always consult with a healthc
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Click vertebrae to select your subluxation pattern for client education
             </p>
+            
+            <div className="flex justify-center items-center gap-3 mt-4">
+              <label htmlFor="client-name" className="text-sm font-semibold text-foreground">
+                Client Name:
+              </label>
+              <Input
+                id="client-name"
+                type="text"
+                placeholder="Enter client name"
+                value={clientName || ""}
+                onChange={(e) => setClientName(e.target.value)}
+                className="max-w-xs"
+              />
+            </div>
+            
             {selectedVertebrae && selectedVertebrae.length > 0 && (
               <p className="text-sm text-accent font-semibold">
                 {selectedVertebrae.length} vertebra{selectedVertebrae.length !== 1 ? 'e' : ''} selected
@@ -191,6 +210,7 @@ This information is for educational purposes only. Always consult with a healthc
                 onVertebraClick={handleVertebraClick}
                 onVertebraHover={setHoveredVertebra}
                 practiceName={practiceName || "THE-BACK.SPACE"}
+                clientName={clientName || ""}
               />
             </div>
 
