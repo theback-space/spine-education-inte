@@ -95,7 +95,7 @@ export function InfoPanel({ vertebraData }: InfoPanelProps) {
                     className="text-lg font-semibold text-foreground"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    Common Symptoms When Misaligned
+                    Possible Symptoms When Subluxated
                   </h3>
                   <ul className="space-y-2">
                     {vertebraData.commonSymptoms.map((symptom, idx) => (

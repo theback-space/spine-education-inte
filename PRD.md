@@ -13,18 +13,18 @@ This is a single-page interactive tool with clickable elements, persistent state
 ## Essential Features
 
 ### Clickable Spine Visualization
-- **Functionality**: Full anatomical spine chart (C1-Coccyx) with individually clickable vertebrae
+- **Functionality**: Full anatomical spine chart (C1-Coccyx) with individually clickable vertebrae, using an SVG-based representation inspired by "Your Subluxation Pattern" chart from THE-BACK.SPACE
 - **Purpose**: Allows chiropractors to guide clients through specific problem areas with precision
 - **Trigger**: User taps/clicks any vertebra on the spine chart
 - **Progression**: Idle state → Hover shows vertebra label → Click highlights vertebra → Info panel displays below chart → Panel persists until new selection
-- **Success criteria**: Each vertebra responds to interaction, visual feedback is immediate, and correct anatomical data displays
+- **Success criteria**: Each vertebra responds to interaction, visual feedback is immediate, correct anatomical data displays with "Possible Symptoms When Subluxated" terminology
 
 ### Persistent Information Panel
-- **Functionality**: Displays vertebra name, associated nerves, organs, and potential symptoms in client-friendly language
+- **Functionality**: Displays vertebra name, associated nerves, organs, and possible symptoms when subluxated in client-friendly language
 - **Purpose**: Educates clients about the connection between spine health and body functions
 - **Trigger**: Clicking any vertebra on the chart
 - **Progression**: Panel hidden → Vertebra clicked → Panel slides/fades in below chart → Content updates → Remains visible until new vertebra selected
-- **Success criteria**: Panel content is accurate, readable, and maintains visibility during consultation
+- **Success criteria**: Panel content is accurate, readable, uses "Possible Symptoms When Subluxated" terminology, and maintains visibility during consultation
 
 ### View Toggle (Front/Side)
 - **Functionality**: Switch between anterior and lateral spine views
