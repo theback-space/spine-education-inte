@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useKV } from "@github/spark/hooks"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { DownloadSimple, X } from "@phosphor-icons/react"
@@ -28,6 +29,7 @@ interface PDFPreviewProps {
 }
 
 export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName = "", clientEmail = "", providerName = "", reportDate, open, onOpenChange }: PDFPreviewProps) {
+  const [logoUrl] = useKV<string>("logo-url", "")
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
 
   const generatePreview = async () => {
@@ -108,18 +110,51 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
     }
 
     doc.setFillColor(255, 220, 100)
-    doc.rect(0, 0, pageWidth, 40, "F")
+    doc.rect(0, 0, pageWidth, 50, "F")
 
-    doc.setFontSize(20)
-    doc.setFont("helvetica", "bold")
-    doc.setTextColor(40, 40, 40)
-    doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
-    
-    yPos += 10
-    doc.setFontSize(10)
-    doc.setFont("helvetica", "normal")
-    doc.text(practiceName, pageWidth / 2, yPos, { align: "center" })
-    doc.setTextColor(0, 0, 0)
+    if (logoUrl) {
+      try {
+        const logoHeight = 20
+        const logoWidth = 40
+        const logoX = margin
+        const logoY = 10
+        doc.addImage(logoUrl, 'PNG', logoX, logoY, logoWidth, logoHeight)
+        
+        doc.setFontSize(18)
+        doc.setFont("helvetica", "bold")
+        doc.setTextColor(40, 40, 40)
+        doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos + 5, { align: "center" })
+        
+        yPos += 15
+        doc.setFontSize(10)
+        doc.setFont("helvetica", "normal")
+        doc.text(practiceName, pageWidth / 2, yPos, { align: "center" })
+        doc.setTextColor(0, 0, 0)
+      } catch (error) {
+        console.error("Error adding logo to PDF:", error)
+        doc.setFontSize(20)
+        doc.setFont("helvetica", "bold")
+        doc.setTextColor(40, 40, 40)
+        doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
+        
+        yPos += 10
+        doc.setFontSize(10)
+        doc.setFont("helvetica", "normal")
+        doc.text(practiceName, pageWidth / 2, yPos, { align: "center" })
+        doc.setTextColor(0, 0, 0)
+      }
+    } else {
+      doc.setFontSize(20)
+      doc.setFont("helvetica", "bold")
+      doc.setTextColor(40, 40, 40)
+      doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
+      
+      yPos += 10
+      doc.setFontSize(10)
+      doc.setFont("helvetica", "normal")
+      doc.text(practiceName, pageWidth / 2, yPos, { align: "center" })
+      doc.setTextColor(0, 0, 0)
+    }
     
     yPos += 15
     doc.setLineWidth(0.5)
@@ -319,7 +354,7 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
 
   const handleDownload = async () => {
     try {
-      await generateSubluxationPDF(vertebraeData, carePhases, practiceName, clientName, clientEmail, providerName, reportDate)
+      await generateSubluxationPDF(vertebraeData, carePhases, practiceName, clientName, clientEmail, providerName, reportDate, logoUrl)
       toast.success("PDF downloaded successfully!")
       onOpenChange(false)
     } catch (error) {

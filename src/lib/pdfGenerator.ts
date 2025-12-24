@@ -84,7 +84,8 @@ export async function generateSubluxationPDF(
   clientName?: string,
   clientEmail?: string,
   providerName?: string,
-  reportDate?: string
+  reportDate?: string,
+  logoUrl?: string
 ): Promise<void> {
   const doc = new jsPDF()
   
@@ -95,18 +96,51 @@ export async function generateSubluxationPDF(
   let yPos = margin
 
   doc.setFillColor(255, 220, 100)
-  doc.rect(0, 0, pageWidth, 40, "F")
+  doc.rect(0, 0, pageWidth, 50, "F")
 
-  doc.setFontSize(20)
-  doc.setFont("helvetica", "bold")
-  doc.setTextColor(40, 40, 40)
-  doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
-  
-  yPos += 10
-  doc.setFontSize(10)
-  doc.setFont("helvetica", "normal")
-  doc.text(practiceName || "THE-BACK.SPACE", pageWidth / 2, yPos, { align: "center" })
-  doc.setTextColor(0, 0, 0)
+  if (logoUrl) {
+    try {
+      const logoHeight = 20
+      const logoWidth = 40
+      const logoX = margin
+      const logoY = 10
+      doc.addImage(logoUrl, 'PNG', logoX, logoY, logoWidth, logoHeight)
+      
+      doc.setFontSize(18)
+      doc.setFont("helvetica", "bold")
+      doc.setTextColor(40, 40, 40)
+      doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos + 5, { align: "center" })
+      
+      yPos += 15
+      doc.setFontSize(10)
+      doc.setFont("helvetica", "normal")
+      doc.text(practiceName || "THE-BACK.SPACE", pageWidth / 2, yPos, { align: "center" })
+      doc.setTextColor(0, 0, 0)
+    } catch (error) {
+      console.error("Error adding logo to PDF:", error)
+      doc.setFontSize(20)
+      doc.setFont("helvetica", "bold")
+      doc.setTextColor(40, 40, 40)
+      doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
+      
+      yPos += 10
+      doc.setFontSize(10)
+      doc.setFont("helvetica", "normal")
+      doc.text(practiceName || "THE-BACK.SPACE", pageWidth / 2, yPos, { align: "center" })
+      doc.setTextColor(0, 0, 0)
+    }
+  } else {
+    doc.setFontSize(20)
+    doc.setFont("helvetica", "bold")
+    doc.setTextColor(40, 40, 40)
+    doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
+    
+    yPos += 10
+    doc.setFontSize(10)
+    doc.setFont("helvetica", "normal")
+    doc.text(practiceName || "THE-BACK.SPACE", pageWidth / 2, yPos, { align: "center" })
+    doc.setTextColor(0, 0, 0)
+  }
   
   yPos += 15
   doc.setLineWidth(0.5)
