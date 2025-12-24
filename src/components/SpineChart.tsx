@@ -18,32 +18,32 @@ interface VertebraRegion {
 }
 
 const vertebraRegions: VertebraRegion[] = [
-  { id: "C1", cx: 475, cy: 200, label: "C1", type: "cervical" },
-  { id: "C2", cx: 475, cy: 280, label: "C2", type: "cervical" },
+  { id: "C1", cx: 475, cy: 240, label: "C1", type: "cervical" },
+  { id: "C2", cx: 475, cy: 300, label: "C2", type: "cervical" },
   { id: "C3", cx: 475, cy: 360, label: "C3", type: "cervical" },
-  { id: "C4", cx: 475, cy: 440, label: "C4", type: "cervical" },
-  { id: "C5", cx: 475, cy: 520, label: "C5", type: "cervical" },
-  { id: "C6", cx: 475, cy: 600, label: "C6", type: "cervical" },
-  { id: "C7", cx: 475, cy: 680, label: "C7", type: "cervical" },
+  { id: "C4", cx: 475, cy: 420, label: "C4", type: "cervical" },
+  { id: "C5", cx: 475, cy: 480, label: "C5", type: "cervical" },
+  { id: "C6", cx: 475, cy: 540, label: "C6", type: "cervical" },
+  { id: "C7", cx: 475, cy: 600, label: "C7", type: "cervical" },
   
-  { id: "T1", cx: 475, cy: 765, label: "T1", type: "thoracic" },
-  { id: "T2", cx: 475, cy: 845, label: "T2", type: "thoracic" },
-  { id: "T3", cx: 475, cy: 925, label: "T3", type: "thoracic" },
-  { id: "T4", cx: 475, cy: 1005, label: "T4", type: "thoracic" },
-  { id: "T5", cx: 475, cy: 1085, label: "T5", type: "thoracic" },
-  { id: "T6", cx: 475, cy: 1165, label: "T6", type: "thoracic" },
-  { id: "T7", cx: 475, cy: 1245, label: "T7", type: "thoracic" },
-  { id: "T8", cx: 475, cy: 1325, label: "T8", type: "thoracic" },
-  { id: "T9", cx: 475, cy: 1405, label: "T9", type: "thoracic" },
-  { id: "T10", cx: 475, cy: 1485, label: "T10", type: "thoracic" },
-  { id: "T11", cx: 475, cy: 1565, label: "T11", type: "thoracic" },
-  { id: "T12", cx: 475, cy: 1645, label: "T12", type: "thoracic" },
+  { id: "T1", cx: 475, cy: 665, label: "T1", type: "thoracic" },
+  { id: "T2", cx: 475, cy: 725, label: "T2", type: "thoracic" },
+  { id: "T3", cx: 475, cy: 785, label: "T3", type: "thoracic" },
+  { id: "T4", cx: 475, cy: 845, label: "T4", type: "thoracic" },
+  { id: "T5", cx: 475, cy: 905, label: "T5", type: "thoracic" },
+  { id: "T6", cx: 475, cy: 965, label: "T6", type: "thoracic" },
+  { id: "T7", cx: 475, cy: 1025, label: "T7", type: "thoracic" },
+  { id: "T8", cx: 475, cy: 1085, label: "T8", type: "thoracic" },
+  { id: "T9", cx: 475, cy: 1145, label: "T9", type: "thoracic" },
+  { id: "T10", cx: 475, cy: 1205, label: "T10", type: "thoracic" },
+  { id: "T11", cx: 475, cy: 1265, label: "T11", type: "thoracic" },
+  { id: "T12", cx: 475, cy: 1325, label: "T12", type: "thoracic" },
   
-  { id: "L1", cx: 475, cy: 1740, label: "L1", type: "lumbar" },
-  { id: "L2", cx: 475, cy: 1840, label: "L2", type: "lumbar" },
-  { id: "L3", cx: 475, cy: 1940, label: "L3", type: "lumbar" },
-  { id: "L4", cx: 475, cy: 2040, label: "L4", type: "lumbar" },
-  { id: "L5", cx: 475, cy: 2140, label: "L5", type: "lumbar" },
+  { id: "L1", cx: 475, cy: 1395, label: "L1", type: "lumbar" },
+  { id: "L2", cx: 475, cy: 1470, label: "L2", type: "lumbar" },
+  { id: "L3", cx: 475, cy: 1545, label: "L3", type: "lumbar" },
+  { id: "L4", cx: 475, cy: 1620, label: "L4", type: "lumbar" },
+  { id: "L5", cx: 475, cy: 1695, label: "L5", type: "lumbar" },
 ]
 
 function getVertebraPath(cx: number, cy: number, type: "cervical" | "thoracic" | "lumbar"): string {
@@ -135,7 +135,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
       <div className="relative w-full mx-auto">
         <div className="w-full relative bg-[oklch(0.97_0.008_45)] rounded-lg border-[8px] border-[oklch(0.75_0.015_38)] shadow-2xl overflow-hidden">
           <svg
-            viewBox="0 0 950 2500"
+            viewBox="0 0 950 2100"
             className="w-full h-auto"
             preserveAspectRatio="xMidYMid meet"
           >
@@ -156,16 +156,26 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 <stop offset="0%" stopColor="oklch(0.82 0.05 25)" />
                 <stop offset="100%" stopColor="oklch(0.75 0.08 20)" />
               </linearGradient>
+              <linearGradient id="boneGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="oklch(0.88 0.02 50)" />
+                <stop offset="100%" stopColor="oklch(0.80 0.03 45)" />
+              </linearGradient>
             </defs>
 
-            <rect width="950" height="2500" fill="oklch(0.985 0.002 45)" />
+            <rect width="950" height="2100" fill="oklch(0.985 0.002 45)" />
 
-            <text x="475" y="80" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
+            <text x="475" y="60" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
               YOUR SUBLUXATION PATTERN
             </text>
-            <text x="475" y="125" textAnchor="middle" fontSize="20" fontWeight="500" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)" letterSpacing="3">
+            <text x="475" y="100" textAnchor="middle" fontSize="20" fontWeight="500" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)" letterSpacing="3">
               THE SPINE AND NERVOUS SYSTEM
             </text>
+
+            <g opacity="0.4">
+              <ellipse cx="475" cy="175" rx="95" ry="110" fill="url(#boneGradient)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <ellipse cx="475" cy="160" rx="75" ry="85" fill="oklch(0.92 0.01 48)" stroke="oklch(0.65 0.02 45)" strokeWidth="1.5"/>
+              <text x="475" y="130" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">SKULL</text>
+            </g>
 
             {vertebraRegions.map((region) => {
               const isSelected = selectedVertebrae.includes(region.id)
@@ -231,15 +241,15 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               </defs>
               <motion.path
                 d={`
-                  M 475 2220
-                  L 420 2250
-                  Q 410 2280 415 2310
-                  L 430 2360
-                  L 475 2380
-                  L 520 2360
-                  L 535 2310
-                  Q 540 2280 530 2250
-                  L 475 2220
+                  M 475 1760
+                  L 420 1785
+                  Q 410 1810 415 1835
+                  L 430 1880
+                  L 475 1900
+                  L 520 1880
+                  L 535 1835
+                  Q 540 1810 530 1785
+                  L 475 1760
                   Z
                 `}
                 fill="url(#sacrum-gradient)"
@@ -261,7 +271,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               />
               <text
                 x={475}
-                y={2300}
+                y={1835}
                 textAnchor="middle"
                 dominantBaseline="middle"
                 className={cn(
@@ -288,13 +298,13 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               </defs>
               <motion.path
                 d={`
-                  M 475 2390
-                  L 460 2410
-                  Q 455 2425 458 2435
-                  L 475 2445
-                  L 492 2435
-                  Q 495 2425 490 2410
-                  L 475 2390
+                  M 475 1910
+                  L 460 1928
+                  Q 455 1942 458 1950
+                  L 475 1960
+                  L 492 1950
+                  Q 495 1942 490 1928
+                  L 475 1910
                   Z
                 `}
                 fill="url(#coccyx-gradient)"
@@ -316,7 +326,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               />
               <text
                 x={475}
-                y={2418}
+                y={1935}
                 textAnchor="middle"
                 dominantBaseline="middle"
                 className={cn(
@@ -333,16 +343,35 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               </text>
             </g>
 
-            <text x="475" y="2480" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
+            <g opacity="0.4">
+              <path 
+                d="M 310 1750 Q 310 1650 360 1600 L 375 1720 Q 370 1780 340 1850 Z" 
+                fill="url(#boneGradient)" 
+                stroke="oklch(0.65 0.02 45)" 
+                strokeWidth="2"
+              />
+              <path 
+                d="M 640 1750 Q 640 1650 590 1600 L 575 1720 Q 580 1780 610 1850 Z" 
+                fill="url(#boneGradient)" 
+                stroke="oklch(0.65 0.02 45)" 
+                strokeWidth="2"
+              />
+              <ellipse cx="340" cy="1870" rx="50" ry="65" fill="url(#boneGradient)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <ellipse cx="610" cy="1870" rx="50" ry="65" fill="url(#boneGradient)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <text x="270" y="1920" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
+              <text x="680" y="1920" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
+            </g>
+
+            <text x="475" y="2020" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
               {practiceName.toUpperCase()}
             </text>
             
             <g fontSize="16" fontFamily="var(--font-body)" fill="oklch(0.20 0 0)">
-              <text x="80" y="2450" fontWeight="600">CLIENT:</text>
-              <line x1="180" y1="2455" x2="420" y2="2455" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
+              <text x="80" y="2055" fontWeight="600">CLIENT:</text>
+              <line x1="180" y1="2060" x2="420" y2="2060" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
               
-              <text x="530" y="2450" fontWeight="600">DATE:</text>
-              <line x1="600" y1="2455" x2="870" y2="2455" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
+              <text x="530" y="2055" fontWeight="600">DATE:</text>
+              <line x1="600" y1="2060" x2="870" y2="2060" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
             </g>
           </svg>
         </div>

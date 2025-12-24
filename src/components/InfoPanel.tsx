@@ -141,24 +141,40 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
 
               <Separator />
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <h3 
                   className="text-lg font-semibold text-foreground"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   Possible Symptoms When Subluxated
                 </h3>
-                <ul className="space-y-2">
-                  {allSymptoms.map((symptom, idx) => (
-                    <li 
-                      key={idx}
-                      className="text-sm text-foreground flex items-start"
-                    >
-                      <span className="text-accent mr-2 mt-0.5 flex-shrink-0">•</span>
-                      <span className="leading-relaxed">{symptom}</span>
-                    </li>
+                <div className="space-y-4">
+                  {vertebraeData.map((v) => (
+                    <div key={v.id} className="border-l-4 border-accent pl-4 py-2">
+                      <div className="flex items-baseline gap-2 mb-2">
+                        <Badge 
+                          variant="default" 
+                          className="text-sm px-2 py-0.5 bg-accent text-accent-foreground shrink-0"
+                          style={{ fontFamily: "var(--font-heading)" }}
+                        >
+                          {v.name}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground font-medium">{v.fullName}</span>
+                      </div>
+                      <ul className="space-y-1.5">
+                        {v.commonSymptoms.map((symptom, idx) => (
+                          <li 
+                            key={idx}
+                            className="text-sm text-foreground flex items-start"
+                          >
+                            <span className="text-accent mr-2 mt-0.5 flex-shrink-0 text-xs">•</span>
+                            <span className="leading-relaxed">{symptom}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
 
               <div className="pt-2">

@@ -111,7 +111,7 @@ export async function generateSubluxationPDF(vertebraeData: VertebraData[], care
     }
 
     doc.setFont("helvetica", "bold")
-    doc.text("Possible Symptoms When Subluxated:", margin, yPos)
+    doc.text(`Possible Symptoms (${v.name}):`, margin, yPos)
     yPos += 6
     doc.setFont("helvetica", "normal")
     
