@@ -40,30 +40,107 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
     const contentWidth = pageWidth - (margin * 2)
     let yPos = margin
 
+    const drawSpineDiagram = (selectedIds: string[], startX: number, startY: number) => {
+      const vertebraHeight = 4
+      const vertebraSpacing = 1
+      const spineWidth = 25
+      
+      const allVertebrae = [
+        { id: 'C1', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'C2', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'C3', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'C4', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'C5', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'C6', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'C7', region: 'Cervical', color: [120, 150, 200] },
+        { id: 'T1', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T2', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T3', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T4', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T5', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T6', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T7', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T8', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T9', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T10', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T11', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'T12', region: 'Thoracic', color: [150, 180, 120] },
+        { id: 'L1', region: 'Lumbar', color: [200, 150, 100] },
+        { id: 'L2', region: 'Lumbar', color: [200, 150, 100] },
+        { id: 'L3', region: 'Lumbar', color: [200, 150, 100] },
+        { id: 'L4', region: 'Lumbar', color: [200, 150, 100] },
+        { id: 'L5', region: 'Lumbar', color: [200, 150, 100] },
+        { id: 'SACRUM', region: 'Sacral', color: [180, 120, 150] },
+        { id: 'COCCYX', region: 'Coccygeal', color: [160, 100, 130] }
+      ]
+      
+      let currentY = startY
+      
+      doc.setFontSize(8)
+      doc.setFont("helvetica", "bold")
+      doc.text("Spine Diagram", startX + spineWidth / 2, currentY, { align: "center" })
+      currentY += 5
+      
+      allVertebrae.forEach((vertebra) => {
+        const isSelected = selectedIds.includes(vertebra.id)
+        
+        if (isSelected) {
+          doc.setFillColor(220, 50, 50)
+        } else {
+          doc.setFillColor(vertebra.color[0], vertebra.color[1], vertebra.color[2])
+        }
+        
+        doc.roundedRect(startX, currentY, spineWidth, vertebraHeight, 1, 1, 'F')
+        
+        doc.setDrawColor(100, 100, 100)
+        doc.setLineWidth(0.3)
+        doc.roundedRect(startX, currentY, spineWidth, vertebraHeight, 1, 1)
+        
+        doc.setFontSize(7)
+        doc.setTextColor(255, 255, 255)
+        doc.text(vertebra.id, startX + spineWidth / 2, currentY + vertebraHeight / 2 + 1, { align: "center" })
+        doc.setTextColor(0, 0, 0)
+        
+        currentY += vertebraHeight + vertebraSpacing
+      })
+      
+      return currentY
+    }
+
+    doc.setFillColor(255, 220, 100)
+    doc.rect(0, 0, pageWidth, 40, "F")
+
     doc.setFontSize(20)
     doc.setFont("helvetica", "bold")
+    doc.setTextColor(40, 40, 40)
     doc.text("SUBLUXATION PATTERN REPORT", pageWidth / 2, yPos, { align: "center" })
     
     yPos += 10
     doc.setFontSize(10)
     doc.setFont("helvetica", "normal")
     doc.text(practiceName, pageWidth / 2, yPos, { align: "center" })
+    doc.setTextColor(0, 0, 0)
     
     yPos += 15
     doc.setLineWidth(0.5)
+    doc.setDrawColor(180, 150, 80)
     doc.line(margin, yPos, pageWidth - margin, yPos)
     yPos += 10
+
+    const spineStartY = yPos
+    const spineEndY = drawSpineDiagram(vertebraeData.map(v => v.id), pageWidth - margin - 30, spineStartY)
 
     doc.setFontSize(10)
     doc.setFont("helvetica", "normal")
     
     const formattedDate = reportDate ? new Date(reportDate).toLocaleDateString() : new Date().toLocaleDateString()
     doc.text(`Date: ${formattedDate}`, margin, yPos)
-    if (clientName) {
-      doc.text(`Client: ${clientName}`, pageWidth / 2, yPos, { align: "center" })
-    }
-    doc.text(`Vertebrae: ${vertebraeData.length}`, pageWidth - margin, yPos, { align: "right" })
     yPos += 6
+    
+    if (clientName) {
+      doc.text(`Client: ${clientName}`, margin, yPos)
+      yPos += 6
+    }
     
     if (clientEmail) {
       doc.text(`Email: ${clientEmail}`, margin, yPos)
@@ -75,10 +152,15 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
       yPos += 6
     }
 
+    doc.setFont("helvetica", "bold")
+    doc.text(`Selected Vertebrae: ${vertebraeData.length}`, margin, yPos)
+    yPos += 6
+    
+    doc.setFont("helvetica", "normal")
     const vertebraeList = vertebraeData.map(v => v.name).join(", ")
-    const splitText = doc.splitTextToSize(`Pattern: ${vertebraeList}`, contentWidth)
+    const splitText = doc.splitTextToSize(`Pattern: ${vertebraeList}`, contentWidth - 40)
     doc.text(splitText, margin, yPos)
-    yPos += splitText.length * 5 + 10
+    yPos = Math.max(yPos + splitText.length * 5 + 10, spineEndY + 10)
 
     for (let i = 0; i < vertebraeData.length; i++) {
       const v = vertebraeData[i]
@@ -88,12 +170,14 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
         yPos = margin
       }
 
-      doc.setFillColor(240, 240, 250)
+      doc.setFillColor(255, 240, 150)
       doc.rect(margin, yPos - 5, contentWidth, 12, "F")
       
       doc.setFontSize(14)
       doc.setFont("helvetica", "bold")
+      doc.setTextColor(40, 40, 40)
       doc.text(v.fullName, margin + 3, yPos + 3)
+      doc.setTextColor(0, 0, 0)
       yPos += 15
 
       doc.setFontSize(10)
@@ -136,11 +220,11 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
       doc.addPage()
       yPos = margin
 
-      doc.setFillColor(100, 100, 220)
+      doc.setFillColor(255, 220, 100)
       doc.rect(margin, yPos - 5, contentWidth, 15, "F")
       doc.setFontSize(16)
       doc.setFont("helvetica", "bold")
-      doc.setTextColor(255, 255, 255)
+      doc.setTextColor(40, 40, 40)
       doc.text("YOUR CHIROPRACTIC CARE JOURNEY", pageWidth / 2, yPos + 5, { align: "center" })
       doc.setTextColor(0, 0, 0)
       yPos += 25
@@ -151,7 +235,7 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
           yPos = margin
         }
 
-        doc.setFillColor(245, 245, 255)
+        doc.setFillColor(255, 245, 200)
         doc.rect(margin, yPos - 5, contentWidth, 10, "F")
         
         doc.setFontSize(13)
@@ -182,10 +266,10 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
           yPos = margin
         }
 
-        doc.setFillColor(250, 250, 255)
+        doc.setFillColor(255, 250, 220)
         const expectHeight = 8 + (doc.splitTextToSize(phase.expectations, contentWidth - 10).length * 5)
         doc.rect(margin + 5, yPos, contentWidth - 10, expectHeight, "F")
-        doc.setDrawColor(150, 150, 200)
+        doc.setDrawColor(200, 180, 100)
         doc.rect(margin + 5, yPos, contentWidth - 10, expectHeight)
         
         doc.setFont("helvetica", "bold")
