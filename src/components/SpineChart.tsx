@@ -20,94 +20,65 @@ interface VertebraRegion {
 }
 
 const vertebraRegions: VertebraRegion[] = [
-  { id: "C1", cx: 475, cy: 240, label: "C1", type: "cervical" },
-  { id: "C2", cx: 475, cy: 280, label: "C2", type: "cervical" },
-  { id: "C3", cx: 475, cy: 320, label: "C3", type: "cervical" },
-  { id: "C4", cx: 475, cy: 360, label: "C4", type: "cervical" },
-  { id: "C5", cx: 475, cy: 400, label: "C5", type: "cervical" },
-  { id: "C6", cx: 475, cy: 440, label: "C6", type: "cervical" },
-  { id: "C7", cx: 475, cy: 480, label: "C7", type: "cervical" },
+  { id: "C1", cx: 475, cy: 260, label: "C1", type: "cervical" },
+  { id: "C2", cx: 475, cy: 330, label: "C2", type: "cervical" },
+  { id: "C3", cx: 475, cy: 400, label: "C3", type: "cervical" },
+  { id: "C4", cx: 475, cy: 470, label: "C4", type: "cervical" },
+  { id: "C5", cx: 475, cy: 540, label: "C5", type: "cervical" },
+  { id: "C6", cx: 475, cy: 610, label: "C6", type: "cervical" },
+  { id: "C7", cx: 475, cy: 680, label: "C7", type: "cervical" },
   
-  { id: "T1", cx: 475, cy: 525, label: "T1", type: "thoracic" },
-  { id: "T2", cx: 475, cy: 565, label: "T2", type: "thoracic" },
-  { id: "T3", cx: 475, cy: 605, label: "T3", type: "thoracic" },
-  { id: "T4", cx: 475, cy: 645, label: "T4", type: "thoracic" },
-  { id: "T5", cx: 475, cy: 685, label: "T5", type: "thoracic" },
-  { id: "T6", cx: 475, cy: 725, label: "T6", type: "thoracic" },
-  { id: "T7", cx: 475, cy: 765, label: "T7", type: "thoracic" },
-  { id: "T8", cx: 475, cy: 805, label: "T8", type: "thoracic" },
-  { id: "T9", cx: 475, cy: 845, label: "T9", type: "thoracic" },
-  { id: "T10", cx: 475, cy: 885, label: "T10", type: "thoracic" },
-  { id: "T11", cx: 475, cy: 925, label: "T11", type: "thoracic" },
-  { id: "T12", cx: 475, cy: 965, label: "T12", type: "thoracic" },
+  { id: "T1", cx: 475, cy: 760, label: "T1", type: "thoracic" },
+  { id: "T2", cx: 475, cy: 835, label: "T2", type: "thoracic" },
+  { id: "T3", cx: 475, cy: 910, label: "T3", type: "thoracic" },
+  { id: "T4", cx: 475, cy: 985, label: "T4", type: "thoracic" },
+  { id: "T5", cx: 475, cy: 1060, label: "T5", type: "thoracic" },
+  { id: "T6", cx: 475, cy: 1135, label: "T6", type: "thoracic" },
+  { id: "T7", cx: 475, cy: 1210, label: "T7", type: "thoracic" },
+  { id: "T8", cx: 475, cy: 1285, label: "T8", type: "thoracic" },
+  { id: "T9", cx: 475, cy: 1360, label: "T9", type: "thoracic" },
+  { id: "T10", cx: 475, cy: 1435, label: "T10", type: "thoracic" },
+  { id: "T11", cx: 475, cy: 1510, label: "T11", type: "thoracic" },
+  { id: "T12", cx: 475, cy: 1585, label: "T12", type: "thoracic" },
   
-  { id: "L1", cx: 475, cy: 1015, label: "L1", type: "lumbar" },
-  { id: "L2", cx: 475, cy: 1065, label: "L2", type: "lumbar" },
-  { id: "L3", cx: 475, cy: 1115, label: "L3", type: "lumbar" },
-  { id: "L4", cx: 475, cy: 1165, label: "L4", type: "lumbar" },
-  { id: "L5", cx: 475, cy: 1215, label: "L5", type: "lumbar" },
+  { id: "L1", cx: 475, cy: 1680, label: "L1", type: "lumbar" },
+  { id: "L2", cx: 475, cy: 1785, label: "L2", type: "lumbar" },
+  { id: "L3", cx: 475, cy: 1890, label: "L3", type: "lumbar" },
+  { id: "L4", cx: 475, cy: 1995, label: "L4", type: "lumbar" },
+  { id: "L5", cx: 475, cy: 2100, label: "L5", type: "lumbar" },
 ]
 
 function getVertebraPath(cx: number, cy: number, type: "cervical" | "thoracic" | "lumbar"): string {
   if (type === "cervical") {
-    const bodyWidth = 34
-    const bodyHeight = 28
-    const processWidth = 48
-    const archHeight = 15
+    const bodyWidth = 62
+    const bodyHeight = 52
+    const processWidth = 88
+    const archHeight = 28
     
     return `
       M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 3} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 4} ${cy}
-      Q ${cx - bodyWidth/2 - 3} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
+      Q ${cx - bodyWidth/2 - 5} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 7} ${cy}
+      Q ${cx - bodyWidth/2 - 5} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
       L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 3} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 4} ${cy}
-      Q ${cx + bodyWidth/2 + 3} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      Q ${cx + bodyWidth/2 + 5} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 7} ${cy}
+      Q ${cx + bodyWidth/2 + 5} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
       Z
-      M ${cx - processWidth/2} ${cy - bodyHeight/2 - 3}
-      L ${cx - bodyWidth/2 - 2} ${cy - bodyHeight/2 - archHeight}
-      Q ${cx - bodyWidth/2 - 8} ${cy - bodyHeight/2 - archHeight - 4} ${cx - bodyWidth/2 - 12} ${cy - bodyHeight/2 - archHeight - 2}
-      L ${cx - bodyWidth/2 - 14} ${cy - bodyHeight/2 - 2}
+      M ${cx - processWidth/2} ${cy - bodyHeight/2 - 5}
+      L ${cx - bodyWidth/2 - 4} ${cy - bodyHeight/2 - archHeight}
+      Q ${cx - bodyWidth/2 - 14} ${cy - bodyHeight/2 - archHeight - 7} ${cx - bodyWidth/2 - 22} ${cy - bodyHeight/2 - archHeight - 4}
+      L ${cx - bodyWidth/2 - 25} ${cy - bodyHeight/2 - 4}
       Z
-      M ${cx + processWidth/2} ${cy - bodyHeight/2 - 3}
-      L ${cx + bodyWidth/2 + 2} ${cy - bodyHeight/2 - archHeight}
-      Q ${cx + bodyWidth/2 + 8} ${cy - bodyHeight/2 - archHeight - 4} ${cx + bodyWidth/2 + 12} ${cy - bodyHeight/2 - archHeight - 2}
-      L ${cx + bodyWidth/2 + 14} ${cy - bodyHeight/2 - 2}
+      M ${cx + processWidth/2} ${cy - bodyHeight/2 - 5}
+      L ${cx + bodyWidth/2 + 4} ${cy - bodyHeight/2 - archHeight}
+      Q ${cx + bodyWidth/2 + 14} ${cy - bodyHeight/2 - archHeight - 7} ${cx + bodyWidth/2 + 22} ${cy - bodyHeight/2 - archHeight - 4}
+      L ${cx + bodyWidth/2 + 25} ${cy - bodyHeight/2 - 4}
       Z
     `
   } else if (type === "thoracic") {
-    const bodyWidth = 32
-    const bodyHeight = 30
-    const processLength = 14
-    const spinousLength = 18
-    
-    return `
-      M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
-      Q ${cx - bodyWidth/2 - 2.5} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 3} ${cy}
-      Q ${cx - bodyWidth/2 - 2.5} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
-      L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
-      Q ${cx + bodyWidth/2 + 2.5} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 3} ${cy}
-      Q ${cx + bodyWidth/2 + 2.5} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
-      Z
-      M ${cx - bodyWidth/2 - 2} ${cy - 4}
-      L ${cx - bodyWidth/2 - processLength} ${cy - 7}
-      L ${cx - bodyWidth/2 - processLength - 3} ${cy - 3}
-      L ${cx - bodyWidth/2 - processLength} ${cy + 1}
-      Z
-      M ${cx + bodyWidth/2 + 2} ${cy - 4}
-      L ${cx + bodyWidth/2 + processLength} ${cy - 7}
-      L ${cx + bodyWidth/2 + processLength + 3} ${cy - 3}
-      L ${cx + bodyWidth/2 + processLength} ${cy + 1}
-      Z
-      M ${cx} ${cy - bodyHeight/2}
-      L ${cx - 3} ${cy - bodyHeight/2 - spinousLength}
-      L ${cx} ${cy - bodyHeight/2 - spinousLength - 2}
-      L ${cx + 3} ${cy - bodyHeight/2 - spinousLength}
-      Z
-    `
-  } else {
-    const bodyWidth = 42
-    const bodyHeight = 36
-    const processWidth = 54
+    const bodyWidth = 58
+    const bodyHeight = 56
+    const processLength = 26
+    const spinousLength = 33
     
     return `
       M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
@@ -117,15 +88,44 @@ function getVertebraPath(cx: number, cy: number, type: "cervical" | "thoracic" |
       Q ${cx + bodyWidth/2 + 4} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 5} ${cy}
       Q ${cx + bodyWidth/2 + 4} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
       Z
-      M ${cx - bodyWidth/2 - 4} ${cy - 2}
-      L ${cx - processWidth/2} ${cy - 8}
-      L ${cx - processWidth/2 - 5} ${cy - 2}
-      L ${cx - processWidth/2 - 3} ${cy + 5}
+      M ${cx - bodyWidth/2 - 3} ${cy - 7}
+      L ${cx - bodyWidth/2 - processLength} ${cy - 13}
+      L ${cx - bodyWidth/2 - processLength - 6} ${cy - 5}
+      L ${cx - bodyWidth/2 - processLength} ${cy + 2}
       Z
-      M ${cx + bodyWidth/2 + 4} ${cy - 2}
-      L ${cx + processWidth/2} ${cy - 8}
-      L ${cx + processWidth/2 + 5} ${cy - 2}
-      L ${cx + processWidth/2 + 3} ${cy + 5}
+      M ${cx + bodyWidth/2 + 3} ${cy - 7}
+      L ${cx + bodyWidth/2 + processLength} ${cy - 13}
+      L ${cx + bodyWidth/2 + processLength + 6} ${cy - 5}
+      L ${cx + bodyWidth/2 + processLength} ${cy + 2}
+      Z
+      M ${cx} ${cy - bodyHeight/2}
+      L ${cx - 5} ${cy - bodyHeight/2 - spinousLength}
+      L ${cx} ${cy - bodyHeight/2 - spinousLength - 4}
+      L ${cx + 5} ${cy - bodyHeight/2 - spinousLength}
+      Z
+    `
+  } else {
+    const bodyWidth = 76
+    const bodyHeight = 68
+    const processWidth = 98
+    
+    return `
+      M ${cx - bodyWidth/2} ${cy - bodyHeight/2}
+      Q ${cx - bodyWidth/2 - 7} ${cy - bodyHeight/4} ${cx - bodyWidth/2 - 9} ${cy}
+      Q ${cx - bodyWidth/2 - 7} ${cy + bodyHeight/4} ${cx - bodyWidth/2} ${cy + bodyHeight/2}
+      L ${cx + bodyWidth/2} ${cy + bodyHeight/2}
+      Q ${cx + bodyWidth/2 + 7} ${cy + bodyHeight/4} ${cx + bodyWidth/2 + 9} ${cy}
+      Q ${cx + bodyWidth/2 + 7} ${cy - bodyHeight/4} ${cx + bodyWidth/2} ${cy - bodyHeight/2}
+      Z
+      M ${cx - bodyWidth/2 - 7} ${cy - 4}
+      L ${cx - processWidth/2} ${cy - 15}
+      L ${cx - processWidth/2 - 9} ${cy - 4}
+      L ${cx - processWidth/2 - 6} ${cy + 9}
+      Z
+      M ${cx + bodyWidth/2 + 7} ${cy - 4}
+      L ${cx + processWidth/2} ${cy - 15}
+      L ${cx + processWidth/2 + 9} ${cy - 4}
+      L ${cx + processWidth/2 + 6} ${cy + 9}
       Z
     `
   }
@@ -146,7 +146,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
       <div className="relative w-full mx-auto">
         <div className="w-full relative bg-[oklch(0.97_0.008_45)] rounded-lg border-[8px] border-[oklch(0.75_0.015_38)] shadow-2xl overflow-hidden">
           <svg
-            viewBox="0 0 950 1600"
+            viewBox="0 0 950 2900"
             className="w-full h-auto"
             preserveAspectRatio="xMidYMid meet"
           >
@@ -183,32 +183,32 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               </linearGradient>
             </defs>
 
-            <rect width="950" height="2100" fill="oklch(0.985 0.002 45)" />
+            <rect width="950" height="2900" fill="oklch(0.985 0.002 45)" />
 
-            <text x="475" y="60" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
+            <text x="475" y="70" textAnchor="middle" fontSize="62" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
               YOUR SUBLUXATION PATTERN
             </text>
-            <text x="475" y="100" textAnchor="middle" fontSize="20" fontWeight="500" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)" letterSpacing="3">
+            <text x="475" y="125" textAnchor="middle" fontSize="26" fontWeight="500" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)" letterSpacing="3">
               THE SPINE AND NERVOUS SYSTEM
             </text>
 
             <g opacity="0.5">
-              <ellipse cx="475" cy="175" rx="95" ry="110" fill="url(#boneGradient)" stroke="oklch(0.60 0.03 45)" strokeWidth="2.5"/>
-              <ellipse cx="475" cy="160" rx="75" ry="85" fill="oklch(0.92 0.01 48)" stroke="oklch(0.60 0.03 45)" strokeWidth="2"/>
-              <text x="475" y="130" textAnchor="middle" fontSize="14" fontWeight="700" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)">SKULL</text>
+              <ellipse cx="475" cy="190" rx="120" ry="135" fill="url(#boneGradient)" stroke="oklch(0.60 0.03 45)" strokeWidth="3"/>
+              <ellipse cx="475" cy="175" rx="95" ry="105" fill="oklch(0.92 0.01 48)" stroke="oklch(0.60 0.03 45)" strokeWidth="2.5"/>
+              <text x="475" y="140" textAnchor="middle" fontSize="18" fontWeight="700" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)">SKULL</text>
             </g>
 
-            <text x="200" y="360" textAnchor="middle" fontSize="20" fontWeight="700" fill="oklch(0.70 0.12 340)" fontFamily="var(--font-heading)">CERVICAL</text>
-            <line x1="250" y1="360" x2="390" y2="360" stroke="oklch(0.70 0.12 340)" strokeWidth="2.5"/>
+            <text x="190" y="470" textAnchor="middle" fontSize="26" fontWeight="700" fill="oklch(0.70 0.12 340)" fontFamily="var(--font-heading)">CERVICAL</text>
+            <line x1="250" y1="470" x2="360" y2="470" stroke="oklch(0.70 0.12 340)" strokeWidth="3.5"/>
 
-            <text x="200" y="745" textAnchor="middle" fontSize="20" fontWeight="700" fill="oklch(0.68 0.12 200)" fontFamily="var(--font-heading)">THORACIC</text>
-            <line x1="250" y1="745" x2="390" y2="745" stroke="oklch(0.68 0.12 200)" strokeWidth="2.5"/>
+            <text x="190" y="1210" textAnchor="middle" fontSize="26" fontWeight="700" fill="oklch(0.68 0.12 200)" fontFamily="var(--font-heading)">THORACIC</text>
+            <line x1="250" y1="1210" x2="360" y2="1210" stroke="oklch(0.68 0.12 200)" strokeWidth="3.5"/>
 
-            <text x="200" y="1115" textAnchor="middle" fontSize="20" fontWeight="700" fill="oklch(0.66 0.12 120)" fontFamily="var(--font-heading)">LUMBAR</text>
-            <line x1="250" y1="1115" x2="390" y2="1115" stroke="oklch(0.66 0.12 120)" strokeWidth="2.5"/>
+            <text x="190" y="1890" textAnchor="middle" fontSize="26" fontWeight="700" fill="oklch(0.66 0.12 120)" fontFamily="var(--font-heading)">LUMBAR</text>
+            <line x1="250" y1="1890" x2="360" y2="1890" stroke="oklch(0.66 0.12 120)" strokeWidth="3.5"/>
 
-            <text x="200" y="1280" textAnchor="middle" fontSize="20" fontWeight="700" fill="oklch(0.68 0.10 50)" fontFamily="var(--font-heading)">SACRAL</text>
-            <line x1="250" y1="1280" x2="390" y2="1280" stroke="oklch(0.68 0.10 50)" strokeWidth="2.5"/>
+            <text x="190" y="2215" textAnchor="middle" fontSize="26" fontWeight="700" fill="oklch(0.68 0.10 50)" fontFamily="var(--font-heading)">SACRAL</text>
+            <line x1="250" y1="2215" x2="360" y2="2215" stroke="oklch(0.68 0.10 50)" strokeWidth="3.5"/>
 
             {vertebraRegions.map((region) => {
               const isSelected = selectedVertebrae.includes(region.id)
@@ -250,18 +250,18 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                     fill={isSelected ? "url(#selectedGradient)" : `url(#vertebra-gradient-${region.id})`}
                     className="cursor-pointer"
                     stroke={strokeColor}
-                    strokeWidth={isSelected ? 4.5 : 2.5}
+                    strokeWidth={isSelected ? 5 : 3.5}
                     strokeLinejoin="round"
                     onClick={() => onVertebraClick(region.id)}
                     onMouseEnter={() => onVertebraHover(region.id)}
                     onMouseLeave={() => onVertebraHover(null)}
-                    whileHover={{ scale: 1.08, strokeWidth: 3.5 }}
-                    whileTap={{ scale: 0.97 }}
+                    whileHover={{ scale: 1.05, strokeWidth: 4.5 }}
+                    whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.15 }}
                     style={{
                       filter: isSelected 
-                        ? `drop-shadow(0 0 20px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 4px 12px oklch(0 0 0 / 0.4))` 
-                        : "drop-shadow(0 2px 5px oklch(0 0 0 / 0.2))"
+                        ? `drop-shadow(0 0 24px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 6px 16px oklch(0 0 0 / 0.4))` 
+                        : "drop-shadow(0 3px 8px oklch(0 0 0 / 0.2))"
                     }}
                   />
                   <text
@@ -273,10 +273,10 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                       "pointer-events-none select-none font-bold",
                       isSelected ? "fill-[oklch(1_0_0)]" : "fill-[oklch(0.20_0.02_30)]"
                     )}
-                    fontSize={region.type === "lumbar" ? "17" : region.type === "thoracic" ? "15" : "16"}
+                    fontSize={region.type === "lumbar" ? "24" : region.type === "thoracic" ? "22" : "23"}
                     fontFamily="var(--font-heading)"
                     style={{
-                      filter: isSelected ? "drop-shadow(0 1px 3px oklch(0 0 0 / 0.6))" : "drop-shadow(0 1px 2px oklch(0 0 0 / 0.15))"
+                      filter: isSelected ? "drop-shadow(0 2px 4px oklch(0 0 0 / 0.6))" : "drop-shadow(0 1px 3px oklch(0 0 0 / 0.15))"
                     }}
                   >
                     {region.label}
@@ -297,47 +297,47 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               )}
               <motion.path
                 d={`
-                  M 475 1265
-                  L 435 1280
-                  Q 428 1297 432 1315
-                  L 443 1345
-                  L 475 1360
-                  L 507 1345
-                  L 518 1315
-                  Q 522 1297 515 1280
-                  L 475 1265
+                  M 475 2215
+                  L 420 2240
+                  Q 410 2270 418 2310
+                  L 438 2370
+                  L 475 2395
+                  L 512 2370
+                  L 532 2310
+                  Q 540 2270 530 2240
+                  L 475 2215
                   Z
                 `}
                 fill={selectedVertebrae.includes("SACRUM") ? "url(#selectedGradient)" : "url(#sacrum-gradient)"}
                 className="cursor-pointer"
                 stroke={selectedVertebrae.includes("SACRUM") ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 50)"}
-                strokeWidth={selectedVertebrae.includes("SACRUM") ? 4.5 : 2.5}
+                strokeWidth={selectedVertebrae.includes("SACRUM") ? 5 : 3.5}
                 strokeLinejoin="round"
                 onClick={() => onVertebraClick("SACRUM")}
                 onMouseEnter={() => onVertebraHover("SACRUM")}
                 onMouseLeave={() => onVertebraHover(null)}
-                whileHover={{ scale: 1.08, strokeWidth: 3.5 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.05, strokeWidth: 4.5 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.15 }}
                 style={{
                   filter: selectedVertebrae.includes("SACRUM") 
-                    ? "drop-shadow(0 0 20px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 4px 12px oklch(0 0 0 / 0.4))" 
-                    : "drop-shadow(0 2px 5px oklch(0 0 0 / 0.2))"
+                    ? "drop-shadow(0 0 24px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 6px 16px oklch(0 0 0 / 0.4))" 
+                    : "drop-shadow(0 3px 8px oklch(0 0 0 / 0.2))"
                 }}
               />
               <text
                 x={475}
-                y={1315}
+                y={2300}
                 textAnchor="middle"
                 dominantBaseline="middle"
                 className={cn(
                   "pointer-events-none select-none font-bold",
                   selectedVertebrae.includes("SACRUM") ? "fill-[oklch(1_0_0)]" : "fill-[oklch(0.20_0.02_30)]"
                 )}
-                fontSize="17"
+                fontSize="24"
                 fontFamily="var(--font-heading)"
                 style={{
-                  filter: selectedVertebrae.includes("SACRUM") ? "drop-shadow(0 1px 3px oklch(0 0 0 / 0.6))" : "drop-shadow(0 1px 2px oklch(0 0 0 / 0.15))"
+                  filter: selectedVertebrae.includes("SACRUM") ? "drop-shadow(0 2px 4px oklch(0 0 0 / 0.6))" : "drop-shadow(0 1px 3px oklch(0 0 0 / 0.15))"
                 }}
               >
                 SACRUM
@@ -356,45 +356,45 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               )}
               <motion.path
                 d={`
-                  M 475 1367
-                  L 463 1380
-                  Q 459 1390 461 1397
-                  L 475 1405
-                  L 489 1397
-                  Q 491 1390 487 1380
-                  L 475 1367
+                  M 475 2405
+                  L 455 2435
+                  Q 448 2460 453 2480
+                  L 475 2500
+                  L 497 2480
+                  Q 502 2460 495 2435
+                  L 475 2405
                   Z
                 `}
                 fill={selectedVertebrae.includes("COCCYX") ? "url(#selectedGradient)" : "url(#coccyx-gradient)"}
                 className="cursor-pointer"
                 stroke={selectedVertebrae.includes("COCCYX") ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 320)"}
-                strokeWidth={selectedVertebrae.includes("COCCYX") ? 4.5 : 2.5}
+                strokeWidth={selectedVertebrae.includes("COCCYX") ? 5 : 3.5}
                 strokeLinejoin="round"
                 onClick={() => onVertebraClick("COCCYX")}
                 onMouseEnter={() => onVertebraHover("COCCYX")}
                 onMouseLeave={() => onVertebraHover(null)}
-                whileHover={{ scale: 1.08, strokeWidth: 3.5 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.05, strokeWidth: 4.5 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.15 }}
                 style={{
                   filter: selectedVertebrae.includes("COCCYX") 
-                    ? "drop-shadow(0 0 20px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 4px 12px oklch(0 0 0 / 0.4))" 
-                    : "drop-shadow(0 2px 5px oklch(0 0 0 / 0.2))"
+                    ? "drop-shadow(0 0 24px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 6px 16px oklch(0 0 0 / 0.4))" 
+                    : "drop-shadow(0 3px 8px oklch(0 0 0 / 0.2))"
                 }}
               />
               <text
                 x={475}
-                y={1387}
+                y={2453}
                 textAnchor="middle"
                 dominantBaseline="middle"
                 className={cn(
                   "pointer-events-none select-none font-bold",
                   selectedVertebrae.includes("COCCYX") ? "fill-[oklch(1_0_0)]" : "fill-[oklch(0.20_0.02_320)]"
                 )}
-                fontSize="15"
+                fontSize="22"
                 fontFamily="var(--font-heading)"
                 style={{
-                  filter: selectedVertebrae.includes("COCCYX") ? "drop-shadow(0 1px 3px oklch(0 0 0 / 0.6))" : "drop-shadow(0 1px 2px oklch(0 0 0 / 0.15))"
+                  filter: selectedVertebrae.includes("COCCYX") ? "drop-shadow(0 2px 4px oklch(0 0 0 / 0.6))" : "drop-shadow(0 1px 3px oklch(0 0 0 / 0.15))"
                 }}
               >
                 COCCYX
@@ -403,73 +403,73 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
 
             <g opacity="0.6">
               <path 
-                d="M 315 1265 
-                   Q 308 1225 325 1185 
-                   Q 338 1155 362 1145 
-                   L 368 1170 
-                   Q 372 1210 368 1250 
-                   Q 364 1280 355 1305 
-                   Q 345 1330 333 1350 
-                   L 323 1362 
+                d="M 260 2215 
+                   Q 245 2140 280 2055 
+                   Q 305 1990 348 1970 
+                   L 358 2020 
+                   Q 364 2090 358 2160 
+                   Q 352 2210 340 2260 
+                   Q 325 2320 305 2365 
+                   L 290 2385 
                    Z" 
                 fill="url(#hipBoneGradient)" 
                 stroke="oklch(0.55 0.04 45)" 
-                strokeWidth="3"
+                strokeWidth="4"
               />
               <path 
-                d="M 635 1265 
-                   Q 642 1225 625 1185 
-                   Q 612 1155 588 1145 
-                   L 582 1170 
-                   Q 578 1210 582 1250 
-                   Q 586 1280 595 1305 
-                   Q 605 1330 617 1350 
-                   L 627 1362 
+                d="M 690 2215 
+                   Q 705 2140 670 2055 
+                   Q 645 1990 602 1970 
+                   L 592 2020 
+                   Q 586 2090 592 2160 
+                   Q 598 2210 610 2260 
+                   Q 625 2320 645 2365 
+                   L 660 2385 
                    Z" 
                 fill="url(#hipBoneGradient)" 
                 stroke="oklch(0.55 0.04 45)" 
-                strokeWidth="3"
+                strokeWidth="4"
               />
               
-              <ellipse cx="315" cy="1370" rx="38" ry="45" fill="oklch(0.92 0.02 48)" stroke="oklch(0.55 0.04 45)" strokeWidth="3"/>
+              <ellipse cx="260" cy="2400" rx="52" ry="62" fill="oklch(0.92 0.02 48)" stroke="oklch(0.55 0.04 45)" strokeWidth="4"/>
               <path 
-                d="M 277 1370 
-                   Q 268 1340 273 1310 
-                   L 285 1316 
-                   Q 282 1348 285 1370 
-                   Q 288 1392 294 1410 
-                   L 282 1416 
-                   Q 274 1392 277 1370 Z" 
+                d="M 208 2400 
+                   Q 195 2350 202 2300 
+                   L 220 2310 
+                   Q 215 2365 220 2400 
+                   Q 225 2435 235 2465 
+                   L 217 2475 
+                   Q 205 2435 208 2400 Z" 
                 fill="url(#hipBoneGradient)" 
                 stroke="oklch(0.55 0.04 45)" 
-                strokeWidth="2.5"
+                strokeWidth="3.5"
               />
-              <ellipse cx="315" cy="1370" rx="22" ry="28" fill="oklch(0.82 0.02 48)" stroke="oklch(0.65 0.03 45)" strokeWidth="1.5"/>
+              <ellipse cx="260" cy="2400" rx="30" ry="38" fill="oklch(0.82 0.02 48)" stroke="oklch(0.65 0.03 45)" strokeWidth="2.5"/>
               
-              <ellipse cx="635" cy="1370" rx="38" ry="45" fill="oklch(0.92 0.02 48)" stroke="oklch(0.55 0.04 45)" strokeWidth="3"/>
+              <ellipse cx="690" cy="2400" rx="52" ry="62" fill="oklch(0.92 0.02 48)" stroke="oklch(0.55 0.04 45)" strokeWidth="4"/>
               <path 
-                d="M 673 1370 
-                   Q 682 1340 677 1310 
-                   L 665 1316 
-                   Q 668 1348 665 1370 
-                   Q 662 1392 656 1410 
-                   L 668 1416 
-                   Q 676 1392 673 1370 Z" 
+                d="M 742 2400 
+                   Q 755 2350 748 2300 
+                   L 730 2310 
+                   Q 735 2365 730 2400 
+                   Q 725 2435 715 2465 
+                   L 733 2475 
+                   Q 745 2435 742 2400 Z" 
                 fill="url(#hipBoneGradient)" 
                 stroke="oklch(0.55 0.04 45)" 
-                strokeWidth="2.5"
+                strokeWidth="3.5"
               />
-              <ellipse cx="635" cy="1370" rx="22" ry="28" fill="oklch(0.82 0.02 48)" stroke="oklch(0.65 0.03 45)" strokeWidth="1.5"/>
+              <ellipse cx="690" cy="2400" rx="30" ry="38" fill="oklch(0.82 0.02 48)" stroke="oklch(0.65 0.03 45)" strokeWidth="2.5"/>
               
-              <text x="245" y="1420" textAnchor="middle" fontSize="16" fontWeight="700" fill="oklch(0.25 0 0)" fontFamily="var(--font-body)">HIP</text>
-              <text x="705" y="1420" textAnchor="middle" fontSize="16" fontWeight="700" fill="oklch(0.25 0 0)" fontFamily="var(--font-body)">HIP</text>
+              <text x="180" y="2480" textAnchor="middle" fontSize="22" fontWeight="700" fill="oklch(0.25 0 0)" fontFamily="var(--font-body)">HIP</text>
+              <text x="770" y="2480" textAnchor="middle" fontSize="22" fontWeight="700" fill="oklch(0.25 0 0)" fontFamily="var(--font-body)">HIP</text>
             </g>
 
             {logoUrl ? (
               <image
                 href={logoUrl}
                 x="350"
-                y="1440"
+                y="2540"
                 width="250"
                 height="80"
                 preserveAspectRatio="xMidYMid meet"
@@ -477,9 +477,9 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
             ) : (
               <text 
                 x="475" 
-                y="1480" 
+                y="2590" 
                 textAnchor="middle" 
-                fontSize="52" 
+                fontSize="62" 
                 fontWeight="700" 
                 fill="oklch(0.15 0 0)" 
                 fontFamily={brandFont || "var(--font-heading)"} 
@@ -489,16 +489,16 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               </text>
             )}
             
-            <g fontSize="16" fontFamily="var(--font-body)" fill="oklch(0.20 0 0)">
-              <text x="80" y="1515" fontWeight="600">CLIENT:</text>
+            <g fontSize="22" fontFamily="var(--font-body)" fill="oklch(0.20 0 0)">
+              <text x="100" y="2690" fontWeight="600">CLIENT:</text>
               {clientName ? (
-                <text x="180" y="1515" fontWeight="500" fill="oklch(0.35 0 0)">{clientName}</text>
+                <text x="230" y="2690" fontWeight="500" fill="oklch(0.35 0 0)">{clientName}</text>
               ) : (
-                <line x1="180" y1="1520" x2="420" y2="1520" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
+                <line x1="230" y1="2698" x2="520" y2="2698" stroke="oklch(0.50 0 0)" strokeWidth="2" />
               )}
               
-              <text x="530" y="1515" fontWeight="600">DATE:</text>
-              <line x1="600" y1="1520" x2="870" y2="1520" stroke="oklch(0.50 0 0)" strokeWidth="1.5" />
+              <text x="570" y="2690" fontWeight="600">DATE:</text>
+              <line x1="660" y1="2698" x2="850" y2="2698" stroke="oklch(0.50 0 0)" strokeWidth="2" />
             </g>
           </svg>
         </div>
