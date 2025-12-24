@@ -75,16 +75,18 @@ This is a single-page interactive tool with multi-select vertebrae, persistent s
 The design should evoke **trust, clarity, and professionalism** - like a modern medical office. It should feel scientifically accurate yet approachable, avoiding intimidating medical jargon while maintaining anatomical precision. The interface should fade into the background, letting the spine visualization be the hero element.
 
 ## Color Selection
-A medical-professional palette with calming blues and clinical whites, accented with warm therapeutic tones.
+A medical-professional palette with calming blues and clinical whites, accented with warm gold tones and a vibrant purple for secondary actions.
 
 - **Primary Color**: Deep Medical Blue `oklch(0.45 0.15 250)` - Communicates trust, medical expertise, and stability
-- **Secondary Colors**: 
-  - Cool Gray `oklch(0.55 0.01 240)` - Professional neutrality for backgrounds and borders
-  - Soft White `oklch(0.98 0.005 240)` - Clean clinical feel for cards and panels
-- **Accent Color**: Therapeutic Teal `oklch(0.65 0.12 200)` - Highlights interactive elements and selected states, suggests healing
+- **Secondary Color**: Rich Purple `oklch(0.52 0.12 280)` - Provides a complementary contrast to the yellow accent, used for secondary buttons, badges, and alternative interactive elements
+- **Supporting Colors**: 
+  - Cool Gray `oklch(0.55 0.01 240)` - Professional neutrality for muted text
+  - Soft White `oklch(0.98 0.005 240)` - Clean clinical feel for page background
+- **Accent Color**: Bright Gold `oklch(0.85 0.15 85)` - Highlights selected vertebrae and important call-to-action elements
 - **Foreground/Background Pairings**:
   - Primary (Deep Medical Blue `oklch(0.45 0.15 250)`): White text `oklch(1 0 0)` - Ratio 8.2:1 ✓
-  - Accent (Therapeutic Teal `oklch(0.65 0.12 200)`): White text `oklch(1 0 0)` - Ratio 4.9:1 ✓
+  - Secondary (Rich Purple `oklch(0.52 0.12 280)`): White text `oklch(1 0 0)` - Ratio 5.4:1 ✓
+  - Accent (Bright Gold `oklch(0.85 0.15 85)`): Dark text `oklch(0.25 0.01 240)` - Ratio 7.8:1 ✓
   - Background (Soft White `oklch(0.98 0.005 240)`): Dark text `oklch(0.25 0.01 240)` - Ratio 14.1:1 ✓
   - Muted (Cool Gray `oklch(0.55 0.01 240)`): White text `oklch(1 0 0)` - Ratio 5.1:1 ✓
 
