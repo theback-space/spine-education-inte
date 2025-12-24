@@ -104,12 +104,12 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
                 >
                   Nerve Supply
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 items-center">
                   {allNerveSupply.map((nerve, idx) => (
                     <Badge 
                       key={idx} 
                       variant="secondary"
-                      className="text-sm px-3 py-1"
+                      className="text-sm px-3 py-1.5 whitespace-nowrap"
                     >
                       {nerve}
                     </Badge>
@@ -126,12 +126,12 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
                 >
                   Associated Organs
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 items-center">
                   {allOrgans.map((organ, idx) => (
                     <Badge 
                       key={idx} 
                       variant="outline"
-                      className="text-sm px-3 py-1 border-primary/30"
+                      className="text-sm px-3 py-1.5 border-primary/30 whitespace-nowrap"
                     >
                       {organ}
                     </Badge>
@@ -148,27 +148,27 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
                 >
                   Possible Symptoms When Subluxated
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-5">
                   {vertebraeData.map((v) => (
-                    <div key={v.id} className="border-l-4 border-accent pl-4 py-2">
-                      <div className="flex items-baseline gap-2 mb-2">
+                    <div key={v.id} className="bg-muted/20 rounded-md p-4 border-l-4 border-accent">
+                      <div className="flex items-center gap-2 mb-3">
                         <Badge 
                           variant="default" 
-                          className="text-sm px-2 py-0.5 bg-accent text-accent-foreground shrink-0"
+                          className="text-sm font-bold px-3 py-1 bg-accent text-accent-foreground shrink-0"
                           style={{ fontFamily: "var(--font-heading)" }}
                         >
                           {v.name}
                         </Badge>
-                        <span className="text-xs text-muted-foreground font-medium">{v.fullName}</span>
+                        <span className="text-sm text-muted-foreground font-medium">{v.fullName}</span>
                       </div>
-                      <ul className="space-y-1.5">
+                      <ul className="space-y-2 ml-1">
                         {v.commonSymptoms.map((symptom, idx) => (
                           <li 
                             key={idx}
-                            className="text-sm text-foreground flex items-start"
+                            className="text-sm text-foreground flex items-start gap-2"
                           >
-                            <span className="text-accent mr-2 mt-0.5 flex-shrink-0 text-xs">•</span>
-                            <span className="leading-relaxed">{symptom}</span>
+                            <span className="text-accent mt-1 flex-shrink-0 font-bold">•</span>
+                            <span className="leading-relaxed flex-1">{symptom}</span>
                           </li>
                         ))}
                       </ul>

@@ -137,7 +137,7 @@ export function CareJourney() {
 
           <Separator />
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {phases.map((phase, index) => (
               <motion.div
                 key={phase.id}
@@ -149,16 +149,16 @@ export function CareJourney() {
                   isEditing && "bg-muted/30 rounded-lg p-4 border-2 border-dashed"
                 )}
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-bold text-lg"
+                <div className="flex items-start gap-5">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-14 h-14 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-bold text-xl shadow-md"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
                       {index + 1}
                     </div>
                   </div>
 
-                  <div className="flex-1 space-y-3">
+                  <div className="flex-1 space-y-4 min-w-0">
                     {isEditing ? (
                       <>
                         <div>
@@ -213,27 +213,27 @@ export function CareJourney() {
                     ) : (
                       <>
                         <h3 
-                          className="text-xl font-bold text-foreground"
+                          className="text-xl font-bold text-foreground leading-tight"
                           style={{ fontFamily: "var(--font-heading)" }}
                         >
                           {phase.name}
                         </h3>
 
-                        <div className="flex flex-wrap gap-3">
-                          <Badge variant="secondary" className="px-3 py-1 text-sm">
+                        <div className="flex flex-wrap gap-3 items-center">
+                          <Badge variant="secondary" className="px-3 py-1.5 text-sm whitespace-nowrap">
                             <strong className="mr-1">Frequency:</strong> {phase.frequency}
                           </Badge>
-                          <Badge variant="secondary" className="px-3 py-1 text-sm">
+                          <Badge variant="secondary" className="px-3 py-1.5 text-sm whitespace-nowrap">
                             <strong className="mr-1">Duration:</strong> {phase.duration}
                           </Badge>
                         </div>
 
-                        <p className="text-sm font-medium text-foreground italic">
+                        <p className="text-sm font-medium text-foreground italic leading-relaxed">
                           {phase.description}
                         </p>
 
-                        <div className="bg-accent/10 rounded-md p-3 border border-accent/20">
-                          <p className="text-sm font-semibold text-accent mb-1">
+                        <div className="bg-accent/10 rounded-md p-4 border border-accent/20 mt-3">
+                          <p className="text-sm font-semibold text-accent mb-2" style={{ fontFamily: "var(--font-heading)" }}>
                             What to Expect:
                           </p>
                           <p className="text-sm text-foreground leading-relaxed">
@@ -257,7 +257,7 @@ export function CareJourney() {
                 </div>
 
                 {index < phases.length - 1 && !isEditing && (
-                  <div className="ml-6 mt-4 mb-2 h-8 w-0.5 bg-border"></div>
+                  <div className="ml-7 mt-6 mb-2 h-10 w-0.5 bg-border"></div>
                 )}
               </motion.div>
             ))}
