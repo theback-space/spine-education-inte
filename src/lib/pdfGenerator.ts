@@ -1,7 +1,15 @@
 import jsPDF from "jspdf"
 import { VertebraData } from "./spineData"
 
-export async function generateSubluxationPDF(vertebraeData: VertebraData[]): Promise<void> {
+interface CarePhase {
+  id: string
+  name: string
+  frequency: string
+  duration: string
+  notes: string
+}
+
+export async function generateSubluxationPDF(vertebraeData: VertebraData[], carePhases?: CarePhase[]): Promise<void> {
   const doc = new jsPDF()
   
   const pageWidth = doc.internal.pageSize.getWidth()
@@ -123,6 +131,70 @@ export async function generateSubluxationPDF(vertebraeData: VertebraData[]): Pro
       doc.setDrawColor(200, 200, 200)
       doc.line(margin, yPos, pageWidth - margin, yPos)
       yPos += 10
+    }
+  }
+
+  if (carePhases && carePhases.length > 0) {
+    doc.addPage()
+    yPos = margin
+
+    doc.setFillColor(100, 100, 220)
+    doc.rect(margin, yPos - 5, contentWidth, 15, "F")
+    doc.setFontSize(16)
+    doc.setFont("helvetica", "bold")
+    doc.setTextColor(255, 255, 255)
+    doc.text("YOUR CHIROPRACTIC CARE JOURNEY", pageWidth / 2, yPos + 5, { align: "center" })
+    doc.setTextColor(0, 0, 0)
+    yPos += 25
+
+    carePhases.forEach((phase, index) => {
+      if (yPos > pageHeight - 60) {
+        doc.addPage()
+        yPos = margin
+      }
+
+      doc.setFillColor(245, 245, 255)
+      doc.rect(margin, yPos - 5, contentWidth, 10, "F")
+      
+      doc.setFontSize(13)
+      doc.setFont("helvetica", "bold")
+      doc.text(`${index + 1}. ${phase.name}`, margin + 3, yPos + 2)
+      yPos += 12
+
+      doc.setFontSize(10)
+      doc.setFont("helvetica", "bold")
+      doc.text("Frequency: ", margin + 5, yPos)
+      doc.setFont("helvetica", "normal")
+      doc.text(phase.frequency, margin + 30, yPos)
+      yPos += 6
+
+      doc.setFont("helvetica", "bold")
+      doc.text("Duration: ", margin + 5, yPos)
+      doc.setFont("helvetica", "normal")
+      doc.text(phase.duration, margin + 30, yPos)
+      yPos += 6
+
+      doc.setFont("helvetica", "italic")
+      const notesLines = doc.splitTextToSize(phase.notes, contentWidth - 10)
+      doc.text(notesLines, margin + 5, yPos)
+      yPos += notesLines.length * 5 + 10
+    })
+
+    if (yPos < pageHeight - 50) {
+      yPos += 5
+      doc.setFillColor(255, 250, 230)
+      const boxHeight = 25
+      doc.rect(margin, yPos, contentWidth, boxHeight, "F")
+      doc.setDrawColor(200, 180, 100)
+      doc.rect(margin, yPos, contentWidth, boxHeight)
+      
+      doc.setFontSize(9)
+      doc.setFont("helvetica", "bold")
+      doc.text("Important:", margin + 3, yPos + 6)
+      doc.setFont("helvetica", "normal")
+      const importantText = "This care plan is tailored to your specific subluxation pattern and overall health goals. Consistency is key to achieving optimal results. We'll reassess your progress regularly and adjust as needed."
+      const importantLines = doc.splitTextToSize(importantText, contentWidth - 6)
+      doc.text(importantLines, margin + 3, yPos + 12)
     }
   }
 

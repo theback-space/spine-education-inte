@@ -5,13 +5,15 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Toaster } from "@/components/ui/sonner"
 import { SpineChart } from "@/components/SpineChart"
 import { InfoPanel } from "@/components/InfoPanel"
+import { CareJourney } from "@/components/CareJourney"
 import { getVertebraById } from "@/lib/spineData"
 import { generateSubluxationPDF } from "@/lib/pdfGenerator"
-import { ArrowsClockwise, DownloadSimple, EnvelopeSimple, Plus, Minus } from "@phosphor-icons/react"
+import { ArrowsClockwise, DownloadSimple, EnvelopeSimple } from "@phosphor-icons/react"
 import { toast } from "sonner"
 
 function App() {
   const [selectedVertebrae, setSelectedVertebrae] = useKV<string[]>("selected-vertebrae", [])
+  const [carePhases, setCarePhases] = useKV<any[]>("care-phases", [])
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
 
@@ -37,7 +39,7 @@ function App() {
     
     try {
       toast.loading("Generating PDF report...", { id: "pdf-gen" })
-      await generateSubluxationPDF(vertebraeData)
+      await generateSubluxationPDF(vertebraeData, carePhases || [])
       toast.success("PDF downloaded successfully!", { id: "pdf-gen" })
     } catch (error) {
       console.error("PDF generation error:", error)
@@ -180,6 +182,10 @@ This information is for educational purposes only. Always consult with a healthc
                 <InfoPanel vertebraeData={vertebraeData} />
               </div>
             )}
+
+            <div>
+              <CareJourney />
+            </div>
           </div>
 
           <footer className="mt-12 text-center text-sm text-muted-foreground space-y-2 pb-8">
