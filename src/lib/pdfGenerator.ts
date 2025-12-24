@@ -16,6 +16,7 @@ export async function generateSubluxationPDF(
   practiceName?: string, 
   clientName?: string,
   clientEmail?: string,
+  providerName?: string,
   reportDate?: string
 ): Promise<void> {
   const doc = new jsPDF()
@@ -53,6 +54,11 @@ export async function generateSubluxationPDF(
   
   if (clientEmail) {
     doc.text(`Email: ${clientEmail}`, margin, yPos)
+    yPos += 6
+  }
+  
+  if (providerName) {
+    doc.text(`Provider: ${providerName}`, margin, yPos)
     yPos += 6
   }
 

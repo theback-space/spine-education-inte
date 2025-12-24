@@ -20,6 +20,7 @@ function App() {
   const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
   const [clientName, setClientName] = useKV<string>("client-name", "")
   const [clientEmail, setClientEmail] = useKV<string>("client-email", "")
+  const [providerName, setProviderName] = useKV<string>("provider-name", "")
   const [reportDate, setReportDate] = useKV<string>("report-date", new Date().toISOString().split('T')[0])
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
@@ -107,6 +108,7 @@ This information is for educational purposes only. Always consult with a healthc
           practiceName={practiceName || "THE-BACK.SPACE"}
           clientName={clientName || ""}
           clientEmail={clientEmail || ""}
+          providerName={providerName || ""}
           reportDate={reportDate || new Date().toISOString().split('T')[0]}
           open={showPDFPreview}
           onOpenChange={setShowPDFPreview}
@@ -149,6 +151,20 @@ This information is for educational purposes only. Always consult with a healthc
                   value={clientEmail || ""}
                   onChange={(e) => setClientEmail(e.target.value)}
                   className="w-56"
+                />
+              </div>
+
+              <div className="flex items-center gap-3">
+                <label htmlFor="provider-name" className="text-sm font-semibold text-foreground whitespace-nowrap">
+                  Provider Name:
+                </label>
+                <Input
+                  id="provider-name"
+                  type="text"
+                  placeholder="Dr. Smith"
+                  value={providerName || ""}
+                  onChange={(e) => setProviderName(e.target.value)}
+                  className="w-48"
                 />
               </div>
 

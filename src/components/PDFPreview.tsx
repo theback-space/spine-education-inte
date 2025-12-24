@@ -21,12 +21,13 @@ interface PDFPreviewProps {
   practiceName: string
   clientName?: string
   clientEmail?: string
+  providerName?: string
   reportDate?: string
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName = "", clientEmail = "", reportDate, open, onOpenChange }: PDFPreviewProps) {
+export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName = "", clientEmail = "", providerName = "", reportDate, open, onOpenChange }: PDFPreviewProps) {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
 
   const generatePreview = async () => {
@@ -66,6 +67,11 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
     
     if (clientEmail) {
       doc.text(`Email: ${clientEmail}`, margin, yPos)
+      yPos += 6
+    }
+    
+    if (providerName) {
+      doc.text(`Provider: ${providerName}`, margin, yPos)
       yPos += 6
     }
 
@@ -229,7 +235,7 @@ export function PDFPreview({ vertebraeData, carePhases, practiceName, clientName
 
   const handleDownload = async () => {
     try {
-      await generateSubluxationPDF(vertebraeData, carePhases, practiceName, clientName, clientEmail, reportDate)
+      await generateSubluxationPDF(vertebraeData, carePhases, practiceName, clientName, clientEmail, providerName, reportDate)
       toast.success("PDF downloaded successfully!")
       onOpenChange(false)
     } catch (error) {
