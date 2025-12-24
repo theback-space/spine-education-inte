@@ -97,19 +97,19 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
                 </>
               )}
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <h3 
-                  className="text-lg font-semibold text-foreground"
+                  className="text-lg font-semibold text-foreground mb-2"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   Nerve Supply
                 </h3>
-                <div className="flex flex-wrap gap-2 items-center">
+                <div className="flex flex-wrap gap-2">
                   {allNerveSupply.map((nerve, idx) => (
                     <Badge 
                       key={idx} 
                       variant="secondary"
-                      className="text-sm px-3 py-1.5 whitespace-nowrap"
+                      className="text-sm px-3 py-1.5 whitespace-nowrap shrink-0"
                     >
                       {nerve}
                     </Badge>
@@ -119,19 +119,19 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
 
               <Separator />
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <h3 
-                  className="text-lg font-semibold text-foreground"
+                  className="text-lg font-semibold text-foreground mb-2"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   Associated Organs
                 </h3>
-                <div className="flex flex-wrap gap-2 items-center">
+                <div className="flex flex-wrap gap-2">
                   {allOrgans.map((organ, idx) => (
                     <Badge 
                       key={idx} 
                       variant="outline"
-                      className="text-sm px-3 py-1.5 border-primary/30 whitespace-nowrap"
+                      className="text-sm px-3 py-1.5 border-primary/30 whitespace-nowrap shrink-0"
                     >
                       {organ}
                     </Badge>
@@ -141,34 +141,36 @@ export function InfoPanel({ vertebraeData }: InfoPanelProps) {
 
               <Separator />
 
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <h3 
-                  className="text-lg font-semibold text-foreground"
+                  className="text-lg font-semibold text-foreground mb-2"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   Possible Symptoms When Subluxated
                 </h3>
-                <div className="space-y-5">
+                <div className="space-y-6">
                   {vertebraeData.map((v) => (
-                    <div key={v.id} className="bg-muted/20 rounded-md p-4 border-l-4 border-accent">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Badge 
-                          variant="default" 
-                          className="text-sm font-bold px-3 py-1 bg-accent text-accent-foreground shrink-0"
-                          style={{ fontFamily: "var(--font-heading)" }}
-                        >
-                          {v.name}
-                        </Badge>
-                        <span className="text-sm text-muted-foreground font-medium">{v.fullName}</span>
+                    <div key={v.id} className="bg-muted/20 rounded-lg p-5 border-l-4 border-accent">
+                      <div className="flex flex-col gap-2 mb-4">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <Badge 
+                            variant="default" 
+                            className="text-sm font-bold px-3 py-1.5 bg-accent text-accent-foreground shrink-0"
+                            style={{ fontFamily: "var(--font-heading)" }}
+                          >
+                            {v.name}
+                          </Badge>
+                          <span className="text-sm text-muted-foreground font-medium">{v.fullName}</span>
+                        </div>
                       </div>
-                      <ul className="space-y-2 ml-1">
+                      <ul className="space-y-2.5 ml-1">
                         {v.commonSymptoms.map((symptom, idx) => (
                           <li 
                             key={idx}
-                            className="text-sm text-foreground flex items-start gap-2"
+                            className="text-sm text-foreground flex items-start gap-3"
                           >
-                            <span className="text-accent mt-1 flex-shrink-0 font-bold">•</span>
-                            <span className="leading-relaxed flex-1">{symptom}</span>
+                            <span className="text-accent mt-0.5 flex-shrink-0 font-bold text-base leading-none">•</span>
+                            <span className="leading-relaxed flex-1 pt-0.5">{symptom}</span>
                           </li>
                         ))}
                       </ul>

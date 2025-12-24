@@ -158,11 +158,11 @@ export function CareJourney() {
                     </div>
                   </div>
 
-                  <div className="flex-1 space-y-4 min-w-0">
+                  <div className="flex-1 space-y-5 min-w-0">
                     {isEditing ? (
                       <>
                         <div>
-                          <Label htmlFor={`phase-name-${phase.id}`}>Phase Name</Label>
+                          <Label htmlFor={`phase-name-${phase.id}`} className="mb-2 block">Phase Name</Label>
                           <Input
                             id={`phase-name-${phase.id}`}
                             value={phase.name}
@@ -171,9 +171,9 @@ export function CareJourney() {
                           />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <Label htmlFor={`phase-freq-${phase.id}`}>Frequency</Label>
+                            <Label htmlFor={`phase-freq-${phase.id}`} className="mb-2 block">Frequency</Label>
                             <Input
                               id={`phase-freq-${phase.id}`}
                               value={phase.frequency}
@@ -181,7 +181,7 @@ export function CareJourney() {
                             />
                           </div>
                           <div>
-                            <Label htmlFor={`phase-dur-${phase.id}`}>Duration</Label>
+                            <Label htmlFor={`phase-dur-${phase.id}`} className="mb-2 block">Duration</Label>
                             <Input
                               id={`phase-dur-${phase.id}`}
                               value={phase.duration}
@@ -191,7 +191,7 @@ export function CareJourney() {
                         </div>
 
                         <div>
-                          <Label htmlFor={`phase-desc-${phase.id}`}>Description</Label>
+                          <Label htmlFor={`phase-desc-${phase.id}`} className="mb-2 block">Description</Label>
                           <Textarea
                             id={`phase-desc-${phase.id}`}
                             value={phase.description}
@@ -201,7 +201,7 @@ export function CareJourney() {
                         </div>
 
                         <div>
-                          <Label htmlFor={`phase-expect-${phase.id}`}>What to Expect</Label>
+                          <Label htmlFor={`phase-expect-${phase.id}`} className="mb-2 block">What to Expect</Label>
                           <Textarea
                             id={`phase-expect-${phase.id}`}
                             value={phase.expectations}
@@ -213,27 +213,27 @@ export function CareJourney() {
                     ) : (
                       <>
                         <h3 
-                          className="text-xl font-bold text-foreground leading-tight"
+                          className="text-xl font-bold text-foreground leading-tight mb-1"
                           style={{ fontFamily: "var(--font-heading)" }}
                         >
                           {phase.name}
                         </h3>
 
-                        <div className="flex flex-wrap gap-3 items-center">
-                          <Badge variant="secondary" className="px-3 py-1.5 text-sm whitespace-nowrap">
-                            <strong className="mr-1">Frequency:</strong> {phase.frequency}
+                        <div className="flex flex-wrap gap-3">
+                          <Badge variant="secondary" className="px-3 py-1.5 text-sm whitespace-nowrap shrink-0">
+                            <strong className="mr-1.5">Frequency:</strong> {phase.frequency}
                           </Badge>
-                          <Badge variant="secondary" className="px-3 py-1.5 text-sm whitespace-nowrap">
-                            <strong className="mr-1">Duration:</strong> {phase.duration}
+                          <Badge variant="secondary" className="px-3 py-1.5 text-sm whitespace-nowrap shrink-0">
+                            <strong className="mr-1.5">Duration:</strong> {phase.duration}
                           </Badge>
                         </div>
 
-                        <p className="text-sm font-medium text-foreground italic leading-relaxed">
+                        <p className="text-sm font-medium text-foreground italic leading-relaxed pt-1">
                           {phase.description}
                         </p>
 
-                        <div className="bg-accent/10 rounded-md p-4 border border-accent/20 mt-3">
-                          <p className="text-sm font-semibold text-accent mb-2" style={{ fontFamily: "var(--font-heading)" }}>
+                        <div className="bg-accent/10 rounded-md p-4 border border-accent/20">
+                          <p className="text-sm font-semibold text-accent mb-2.5" style={{ fontFamily: "var(--font-heading)" }}>
                             What to Expect:
                           </p>
                           <p className="text-sm text-foreground leading-relaxed">
@@ -257,7 +257,7 @@ export function CareJourney() {
                 </div>
 
                 {index < phases.length - 1 && !isEditing && (
-                  <div className="ml-7 mt-6 mb-2 h-10 w-0.5 bg-border"></div>
+                  <div className="ml-7 mt-8 mb-4 h-12 w-0.5 bg-border"></div>
                 )}
               </motion.div>
             ))}
