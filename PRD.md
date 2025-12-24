@@ -1,57 +1,60 @@
 # Chiropractic Spine Chart Interactive Tool
 
-An interactive web application that helps chiropractors visually explain spinal subluxations and nervous system functions to clients through an engaging, clickable anatomical spine chart.
+An interactive web application that helps chiropractors create personalized subluxation pattern reports for clients. Practitioners can select multiple vertebrae to generate comprehensive PDF summaries that explain how spinal misalignments affect the nervous system and overall health.
 
 **Experience Qualities**:
 1. **Educational** - Transforms complex anatomy into accessible, client-friendly explanations that build understanding
 2. **Professional** - Conveys medical expertise through clean design and accurate anatomical representations
-3. **Interactive** - Engages clients through direct manipulation of the spine visualization, making consultations memorable
+3. **Clinical** - Functions as a practical end-of-session tool for creating take-home educational materials
 
 **Complexity Level**: Light Application (multiple features with basic state)
-This is a single-page interactive tool with clickable elements, persistent state for selected vertebra, and data display. It has moderate interactivity but doesn't require complex routing or backend integration.
+This is a single-page interactive tool with multi-select vertebrae, persistent state, data aggregation, and PDF generation. It serves as a marketing and client educational resource that chiropractors can give to clients after their first session.
 
 ## Essential Features
 
-### Clickable Spine Visualization
-- **Functionality**: Full anatomical spine chart (C1-Coccyx) with individually clickable vertebrae, using an SVG-based representation inspired by "Your Subluxation Pattern" chart from THE-BACK.SPACE
-- **Purpose**: Allows chiropractors to guide clients through specific problem areas with precision
-- **Trigger**: User taps/clicks any vertebra on the spine chart
-- **Progression**: Idle state → Hover shows vertebra label → Click highlights vertebra → Info panel displays below chart → Panel persists until new selection
-- **Success criteria**: Each vertebra responds to interaction, visual feedback is immediate, correct anatomical data displays with "Possible Symptoms When Subluxated" terminology
+### Multi-Select Vertebrae Interaction
+- **Functionality**: Full anatomical spine chart (C1-Coccyx) with multi-select capability - click to select, click again to deselect
+- **Purpose**: Allows chiropractors to map a client's complete subluxation pattern across multiple vertebrae
+- **Trigger**: User taps/clicks vertebrae on the spine chart
+- **Progression**: Idle state → Hover shows vertebra label → Click highlights vertebra → Click again deselects → Info panel updates in real-time → Selection persists
+- **Success criteria**: Multiple vertebrae can be selected simultaneously, visual feedback is immediate, aggregated data displays with "Possible Symptoms When Subluxated" terminology
 
-### Persistent Information Panel
-- **Functionality**: Displays vertebra name, associated nerves, organs, and possible symptoms when subluxated in client-friendly language
-- **Purpose**: Educates clients about the connection between spine health and body functions
-- **Trigger**: Clicking any vertebra on the chart
-- **Progression**: Panel hidden → Vertebra clicked → Panel slides/fades in below chart → Content updates → Remains visible until new vertebra selected
-- **Success criteria**: Panel content is accurate, readable, uses "Possible Symptoms When Subluxated" terminology, and maintains visibility during consultation
+### Dynamic Subluxation Pattern Summary
+- **Functionality**: Displays aggregated information from all selected vertebrae including combined nerve supply, organs, and symptoms
+- **Purpose**: Shows the comprehensive impact of the client's subluxation pattern on their health
+- **Trigger**: Selecting one or more vertebrae on the chart
+- **Progression**: No selection → Panel hidden → Vertebrae selected → Panel displays combined data → Updates as selections change
+- **Success criteria**: Panel aggregates unique symptoms/organs across all selections, maintains readability with many selections, shows count of selected vertebrae
 
-### View Toggle (Front/Side)
-- **Functionality**: Switch between anterior and lateral spine views
-- **Purpose**: Provides different anatomical perspectives for comprehensive understanding
-- **Trigger**: Clicking view toggle buttons
-- **Progression**: Front view active → Click "Side View" button → Chart transitions to side view → Click "Front View" → Returns to front view
-- **Success criteria**: Both views load properly, vertebrae remain clickable, selected state transfers between views
+### PDF Report Generation
+- **Functionality**: Creates a professional multi-page PDF document with THE-BACK.SPACE branding containing all selected vertebrae information
+- **Purpose**: Provides clients with a take-home educational document to reinforce understanding and treatment value
+- **Trigger**: Clicking "Download PDF" button when vertebrae are selected
+- **Progression**: Vertebrae selected → Click download → PDF generates with proper formatting → File downloads to device
+- **Success criteria**: PDF contains all vertebra details, proper page breaks, professional formatting, includes disclaimer, file name includes vertebrae and date
 
-### Reset Functionality
-- **Functionality**: Clear selected vertebra and hide info panel
-- **Purpose**: Allows starting fresh during client consultations
-- **Trigger**: Clicking "Reset View" button
-- **Progression**: Vertebra selected and panel visible → Click reset → Highlight clears → Panel fades out → Returns to default state
-- **Success criteria**: All highlights removed, panel hidden, app returns to initial state
+### Reset & Clear Functionality
+- **Functionality**: Clear all selected vertebrae and hide info panel
+- **Purpose**: Allows starting fresh for each client consultation
+- **Trigger**: Clicking "Clear Selection" button
+- **Progression**: Vertebrae selected and panel visible → Click clear → All highlights removed → Panel fades out → Returns to default state
+- **Success criteria**: All selections cleared, panel hidden, app returns to initial state, persistent storage updated
 
-### Export Options
-- **Functionality**: Download selected vertebra information as PDF or share via email
-- **Purpose**: Provides clients with take-home educational materials
-- **Trigger**: Clicking "Download PDF" or "Email" buttons when vertebra is selected
-- **Progression**: Vertebra selected → Click export button → Format confirmation → Download/email initiated
-- **Success criteria**: Generated PDF contains vertebra info, email functionality works on mobile devices
+### Email Sharing
+- **Functionality**: Pre-populates email with formatted subluxation pattern information
+- **Purpose**: Allows quick sharing of educational content with clients via email
+- **Trigger**: Clicking "Email Client" button when vertebrae are selected
+- **Progression**: Vertebrae selected → Click email → Default email client opens → Pre-filled subject and body with all vertebra info
+- **Success criteria**: Email contains properly formatted text, includes all selected vertebrae, works on mobile and desktop
 
 ## Edge Case Handling
-- **No Selection State**: Info panel hidden, export buttons disabled until vertebra is clicked
-- **Rapid Clicking**: Debounce mechanism prevents UI flicker when quickly switching between vertebrae
+- **No Selection State**: Info panel hidden, export buttons disabled until vertebrae are selected
+- **Single vs. Multiple Selection**: Panel adapts layout - shows full description for single vertebra, compact list view for multiple
+- **Rapid Clicking**: Toggle behavior prevents UI conflicts when clicking same vertebra repeatedly
+- **Large Selection Sets**: Panel uses scroll area when many vertebrae selected, aggregates unique symptoms to avoid overwhelming lists
 - **Mobile Touch**: Large touch targets (minimum 44x44px) prevent mis-taps on small vertebrae
-- **Missing Data**: Graceful fallback text if vertebra data is incomplete
+- **PDF Generation**: Handles page breaks intelligently, ensures all content fits properly, includes page numbers
+- **Data Aggregation**: Removes duplicate symptoms/organs when multiple vertebrae share common elements
 - **Offline Use**: All assets embedded, no external dependencies for core functionality
 
 ## Design Direction

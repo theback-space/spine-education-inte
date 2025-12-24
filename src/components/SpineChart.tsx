@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 
 interface SpineChartProps {
   view: "front" | "side"
-  selectedVertebra: string | null
+  selectedVertebrae: string[]
   onVertebraClick: (id: string) => void
   onVertebraHover: (id: string | null) => void
 }
@@ -45,7 +45,7 @@ const vertebraRegions: VertebraRegion[] = [
   { id: "L5", cx: 425, cy: 690, rx: 44, ry: 11 },
 ]
 
-export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebraHover }: SpineChartProps) {
+export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebraHover }: SpineChartProps) {
   return (
     <div className="w-full flex flex-col items-center justify-start py-4">
       <div className="relative w-full max-w-3xl mx-auto">
@@ -91,7 +91,7 @@ export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebra
             />
 
             {vertebraRegions.map((region) => {
-              const isSelected = selectedVertebra === region.id
+              const isSelected = selectedVertebrae.includes(region.id)
               
               return (
                 <g key={region.id}>
@@ -162,18 +162,18 @@ export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebra
                 ry={45}
                 className={cn(
                   "cursor-pointer transition-all duration-200",
-                  selectedVertebra === "SACRUM"
+                  selectedVertebrae.includes("SACRUM")
                     ? "fill-accent/60 stroke-accent" 
                     : "fill-primary/25 stroke-primary/50 hover:fill-accent/40 hover:stroke-accent/80"
                 )}
-                strokeWidth={selectedVertebra === "SACRUM" ? 3 : 2}
+                strokeWidth={selectedVertebrae.includes("SACRUM") ? 3 : 2}
                 onClick={() => onVertebraClick("SACRUM")}
                 onMouseEnter={() => onVertebraHover("SACRUM")}
                 onMouseLeave={() => onVertebraHover(null)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
-                  filter: selectedVertebra === "SACRUM" ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.7))" : "none"
+                  filter: selectedVertebrae.includes("SACRUM") ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.7))" : "none"
                 }}
               />
               <text
@@ -183,7 +183,7 @@ export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebra
                 dominantBaseline="middle"
                 className={cn(
                   "pointer-events-none select-none font-bold",
-                  selectedVertebra === "SACRUM" ? "fill-accent-foreground" : "fill-foreground"
+                  selectedVertebrae.includes("SACRUM") ? "fill-accent-foreground" : "fill-foreground"
                 )}
                 fontSize="14"
                 fontFamily="var(--font-heading)"
@@ -200,18 +200,18 @@ export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebra
                 ry={18}
                 className={cn(
                   "cursor-pointer transition-all duration-200",
-                  selectedVertebra === "COCCYX"
+                  selectedVertebrae.includes("COCCYX")
                     ? "fill-accent/60 stroke-accent" 
                     : "fill-primary/25 stroke-primary/50 hover:fill-accent/40 hover:stroke-accent/80"
                 )}
-                strokeWidth={selectedVertebra === "COCCYX" ? 3 : 2}
+                strokeWidth={selectedVertebrae.includes("COCCYX") ? 3 : 2}
                 onClick={() => onVertebraClick("COCCYX")}
                 onMouseEnter={() => onVertebraHover("COCCYX")}
                 onMouseLeave={() => onVertebraHover(null)}
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
-                  filter: selectedVertebra === "COCCYX" ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.7))" : "none"
+                  filter: selectedVertebrae.includes("COCCYX") ? "drop-shadow(0 0 12px oklch(0.65 0.12 200 / 0.7))" : "none"
                 }}
               />
               <text
@@ -221,7 +221,7 @@ export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebra
                 dominantBaseline="middle"
                 className={cn(
                   "pointer-events-none select-none font-bold",
-                  selectedVertebra === "COCCYX" ? "fill-accent-foreground" : "fill-foreground"
+                  selectedVertebrae.includes("COCCYX") ? "fill-accent-foreground" : "fill-foreground"
                 )}
                 fontSize="10"
                 fontFamily="var(--font-heading)"
@@ -247,8 +247,8 @@ export function SpineChart({ view, selectedVertebra, onVertebraClick, onVertebra
 
       <div className="mt-6 text-center max-w-2xl mx-auto px-4">
         <p className="text-xs text-muted-foreground">
-          <strong>Interactive Chart:</strong> Click on any vertebra (C1-Coccyx) to view detailed information about nerve supply, 
-          associated organs, and possible symptoms when subluxated.
+          <strong>Interactive Chart:</strong> Click vertebrae to select multiple areas for your subluxation pattern report. 
+          Click again to deselect.
         </p>
         <p className="text-xs text-muted-foreground mt-2 italic">
           Chart design inspired by THE-BACK.SPACE

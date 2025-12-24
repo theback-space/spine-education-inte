@@ -6,52 +6,74 @@ import { Toaster } from "@/components/ui/sonner"
 import { SpineChart } from "@/components/SpineChart"
 import { InfoPanel } from "@/components/InfoPanel"
 import { getVertebraById } from "@/lib/spineData"
-import { ArrowsClockwise, DownloadSimple, EnvelopeSimple } from "@phosphor-icons/react"
+import { generateSubluxationPDF } from "@/lib/pdfGenerator"
+import { ArrowsClockwise, DownloadSimple, EnvelopeSimple, Plus, Minus } from "@phosphor-icons/react"
 import { toast } from "sonner"
 
 function App() {
-  const [selectedVertebra, setSelectedVertebra] = useKV<string | null>("selected-vertebra", null)
+  const [selectedVertebrae, setSelectedVertebrae] = useKV<string[]>("selected-vertebrae", [])
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
 
-  const vertebraData = selectedVertebra ? getVertebraById(selectedVertebra) : null
+  const vertebraeData = selectedVertebrae?.map(id => getVertebraById(id)).filter((v): v is NonNullable<typeof v> => v !== undefined) ?? []
 
   const handleVertebraClick = (id: string) => {
-    setSelectedVertebra(id)
-  }
-
-  const handleReset = () => {
-    setSelectedVertebra(null)
-    toast.success("View reset")
-  }
-
-  const handleDownloadPDF = () => {
-    if (!vertebraData) return
-    
-    toast.info("PDF download feature coming soon!", {
-      description: "This will generate a detailed report for your client."
+    setSelectedVertebrae((current = []) => {
+      if (current.includes(id)) {
+        return current.filter(v => v !== id)
+      } else {
+        return [...current, id]
+      }
     })
   }
 
+  const handleReset = () => {
+    setSelectedVertebrae([])
+    toast.success("Selection cleared")
+  }
+
+  const handleDownloadPDF = async () => {
+    if (vertebraeData.length === 0) return
+    
+    try {
+      toast.loading("Generating PDF report...", { id: "pdf-gen" })
+      await generateSubluxationPDF(vertebraeData)
+      toast.success("PDF downloaded successfully!", { id: "pdf-gen" })
+    } catch (error) {
+      console.error("PDF generation error:", error)
+      toast.error("Failed to generate PDF", { id: "pdf-gen" })
+    }
+  }
+
   const handleEmailShare = () => {
-    if (!vertebraData) return
+    if (vertebraeData.length === 0) return
 
-    const subject = `Spine Health Information - ${vertebraData.fullName}`
+    const vertebraeList = vertebraeData.map(v => v.fullName).join(", ")
+    const subject = `Subluxation Pattern Report - ${vertebraeList}`
+    
     const body = `
-${vertebraData.fullName}
+SUBLUXATION PATTERN REPORT
 
-${vertebraData.description}
+Selected Vertebrae: ${vertebraeList}
+
+${vertebraeData.map(v => `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${v.fullName}
+
+${v.description}
 
 Nerve Supply:
-${vertebraData.nerveSupply.map(n => `• ${n}`).join('\n')}
+${v.nerveSupply.map(n => `• ${n}`).join('\n')}
 
 Associated Organs:
-${vertebraData.associatedOrgans.map(o => `• ${o}`).join('\n')}
+${v.associatedOrgans.map(o => `• ${o}`).join('\n')}
 
-Common Symptoms:
-${vertebraData.commonSymptoms.map(s => `• ${s}`).join('\n')}
+Possible Symptoms When Subluxated:
+${v.commonSymptoms.map(s => `• ${s}`).join('\n')}
+`).join('\n')}
 
----
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 This information is for educational purposes only. Always consult with a healthcare professional for proper diagnosis and treatment.
     `.trim()
 
@@ -74,8 +96,13 @@ This information is for educational purposes only. Always consult with a healthc
               Interactive Spine Chart
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Click on any vertebra to learn how it affects your body's function and health
+              Click vertebrae to select your subluxation pattern for client education
             </p>
+            {selectedVertebrae && selectedVertebrae.length > 0 && (
+              <p className="text-sm text-accent font-semibold">
+                {selectedVertebrae.length} vertebra{selectedVertebrae.length !== 1 ? 'e' : ''} selected
+              </p>
+            )}
           </header>
 
           <div className="mb-6 flex flex-wrap justify-center gap-3">
@@ -85,17 +112,17 @@ This information is for educational purposes only. Always consult with a healthc
                   variant="outline"
                   size="lg"
                   onClick={handleReset}
-                  disabled={!selectedVertebra}
+                  disabled={!selectedVertebrae || selectedVertebrae.length === 0}
                   className="gap-2"
                 >
                   <ArrowsClockwise className="w-5 h-5" />
-                  Reset View
+                  Clear Selection
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Clear selected vertebra</TooltipContent>
+              <TooltipContent>Clear all selected vertebrae</TooltipContent>
             </Tooltip>
 
-            {selectedVertebra && (
+            {selectedVertebrae && selectedVertebrae.length > 0 && (
               <>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -109,7 +136,7 @@ This information is for educational purposes only. Always consult with a healthc
                       Download PDF
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Download vertebra information</TooltipContent>
+                  <TooltipContent>Download subluxation pattern report</TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
@@ -132,7 +159,7 @@ This information is for educational purposes only. Always consult with a healthc
 
           <div className="grid grid-cols-1 gap-8">
             <div className="bg-card rounded-lg shadow-md p-6 border">
-              {hoveredVertebra && !selectedVertebra && (
+              {hoveredVertebra && (!selectedVertebrae || selectedVertebrae.length === 0) && (
                 <div className="text-center mb-2">
                   <span className="text-sm font-medium text-muted-foreground">
                     Hovering: <span className="text-accent font-semibold">{hoveredVertebra}</span>
@@ -142,15 +169,15 @@ This information is for educational purposes only. Always consult with a healthc
               
               <SpineChart
                 view={view}
-                selectedVertebra={selectedVertebra ?? null}
+                selectedVertebrae={selectedVertebrae ?? []}
                 onVertebraClick={handleVertebraClick}
                 onVertebraHover={setHoveredVertebra}
               />
             </div>
 
-            {vertebraData && (
+            {vertebraeData && vertebraeData.length > 0 && (
               <div>
-                <InfoPanel vertebraData={vertebraData} />
+                <InfoPanel vertebraeData={vertebraeData} />
               </div>
             )}
           </div>

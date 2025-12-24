@@ -6,120 +6,170 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { VertebraData } from "@/lib/spineData"
 
 interface InfoPanelProps {
-  vertebraData: VertebraData | null
+  vertebraeData: VertebraData[]
 }
 
-export function InfoPanel({ vertebraData }: InfoPanelProps) {
+export function InfoPanel({ vertebraeData }: InfoPanelProps) {
+  if (!vertebraeData || vertebraeData.length === 0) return null
+
+  const aggregateUniqueItems = (items: string[][]) => {
+    return Array.from(new Set(items.flat())).sort()
+  }
+
+  const allNerveSupply = aggregateUniqueItems(vertebraeData.map(v => v.nerveSupply))
+  const allOrgans = aggregateUniqueItems(vertebraeData.map(v => v.associatedOrgans))
+  const allSymptoms = aggregateUniqueItems(vertebraeData.map(v => v.commonSymptoms))
+
   return (
     <AnimatePresence mode="wait">
-      {vertebraData && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="w-full"
-        >
-          <Card className="p-6 shadow-lg border-2">
-            <ScrollArea className="h-full max-h-[400px]">
-              <div className="space-y-6 pr-4">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="w-full"
+      >
+        <Card className="p-6 shadow-lg border-2">
+          <ScrollArea className="h-full max-h-[600px]">
+            <div className="space-y-6 pr-4">
+              <div className="space-y-3">
+                <h2 
+                  className="text-2xl font-bold text-foreground"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Subluxation Pattern Summary
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {vertebraeData.map((v) => (
                     <Badge 
+                      key={v.id}
                       variant="default" 
-                      className="text-lg px-4 py-1.5 bg-accent text-accent-foreground"
+                      className="text-base px-3 py-1.5 bg-accent text-accent-foreground"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
-                      {vertebraData.name}
+                      {v.name}
                     </Badge>
-                    <h2 
-                      className="text-2xl font-bold text-foreground"
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {vertebraeData.length} vertebra{vertebraeData.length !== 1 ? 'e' : ''} selected
+                </p>
+              </div>
+
+              <Separator />
+
+              {vertebraeData.length === 1 ? (
+                <>
+                  <div className="space-y-2">
+                    <h3 
+                      className="text-xl font-bold text-foreground"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
-                      {vertebraData.fullName}
-                    </h2>
+                      {vertebraeData[0].fullName}
+                    </h3>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      {vertebraeData[0].description}
+                    </p>
                   </div>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    {vertebraData.description}
-                  </p>
-                </div>
 
-                <Separator />
-
-                <div className="space-y-3">
-                  <h3 
-                    className="text-lg font-semibold text-foreground"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    Nerve Supply
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {vertebraData.nerveSupply.map((nerve, idx) => (
-                      <Badge 
-                        key={idx} 
-                        variant="secondary"
-                        className="text-sm px-3 py-1"
-                      >
-                        {nerve}
-                      </Badge>
-                    ))}
+                  <Separator />
+                </>
+              ) : (
+                <>
+                  <div className="space-y-3">
+                    <h3 
+                      className="text-lg font-semibold text-foreground"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      Selected Vertebrae Details
+                    </h3>
+                    <div className="space-y-3">
+                      {vertebraeData.map((v) => (
+                        <div key={v.id} className="bg-muted/30 rounded-md p-3">
+                          <p className="font-semibold text-sm text-foreground mb-1">{v.fullName}</p>
+                          <p className="text-xs text-muted-foreground leading-relaxed">{v.description}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <Separator />
+                  <Separator />
+                </>
+              )}
 
-                <div className="space-y-3">
-                  <h3 
-                    className="text-lg font-semibold text-foreground"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    Associated Organs
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {vertebraData.associatedOrgans.map((organ, idx) => (
-                      <Badge 
-                        key={idx} 
-                        variant="outline"
-                        className="text-sm px-3 py-1 border-primary/30"
-                      >
-                        {organ}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-3">
-                  <h3 
-                    className="text-lg font-semibold text-foreground"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    Possible Symptoms When Subluxated
-                  </h3>
-                  <ul className="space-y-2">
-                    {vertebraData.commonSymptoms.map((symptom, idx) => (
-                      <li 
-                        key={idx}
-                        className="text-sm text-foreground flex items-start"
-                      >
-                        <span className="text-accent mr-2 mt-0.5 flex-shrink-0">•</span>
-                        <span className="leading-relaxed">{symptom}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pt-2">
-                  <p className="text-xs text-muted-foreground italic">
-                    This information is for educational purposes. Always consult with a healthcare professional for proper diagnosis and treatment.
-                  </p>
+              <div className="space-y-3">
+                <h3 
+                  className="text-lg font-semibold text-foreground"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Nerve Supply
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {allNerveSupply.map((nerve, idx) => (
+                    <Badge 
+                      key={idx} 
+                      variant="secondary"
+                      className="text-sm px-3 py-1"
+                    >
+                      {nerve}
+                    </Badge>
+                  ))}
                 </div>
               </div>
-            </ScrollArea>
-          </Card>
-        </motion.div>
-      )}
+
+              <Separator />
+
+              <div className="space-y-3">
+                <h3 
+                  className="text-lg font-semibold text-foreground"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Associated Organs
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {allOrgans.map((organ, idx) => (
+                    <Badge 
+                      key={idx} 
+                      variant="outline"
+                      className="text-sm px-3 py-1 border-primary/30"
+                    >
+                      {organ}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-3">
+                <h3 
+                  className="text-lg font-semibold text-foreground"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Possible Symptoms When Subluxated
+                </h3>
+                <ul className="space-y-2">
+                  {allSymptoms.map((symptom, idx) => (
+                    <li 
+                      key={idx}
+                      className="text-sm text-foreground flex items-start"
+                    >
+                      <span className="text-accent mr-2 mt-0.5 flex-shrink-0">•</span>
+                      <span className="leading-relaxed">{symptom}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-2">
+                <p className="text-xs text-muted-foreground italic">
+                  This information is for educational purposes. Always consult with a healthcare professional for proper diagnosis and treatment.
+                </p>
+              </div>
+            </div>
+          </ScrollArea>
+        </Card>
+      </motion.div>
     </AnimatePresence>
   )
 }
