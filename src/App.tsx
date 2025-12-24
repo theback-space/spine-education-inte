@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useKV } from "@github/spark/hooks"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -16,8 +16,19 @@ function App() {
   const [selectedVertebrae, setSelectedVertebrae] = useKV<string[]>("selected-vertebrae", [])
   const [carePhases, setCarePhases] = useKV<any[]>("care-phases", [])
   const [practiceName] = useKV<string>("practice-name", "THE-BACK.SPACE")
+  const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
   const [view, setView] = useState<"front" | "side">("front")
   const [hoveredVertebra, setHoveredVertebra] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (brandFont && !document.getElementById(`font-${brandFont.replace(/\s+/g, '-')}`)) {
+      const link = document.createElement('link')
+      link.id = `font-${brandFont.replace(/\s+/g, '-')}`
+      link.href = `https://fonts.googleapis.com/css2?family=${brandFont.replace(/\s+/g, '+')}:wght@400;600;700&display=swap`
+      link.rel = 'stylesheet'
+      document.head.appendChild(link)
+    }
+  }, [brandFont])
 
   const vertebraeData = selectedVertebrae?.map(id => getVertebraById(id)).filter((v): v is NonNullable<typeof v> => v !== undefined) ?? []
 

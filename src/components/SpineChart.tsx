@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useKV } from "@github/spark/hooks"
 
 interface SpineChartProps {
   view: "front" | "side"
@@ -130,6 +131,9 @@ function getVertebraLabelPosition(cx: number, cy: number, type: "cervical" | "th
 
 
 export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebraHover, practiceName = "THE-BACK.SPACE" }: SpineChartProps) {
+  const [brandFont] = useKV<string>("brand-font", "Space Grotesk")
+  const [logoUrl] = useKV<string>("logo-url", "")
+
   return (
     <div className="w-full flex flex-col items-center justify-start py-4">
       <div className="relative w-full mx-auto">
@@ -160,6 +164,16 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 <stop offset="0%" stopColor="oklch(0.88 0.02 50)" />
                 <stop offset="100%" stopColor="oklch(0.80 0.03 45)" />
               </linearGradient>
+              <linearGradient id="selectedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="oklch(0.65 0.26 25)" />
+                <stop offset="40%" stopColor="oklch(0.58 0.28 25)" />
+                <stop offset="100%" stopColor="oklch(0.50 0.30 25)" />
+              </linearGradient>
+              <linearGradient id="hipBoneGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="oklch(0.90 0.03 50)" />
+                <stop offset="50%" stopColor="oklch(0.85 0.04 48)" />
+                <stop offset="100%" stopColor="oklch(0.78 0.05 45)" />
+              </linearGradient>
             </defs>
 
             <rect width="950" height="2100" fill="oklch(0.985 0.002 45)" />
@@ -171,10 +185,10 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               THE SPINE AND NERVOUS SYSTEM
             </text>
 
-            <g opacity="0.4">
-              <ellipse cx="475" cy="175" rx="95" ry="110" fill="url(#boneGradient)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
-              <ellipse cx="475" cy="160" rx="75" ry="85" fill="oklch(0.92 0.01 48)" stroke="oklch(0.65 0.02 45)" strokeWidth="1.5"/>
-              <text x="475" y="130" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">SKULL</text>
+            <g opacity="0.5">
+              <ellipse cx="475" cy="175" rx="95" ry="110" fill="url(#boneGradient)" stroke="oklch(0.60 0.03 45)" strokeWidth="2.5"/>
+              <ellipse cx="475" cy="160" rx="75" ry="85" fill="oklch(0.92 0.01 48)" stroke="oklch(0.60 0.03 45)" strokeWidth="2"/>
+              <text x="475" y="130" textAnchor="middle" fontSize="14" fontWeight="700" fill="oklch(0.30 0 0)" fontFamily="var(--font-body)">SKULL</text>
             </g>
 
             <text x="200" y="360" textAnchor="middle" fontSize="20" fontWeight="700" fill="oklch(0.70 0.12 340)" fontFamily="var(--font-heading)">CERVICAL</text>
@@ -194,49 +208,42 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               const vertebraPath = getVertebraPath(region.cx, region.cy, region.type)
               const labelPos = getVertebraLabelPosition(region.cx, region.cy, region.type)
               
-              let baseColorStart, baseColorMid, baseColorEnd, selectedColorStart, selectedColorMid, selectedColorEnd, strokeColor
+              let baseColorStart, baseColorMid, baseColorEnd, strokeColor
               
               if (region.type === "cervical") {
                 baseColorStart = "oklch(0.88 0.08 340)"
                 baseColorMid = "oklch(0.82 0.10 338)"
                 baseColorEnd = "oklch(0.75 0.12 335)"
-                selectedColorStart = "oklch(0.78 0.18 340)"
-                selectedColorMid = "oklch(0.70 0.20 338)"
-                selectedColorEnd = "oklch(0.62 0.22 335)"
-                strokeColor = isSelected ? "oklch(0.62 0.22 335)" : "oklch(0.70 0.10 340)"
+                strokeColor = isSelected ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 340)"
               } else if (region.type === "thoracic") {
                 baseColorStart = "oklch(0.88 0.08 200)"
                 baseColorMid = "oklch(0.82 0.10 198)"
                 baseColorEnd = "oklch(0.75 0.12 195)"
-                selectedColorStart = "oklch(0.78 0.18 200)"
-                selectedColorMid = "oklch(0.70 0.20 198)"
-                selectedColorEnd = "oklch(0.62 0.22 195)"
-                strokeColor = isSelected ? "oklch(0.62 0.22 195)" : "oklch(0.70 0.10 200)"
+                strokeColor = isSelected ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 200)"
               } else {
                 baseColorStart = "oklch(0.88 0.08 120)"
                 baseColorMid = "oklch(0.82 0.10 118)"
                 baseColorEnd = "oklch(0.75 0.12 115)"
-                selectedColorStart = "oklch(0.78 0.18 120)"
-                selectedColorMid = "oklch(0.70 0.20 118)"
-                selectedColorEnd = "oklch(0.62 0.22 115)"
-                strokeColor = isSelected ? "oklch(0.62 0.22 115)" : "oklch(0.70 0.10 120)"
+                strokeColor = isSelected ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 120)"
               }
               
               return (
                 <g key={region.id}>
-                  <defs>
-                    <linearGradient id={`vertebra-gradient-${region.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor={isSelected ? selectedColorStart : baseColorStart} />
-                      <stop offset="40%" stopColor={isSelected ? selectedColorMid : baseColorMid} />
-                      <stop offset="100%" stopColor={isSelected ? selectedColorEnd : baseColorEnd} />
-                    </linearGradient>
-                  </defs>
+                  {!isSelected && (
+                    <defs>
+                      <linearGradient id={`vertebra-gradient-${region.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor={baseColorStart} />
+                        <stop offset="40%" stopColor={baseColorMid} />
+                        <stop offset="100%" stopColor={baseColorEnd} />
+                      </linearGradient>
+                    </defs>
+                  )}
                   <motion.path
                     d={vertebraPath}
-                    fill={`url(#vertebra-gradient-${region.id})`}
+                    fill={isSelected ? "url(#selectedGradient)" : `url(#vertebra-gradient-${region.id})`}
                     className="cursor-pointer"
                     stroke={strokeColor}
-                    strokeWidth={isSelected ? 4 : 2.5}
+                    strokeWidth={isSelected ? 4.5 : 2.5}
                     strokeLinejoin="round"
                     onClick={() => onVertebraClick(region.id)}
                     onMouseEnter={() => onVertebraHover(region.id)}
@@ -246,7 +253,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                     transition={{ duration: 0.15 }}
                     style={{
                       filter: isSelected 
-                        ? `drop-shadow(0 0 18px ${strokeColor} / 0.95) drop-shadow(0 4px 10px oklch(0 0 0 / 0.35))` 
+                        ? `drop-shadow(0 0 20px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 4px 12px oklch(0 0 0 / 0.4))` 
                         : "drop-shadow(0 2px 5px oklch(0 0 0 / 0.2))"
                     }}
                   />
@@ -272,13 +279,15 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
             })}
 
             <g>
-              <defs>
-                <linearGradient id="sacrum-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={selectedVertebrae.includes("SACRUM") ? "oklch(0.78 0.18 50)" : "oklch(0.88 0.08 50)"} />
-                  <stop offset="40%" stopColor={selectedVertebrae.includes("SACRUM") ? "oklch(0.70 0.20 48)" : "oklch(0.82 0.10 48)"} />
-                  <stop offset="100%" stopColor={selectedVertebrae.includes("SACRUM") ? "oklch(0.62 0.22 45)" : "oklch(0.75 0.12 45)"} />
-                </linearGradient>
-              </defs>
+              {!selectedVertebrae.includes("SACRUM") && (
+                <defs>
+                  <linearGradient id="sacrum-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="oklch(0.88 0.08 50)" />
+                    <stop offset="40%" stopColor="oklch(0.82 0.10 48)" />
+                    <stop offset="100%" stopColor="oklch(0.75 0.12 45)" />
+                  </linearGradient>
+                </defs>
+              )}
               <motion.path
                 d={`
                   M 475 1265
@@ -292,10 +301,10 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                   L 475 1265
                   Z
                 `}
-                fill="url(#sacrum-gradient)"
+                fill={selectedVertebrae.includes("SACRUM") ? "url(#selectedGradient)" : "url(#sacrum-gradient)"}
                 className="cursor-pointer"
-                stroke={selectedVertebrae.includes("SACRUM") ? "oklch(0.62 0.22 45)" : "oklch(0.70 0.10 50)"}
-                strokeWidth={selectedVertebrae.includes("SACRUM") ? 4 : 2.5}
+                stroke={selectedVertebrae.includes("SACRUM") ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 50)"}
+                strokeWidth={selectedVertebrae.includes("SACRUM") ? 4.5 : 2.5}
                 strokeLinejoin="round"
                 onClick={() => onVertebraClick("SACRUM")}
                 onMouseEnter={() => onVertebraHover("SACRUM")}
@@ -305,7 +314,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 transition={{ duration: 0.15 }}
                 style={{
                   filter: selectedVertebrae.includes("SACRUM") 
-                    ? "drop-shadow(0 0 18px oklch(0.62 0.22 45 / 0.95)) drop-shadow(0 4px 10px oklch(0 0 0 / 0.35))" 
+                    ? "drop-shadow(0 0 20px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 4px 12px oklch(0 0 0 / 0.4))" 
                     : "drop-shadow(0 2px 5px oklch(0 0 0 / 0.2))"
                 }}
               />
@@ -329,13 +338,15 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
             </g>
 
             <g>
-              <defs>
-                <linearGradient id="coccyx-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={selectedVertebrae.includes("COCCYX") ? "oklch(0.78 0.18 50)" : "oklch(0.88 0.08 320)"} />
-                  <stop offset="40%" stopColor={selectedVertebrae.includes("COCCYX") ? "oklch(0.70 0.20 48)" : "oklch(0.82 0.10 318)"} />
-                  <stop offset="100%" stopColor={selectedVertebrae.includes("COCCYX") ? "oklch(0.62 0.22 45)" : "oklch(0.75 0.12 315)"} />
-                </linearGradient>
-              </defs>
+              {!selectedVertebrae.includes("COCCYX") && (
+                <defs>
+                  <linearGradient id="coccyx-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="oklch(0.88 0.08 320)" />
+                    <stop offset="40%" stopColor="oklch(0.82 0.10 318)" />
+                    <stop offset="100%" stopColor="oklch(0.75 0.12 315)" />
+                  </linearGradient>
+                </defs>
+              )}
               <motion.path
                 d={`
                   M 475 1367
@@ -347,10 +358,10 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                   L 475 1367
                   Z
                 `}
-                fill="url(#coccyx-gradient)"
+                fill={selectedVertebrae.includes("COCCYX") ? "url(#selectedGradient)" : "url(#coccyx-gradient)"}
                 className="cursor-pointer"
-                stroke={selectedVertebrae.includes("COCCYX") ? "oklch(0.62 0.22 45)" : "oklch(0.70 0.10 320)"}
-                strokeWidth={selectedVertebrae.includes("COCCYX") ? 4 : 2.5}
+                stroke={selectedVertebrae.includes("COCCYX") ? "oklch(0.50 0.30 25)" : "oklch(0.70 0.10 320)"}
+                strokeWidth={selectedVertebrae.includes("COCCYX") ? 4.5 : 2.5}
                 strokeLinejoin="round"
                 onClick={() => onVertebraClick("COCCYX")}
                 onMouseEnter={() => onVertebraHover("COCCYX")}
@@ -360,7 +371,7 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 transition={{ duration: 0.15 }}
                 style={{
                   filter: selectedVertebrae.includes("COCCYX") 
-                    ? "drop-shadow(0 0 18px oklch(0.62 0.22 45 / 0.95)) drop-shadow(0 4px 10px oklch(0 0 0 / 0.35))" 
+                    ? "drop-shadow(0 0 20px oklch(0.50 0.30 25 / 0.9)) drop-shadow(0 4px 12px oklch(0 0 0 / 0.4))" 
                     : "drop-shadow(0 2px 5px oklch(0 0 0 / 0.2))"
                 }}
               />
@@ -383,73 +394,93 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
               </text>
             </g>
 
-            <g opacity="0.4">
+            <g opacity="0.6">
               <path 
-                d="M 320 1265 
-                   Q 315 1230 330 1195 
-                   Q 340 1170 360 1160 
-                   L 365 1180 
-                   Q 368 1215 365 1245 
-                   Q 362 1270 355 1295 
-                   Q 348 1320 338 1340 
-                   L 330 1350 
+                d="M 315 1265 
+                   Q 308 1225 325 1185 
+                   Q 338 1155 362 1145 
+                   L 368 1170 
+                   Q 372 1210 368 1250 
+                   Q 364 1280 355 1305 
+                   Q 345 1330 333 1350 
+                   L 323 1362 
                    Z" 
-                fill="url(#boneGradient)" 
-                stroke="oklch(0.65 0.02 45)" 
-                strokeWidth="2"
+                fill="url(#hipBoneGradient)" 
+                stroke="oklch(0.55 0.04 45)" 
+                strokeWidth="3"
               />
               <path 
-                d="M 630 1265 
-                   Q 635 1230 620 1195 
-                   Q 610 1170 590 1160 
-                   L 585 1180 
-                   Q 582 1215 585 1245 
-                   Q 588 1270 595 1295 
-                   Q 602 1320 612 1340 
-                   L 620 1350 
+                d="M 635 1265 
+                   Q 642 1225 625 1185 
+                   Q 612 1155 588 1145 
+                   L 582 1170 
+                   Q 578 1210 582 1250 
+                   Q 586 1280 595 1305 
+                   Q 605 1330 617 1350 
+                   L 627 1362 
                    Z" 
-                fill="url(#boneGradient)" 
-                stroke="oklch(0.65 0.02 45)" 
-                strokeWidth="2"
+                fill="url(#hipBoneGradient)" 
+                stroke="oklch(0.55 0.04 45)" 
+                strokeWidth="3"
               />
               
-              <ellipse cx="320" cy="1365" rx="32" ry="38" fill="oklch(0.92 0.01 48)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <ellipse cx="315" cy="1370" rx="38" ry="45" fill="oklch(0.92 0.02 48)" stroke="oklch(0.55 0.04 45)" strokeWidth="3"/>
               <path 
-                d="M 288 1365 
-                   Q 280 1340 285 1315 
-                   L 295 1320 
-                   Q 293 1345 295 1365 
-                   Q 297 1385 302 1400 
-                   L 292 1405 
-                   Q 285 1385 288 1365 Z" 
-                fill="url(#boneGradient)" 
-                stroke="oklch(0.65 0.02 45)" 
-                strokeWidth="1.5"
+                d="M 277 1370 
+                   Q 268 1340 273 1310 
+                   L 285 1316 
+                   Q 282 1348 285 1370 
+                   Q 288 1392 294 1410 
+                   L 282 1416 
+                   Q 274 1392 277 1370 Z" 
+                fill="url(#hipBoneGradient)" 
+                stroke="oklch(0.55 0.04 45)" 
+                strokeWidth="2.5"
               />
-              <ellipse cx="320" cy="1365" rx="18" ry="22" fill="oklch(0.85 0.01 48)" stroke="none"/>
+              <ellipse cx="315" cy="1370" rx="22" ry="28" fill="oklch(0.82 0.02 48)" stroke="oklch(0.65 0.03 45)" strokeWidth="1.5"/>
               
-              <ellipse cx="630" cy="1365" rx="32" ry="38" fill="oklch(0.92 0.01 48)" stroke="oklch(0.65 0.02 45)" strokeWidth="2"/>
+              <ellipse cx="635" cy="1370" rx="38" ry="45" fill="oklch(0.92 0.02 48)" stroke="oklch(0.55 0.04 45)" strokeWidth="3"/>
               <path 
-                d="M 662 1365 
-                   Q 670 1340 665 1315 
-                   L 655 1320 
-                   Q 657 1345 655 1365 
-                   Q 653 1385 648 1400 
-                   L 658 1405 
-                   Q 665 1385 662 1365 Z" 
-                fill="url(#boneGradient)" 
-                stroke="oklch(0.65 0.02 45)" 
-                strokeWidth="1.5"
+                d="M 673 1370 
+                   Q 682 1340 677 1310 
+                   L 665 1316 
+                   Q 668 1348 665 1370 
+                   Q 662 1392 656 1410 
+                   L 668 1416 
+                   Q 676 1392 673 1370 Z" 
+                fill="url(#hipBoneGradient)" 
+                stroke="oklch(0.55 0.04 45)" 
+                strokeWidth="2.5"
               />
-              <ellipse cx="630" cy="1365" rx="18" ry="22" fill="oklch(0.85 0.01 48)" stroke="none"/>
+              <ellipse cx="635" cy="1370" rx="22" ry="28" fill="oklch(0.82 0.02 48)" stroke="oklch(0.65 0.03 45)" strokeWidth="1.5"/>
               
-              <text x="255" y="1405" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
-              <text x="695" y="1405" textAnchor="middle" fontSize="12" fontWeight="600" fill="oklch(0.35 0 0)" fontFamily="var(--font-body)">HIP</text>
+              <text x="245" y="1420" textAnchor="middle" fontSize="16" fontWeight="700" fill="oklch(0.25 0 0)" fontFamily="var(--font-body)">HIP</text>
+              <text x="705" y="1420" textAnchor="middle" fontSize="16" fontWeight="700" fill="oklch(0.25 0 0)" fontFamily="var(--font-body)">HIP</text>
             </g>
 
-            <text x="475" y="1470" textAnchor="middle" fontSize="52" fontWeight="700" fill="oklch(0.15 0 0)" fontFamily="var(--font-heading)" letterSpacing="2">
-              {practiceName.toUpperCase()}
-            </text>
+            {logoUrl ? (
+              <image
+                href={logoUrl}
+                x="350"
+                y="1440"
+                width="250"
+                height="80"
+                preserveAspectRatio="xMidYMid meet"
+              />
+            ) : (
+              <text 
+                x="475" 
+                y="1480" 
+                textAnchor="middle" 
+                fontSize="52" 
+                fontWeight="700" 
+                fill="oklch(0.15 0 0)" 
+                fontFamily={brandFont || "var(--font-heading)"} 
+                letterSpacing="2"
+              >
+                {practiceName.toUpperCase()}
+              </text>
+            )}
             
             <g fontSize="16" fontFamily="var(--font-body)" fill="oklch(0.20 0 0)">
               <text x="80" y="1515" fontWeight="600">CLIENT:</text>
