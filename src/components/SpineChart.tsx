@@ -46,59 +46,7 @@ const vertebraRegions: VertebraRegion[] = [
   { id: "L5", cx: 475, cy: 690, rx: 20, ry: 12, label: "L5" },
 ]
 
-const leftLabels: { [key: string]: string } = {
-  C1: "pituitary gland, scalp, brain, left ear, left eye",
-  C2: "head, eyes, tongue, left ear, left eye, heart",
-  C3: "face, left side of neck, left ear, left shoulder, diaphragm",
-  C4: "face, left side of neck, left chest, diaphragm",
-  C5: "neck, vocal cords, left shoulder, left upper arm, diaphragm",
-  C6: "left shoulder, left arm, tonsils",
-  C7: "left shoulder, left arm, left wrist, left hand, thyroid",
-  T1: "left shoulder, left arm, left elbow, left wrist, left hand",
-  T2: "head, neck, heart, thyroid, esophagus, trachea, left hand and elbow",
-  T3: "head, neck, heart, left lung, upper left arm",
-  T4: "head, neck, heart, left lung, chest, upper left arm",
-  T5: "head, neck, heart, lungs, gallbladder, upper left arm",
-  T6: "head, neck, heart, liver, esophagus, blood circulation, upper left arm",
-  T7: "esophagus, stomach, spleen, pancreas, duodenum, middle back",
-  T8: "stomach, spleen, pancreas, duodenum, liver, gallbladder, middle back",
-  T9: "stomach, spleen, pancreas, liver, gallbladder, adrenal glands, middle back",
-  T10: "stomach, spleen, pancreas, adrenal glands, gallbladder, reproductive organs, liver, small intestine",
-  T11: "stomach, spleen, pancreas, small intestines, reproductive organs, appendix, left leg",
-  T12: "left kidney, reproductive organs, left leg, small intestine, large intestine, bladder, adrenal glands, ileocecal valve",
-  L1: "left kidney, reproductive organs, left leg, small intestine, large intestine, bladder, upper and lower back, ileocecal valve",
-  L2: "abdomen, reproductive organs, left foot and left leg, large intestine, bladder",
-  L3: "reproductive organs, left leg and left foot, large intestine, bladder, uterus, appendix, abdomen",
-  L4: "left leg and left foot, reproductive organs, bladder, prostate, large intestine",
-  L5: "left buttocks, left leg and left foot, prostate, muscles of the lower back"
-}
 
-const rightLabels: { [key: string]: string } = {
-  C1: "right eye, right ear, brain, scalp, pituitary gland",
-  C2: "heart, right eye, right ear, tongue, eyes, head",
-  C3: "diaphragm, right shoulder, right ear, right side of neck, face",
-  C4: "diaphragm, right chest, right side of neck, face",
-  C5: "diaphragm, right shoulder and upper arm, vocal cords, neck",
-  C6: "tonsil, right arm, right shoulder",
-  C7: "thyroid, right hand, right wrist, right arm, right shoulder",
-  T1: "right hand, right wrist, right elbow, right arm, right shoulder",
-  T2: "elbow and right hand, trachea, esophagus, thyroid, heart, neck, head",
-  T3: "upper right arm, right lung, heart, neck, head",
-  T4: "upper right arm, chest, right lung, heart, neck, head",
-  T5: "upper right arm, gallbladder, lungs, heart, neck, head",
-  T6: "upper right arm, blood circulation, esophagus, liver, heart, neck, head",
-  T7: "middle back, duodenum, pancreas, spleen, stomach, esophagus",
-  T8: "middle back, gallbladder, liver, duodenum, pancreas, spleen, stomach",
-  T9: "gallbladder, liver, pancreas, spleen, stomach, middle back, adrenal glands",
-  T10: "gallbladder, adrenal glands, pancreas, spleen, stomach, small intestine, liver, reproductive organs",
-  T11: "small intestine, pancreas, spleen, stomach, right leg, large intestine, appendix, reproductive organs",
-  T12: "small intestine, right leg, reproductive organs, right kidney, ileocecal valve, adrenal glands, bladder, large intestine",
-  L1: "small intestine, reproductive organs, right kidney, ileocecal valve, upper and lower back, bladder, large intestine",
-  L2: "right leg and right foot, reproductive organs, abdomen, bladder, large intestine",
-  L3: "right foot and right leg, reproductive organs, abdomen, appendix, bladder, large intestine",
-  L4: "right leg and right foot, large intestine, prostate, bladder, reproductive organs",
-  L5: "muscles of the lower back, prostate, right foot and right leg, right buttocks"
-}
 
 export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebraHover }: SpineChartProps) {
   return (
@@ -140,8 +88,6 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
 
             {vertebraRegions.map((region) => {
               const isSelected = selectedVertebrae.includes(region.id)
-              const leftText = leftLabels[region.id] || ""
-              const rightText = rightLabels[region.id] || ""
               
               return (
                 <g key={region.id}>
@@ -180,48 +126,6 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                   >
                     {region.label}
                   </text>
-
-                  <line
-                    x1={region.cx - region.rx - 5}
-                    y1={region.cy}
-                    x2="75"
-                    y2={region.cy}
-                    stroke="oklch(0.70 0.03 40)"
-                    strokeWidth="0.8"
-                  />
-                  
-                  <line
-                    x1={region.cx + region.rx + 5}
-                    y1={region.cy}
-                    x2="875"
-                    y2={region.cy}
-                    stroke="oklch(0.70 0.03 40)"
-                    strokeWidth="0.8"
-                  />
-
-                  <text
-                    x="70"
-                    y={region.cy}
-                    textAnchor="end"
-                    dominantBaseline="middle"
-                    fontSize="7"
-                    fill="oklch(0.20 0 0)"
-                    fontFamily="var(--font-body)"
-                  >
-                    {leftText}
-                  </text>
-
-                  <text
-                    x="880"
-                    y={region.cy}
-                    textAnchor="start"
-                    dominantBaseline="middle"
-                    fontSize="7"
-                    fill="oklch(0.20 0 0)"
-                    fontFamily="var(--font-body)"
-                  >
-                    {rightText}
-                  </text>
                 </g>
               )
             })}
@@ -258,16 +162,6 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 fontFamily="var(--font-heading)"
               >
                 SACRUM
-              </text>
-
-              <line x1="390" y1="745" x2="75" y2="745" stroke="oklch(0.70 0.03 40)" strokeWidth="0.8" />
-              <line x1="560" y1="745" x2="875" y2="745" stroke="oklch(0.70 0.03 40)" strokeWidth="0.8" />
-              
-              <text x="70" y="745" textAnchor="end" dominantBaseline="middle" fontSize="7" fill="oklch(0.20 0 0)" fontFamily="var(--font-body)">
-                left buttocks, left leg, reproductive organs, bladder, prostate
-              </text>
-              <text x="880" y="745" textAnchor="start" dominantBaseline="middle" fontSize="7" fill="oklch(0.20 0 0)" fontFamily="var(--font-body)">
-                prostate, right foot and toes, right leg, right buttocks
               </text>
             </g>
 
@@ -306,16 +200,6 @@ export function SpineChart({ view, selectedVertebrae, onVertebraClick, onVertebr
                 fontFamily="var(--font-heading)"
               >
                 COCCYX
-              </text>
-
-              <line x1="440" y1="800" x2="75" y2="800" stroke="oklch(0.70 0.03 40)" strokeWidth="0.8" />
-              <line x1="510" y1="800" x2="875" y2="800" stroke="oklch(0.70 0.03 40)" strokeWidth="0.8" />
-              
-              <text x="70" y="800" textAnchor="end" dominantBaseline="middle" fontSize="7" fill="oklch(0.20 0 0)" fontFamily="var(--font-body)">
-                retum, anus
-              </text>
-              <text x="880" y="800" textAnchor="start" dominantBaseline="middle" fontSize="7" fill="oklch(0.20 0 0)" fontFamily="var(--font-body)">
-                anus, retum
               </text>
             </g>
 
