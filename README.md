@@ -2,8 +2,12 @@
 
 > **A professional web application for chiropractors to create personalized subluxation pattern reports and care plans for clients.**
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://your-spark-url-here)
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://theback-space.github.io/spine-education-inte/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+## 🚀 **[Access Live Application →](https://theback-space.github.io/spine-education-inte/)**
+
+📱 **Share with your team**: [Team Access Instructions](GITHUB_PAGES.md)
 
 ---
 
