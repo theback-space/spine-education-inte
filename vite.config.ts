@@ -9,8 +9,8 @@ import { resolve } from 'path'
 const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/spine-education-inte/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/spine-education-inte/' : '/',
   plugins: [
     react(),
     tailwindcss(),
@@ -23,4 +23,13 @@ export default defineConfig({
       '@': resolve(projectRoot, 'src')
     }
   },
-});
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+}));
