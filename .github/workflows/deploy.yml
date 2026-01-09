@@ -34,7 +34,14 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          GITHUB_PAGES: true
+          NODE_ENV: production
+
+      - name: List dist contents
+        run: |
+          echo "Checking dist directory contents:"
+          ls -la dist/
+          echo "Checking index.html exists:"
+          test -f dist/index.html && echo "✅ index.html exists" || echo "❌ index.html missing"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
